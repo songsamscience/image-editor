@@ -301,6 +301,77 @@
   input[type=file]{display:none;}
   .divider{height:1.5px;background:var(--line);margin:4px 0 16px;border:none;}
 
+
+  /* ===== Confirm / Compare Modal ===== */
+  .modal-backdrop{
+    position:fixed;inset:0;z-index:980;
+    display:none;align-items:center;justify-content:center;
+    padding:24px;background:rgba(30,24,28,.46);
+    backdrop-filter:blur(5px);
+  }
+  .modal-backdrop.show{display:flex;}
+  .modal-card{
+    width:min(520px,92vw);max-height:90vh;overflow:auto;
+    background:var(--card);color:var(--ink);
+    border:1.5px solid var(--line-strong);
+    border-radius:24px;box-shadow:0 22px 70px rgba(0,0,0,.28);
+    padding:22px;animation:modalPop .18s ease-out;
+  }
+  .modal-card.compare{width:min(1080px,94vw);}
+  @keyframes modalPop{from{opacity:0;transform:translateY(10px) scale(.98);}to{opacity:1;transform:none;}}
+  .modal-head{display:flex;gap:12px;align-items:flex-start;margin-bottom:14px;}
+  .modal-ic{
+    width:42px;height:42px;border-radius:14px;flex:none;
+    display:grid;place-items:center;
+    background:linear-gradient(145deg,var(--pink),var(--pink-deep));
+    box-shadow:var(--shadow-sm);
+  }
+  .modal-ic svg{width:23px;height:23px;color:#fff;}
+  .modal-title{font-family:'Jua',sans-serif;font-size:20px;line-height:1.2;margin:0;color:var(--pink-deep);}
+  .modal-desc{font-size:13.5px;line-height:1.65;color:var(--ink-soft);margin:5px 0 0;}
+  .modal-warning{
+    margin:14px 0 18px;padding:12px 14px;border-radius:14px;
+    background:var(--pink-soft);border:1.5px solid var(--line);
+    font-size:13px;line-height:1.55;color:var(--ink);
+  }
+  .modal-actions{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap;}
+  .modal-actions .btn{justify-content:center;}
+  .compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px;}
+  .compare-pane{
+    border:1.5px solid var(--line);border-radius:18px;background:var(--paper);
+    overflow:hidden;min-width:0;
+  }
+  .compare-label{
+    display:flex;align-items:center;justify-content:space-between;gap:8px;
+    padding:10px 12px;background:var(--card);border-bottom:1.5px solid var(--line);
+    font-size:13px;font-weight:800;
+  }
+  .compare-label span:last-child{font-size:11.5px;color:var(--ink-soft);font-weight:600;}
+  .compare-img-wrap{
+    height:min(54vh,520px);display:flex;align-items:center;justify-content:center;
+    padding:12px;overflow:auto;
+    background-image:
+      linear-gradient(45deg,var(--line) 25%,transparent 25%),
+      linear-gradient(-45deg,var(--line) 25%,transparent 25%),
+      linear-gradient(45deg,transparent 75%,var(--line) 75%),
+      linear-gradient(-45deg,transparent 75%,var(--line) 75%);
+    background-size:18px 18px;background-position:0 0,0 9px,9px -9px,-9px 0;
+  }
+  .compare-img-wrap img{
+    max-width:100%;max-height:100%;object-fit:contain;
+    border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,.18);
+    background:#fff;
+  }
+  .compare-tip{
+    margin-top:12px;font-size:12.5px;line-height:1.55;color:var(--ink-soft);
+    background:var(--pink-soft);border-radius:12px;padding:10px 12px;
+  }
+  @media (max-width:760px){
+    .modal-card.compare{width:94vw;}
+    .compare-grid{grid-template-columns:1fr;}
+    .compare-img-wrap{height:34vh;}
+  }
+
   /* social */
   .social{display:flex;gap:6px;}
   .social a{
@@ -348,6 +419,10 @@
     <button class="btn" id="resetBtn" title="원본으로 되돌리기" disabled>
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9 9 0 0 0-6.3 2.6L3 8"/><path d="M3 3v5h5"/></svg>
       초기화
+    </button>
+    <button class="btn" id="compareBtn" title="원본 사진과 편집 중인 사진 비교" disabled>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="8" height="14" rx="2"/><rect x="13" y="5" width="8" height="14" rx="2"/><path d="M7 9h.01M17 9h.01"/><path d="M5 16l2-2 2 2"/><path d="M15 16l2-2 2 2"/></svg>
+      원본 비교
     </button>
     <button class="btn" id="newBtn" title="새 이미지 불러오기">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M17 8l-5-5-5 5"/><path d="M12 3v12"/></svg>
@@ -747,6 +822,56 @@
   </main>
 </div>
 
+
+<!-- Reset confirmation modal -->
+<div class="modal-backdrop" id="resetConfirmModal" aria-hidden="true">
+  <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="resetConfirmTitle">
+    <div class="modal-head">
+      <div class="modal-ic">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg>
+      </div>
+      <div>
+        <h2 class="modal-title" id="resetConfirmTitle">원본 이미지로 되돌릴까요?</h2>
+        <p class="modal-desc">초기화를 진행하면 지금까지 편집한 내용이 사라지고 처음 불러온 원본 사진 상태로 돌아갑니다.</p>
+      </div>
+    </div>
+    <div class="modal-warning">계속 작업하려면 <b>취소</b>를 누르세요. 원본으로 되돌리려면 <b>확인</b>을 누르세요.</div>
+    <div class="modal-actions">
+      <button class="btn" id="resetCancelBtn">취소</button>
+      <button class="btn primary" id="resetOkBtn">확인</button>
+    </div>
+  </div>
+</div>
+
+<!-- Original comparison modal -->
+<div class="modal-backdrop" id="compareModal" aria-hidden="true">
+  <div class="modal-card compare" role="dialog" aria-modal="true" aria-labelledby="compareTitle">
+    <div class="modal-head">
+      <div class="modal-ic">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="8" height="14" rx="2"/><rect x="13" y="5" width="8" height="14" rx="2"/><path d="M7 9h.01M17 9h.01"/><path d="M5 16l2-2 2 2"/><path d="M15 16l2-2 2 2"/></svg>
+      </div>
+      <div>
+        <h2 class="modal-title" id="compareTitle">원본 사진 비교</h2>
+        <p class="modal-desc">처음 불러온 원본 사진과 현재 편집 중인 사진을 나란히 비교합니다.</p>
+      </div>
+    </div>
+    <div class="compare-grid">
+      <div class="compare-pane">
+        <div class="compare-label"><span>원본 사진</span><span id="compareOrigSize">-</span></div>
+        <div class="compare-img-wrap"><img id="compareOrigImg" alt="원본 사진 미리보기"></div>
+      </div>
+      <div class="compare-pane">
+        <div class="compare-label"><span>편집 중인 사진</span><span id="compareEditSize">-</span></div>
+        <div class="compare-img-wrap"><img id="compareEditImg" alt="편집 중인 사진 미리보기"></div>
+      </div>
+    </div>
+    <div class="compare-tip">비교 창은 확인용입니다. 편집을 계속하려면 창을 닫고 작업 화면으로 돌아가세요.</div>
+    <div class="modal-actions" style="margin-top:14px;">
+      <button class="btn primary" id="compareCloseBtn">닫기</button>
+    </div>
+  </div>
+</div>
+
 <div id="cursor-ring"></div>
 <div id="toast-wrap"></div>
 <div id="loading"><div class="spinner"></div><div class="msg" id="loadingMsg">처리 중...</div></div>
@@ -767,7 +892,8 @@
   // ---- State ----
   const S = {
     loaded:false,
-    origCanvas:document.createElement('canvas'), // 원본(작업 해상도)
+    origCanvas:document.createElement('canvas'), // 현재 작업 복구 기준 이미지
+    sourceCanvas:document.createElement('canvas'), // 처음 불러온 원본 이미지(초기화·비교용)
     tool:'wand',          // bg tools: wand|erase|restore
     fx:'square',          // mosaic effect
     applyMode:'brush',
@@ -852,6 +978,7 @@
     pushHistory();
     updateSizeInfo();
     $('resetBtn').disabled=false;
+    $('compareBtn').disabled=false;
   }
 
   // 해상도(크기)가 바뀐 뒤 기준 이미지/오버레이/되돌리기 갱신
@@ -917,14 +1044,59 @@
   function updateUndoUI(){ $('undoBtn').disabled = S.hIndex<=0; $('redoBtn').disabled = S.hIndex>=S.history.length-1; }
   $('undoBtn').addEventListener('click', undo);
   $('redoBtn').addEventListener('click', redo);
+  function openModal(id){
+    const m=$(id);
+    if(!m) return;
+    m.classList.add('show');
+    m.setAttribute('aria-hidden','false');
+  }
+  function closeModal(id){
+    const m=$(id);
+    if(!m) return;
+    m.classList.remove('show');
+    m.setAttribute('aria-hidden','true');
+  }
+  function resetToOriginal(){
+    if(!S.loaded) return;
+    canvas.width=S.sourceCanvas.width; canvas.height=S.sourceCanvas.height;
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    ctx.drawImage(S.sourceCanvas,0,0);
+    S.cropRect=null;
+    syncOverlay();
+    rebuildBaseline();
+    pushHistory();
+    fitToScreen();
+    updateSizeInfo();
+    closeModal('resetConfirmModal');
+    toast('처음 불러온 원본 이미지로 되돌렸어요','ok');
+  }
+  function openCompareModal(){
+    if(!S.loaded) return;
+    $('compareOrigImg').src = S.sourceCanvas.toDataURL('image/png');
+    $('compareEditImg').src = canvas.toDataURL('image/png');
+    $('compareOrigSize').textContent = S.sourceCanvas.width + ' × ' + S.sourceCanvas.height + ' px';
+    $('compareEditSize').textContent = canvas.width + ' × ' + canvas.height + ' px';
+    openModal('compareModal');
+  }
   $('resetBtn').addEventListener('click', ()=>{
     if(!S.loaded) return;
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    ctx.drawImage(S.origCanvas,0,0);
-    pushHistory();
-    toast('원본으로 되돌렸어요','ok');
+    openModal('resetConfirmModal');
+  });
+  $('resetCancelBtn').addEventListener('click', ()=> closeModal('resetConfirmModal'));
+  $('resetOkBtn').addEventListener('click', resetToOriginal);
+  $('compareBtn').addEventListener('click', openCompareModal);
+  $('compareCloseBtn').addEventListener('click', ()=> closeModal('compareModal'));
+  document.querySelectorAll('.modal-backdrop').forEach(m=>{
+    m.addEventListener('click', e=>{
+      if(e.target===m) closeModal(m.id);
+    });
   });
   window.addEventListener('keydown', e=>{
+    if(e.key==='Escape'){
+      closeModal('resetConfirmModal');
+      closeModal('compareModal');
+      return;
+    }
     if((e.ctrlKey||e.metaKey) && e.key.toLowerCase()==='z'){ e.preventDefault(); e.shiftKey?redo():undo(); }
     else if((e.ctrlKey||e.metaKey) && e.key.toLowerCase()==='y'){ e.preventDefault(); redo(); }
   });
