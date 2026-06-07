@@ -357,7 +357,8 @@
       linear-gradient(-45deg,transparent 75%,var(--line) 75%);
     background-size:18px 18px;background-position:0 0,0 9px,9px -9px,-9px 0;
   }
-  .compare-img-wrap img{
+  .compare-img-wrap img,
+  .compare-img-wrap canvas{
     max-width:100%;max-height:100%;object-fit:contain;
     border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,.18);
     background:#fff;
@@ -858,11 +859,11 @@
     <div class="compare-grid">
       <div class="compare-pane">
         <div class="compare-label"><span>원본 사진</span><span id="compareOrigSize">-</span></div>
-        <div class="compare-img-wrap"><img id="compareOrigImg" alt="원본 사진 미리보기"></div>
+        <div class="compare-img-wrap"><canvas id="compareOrigCanvas" aria-label="원본 사진 미리보기"></canvas></div>
       </div>
       <div class="compare-pane">
         <div class="compare-label"><span>편집 중인 사진</span><span id="compareEditSize">-</span></div>
-        <div class="compare-img-wrap"><img id="compareEditImg" alt="편집 중인 사진 미리보기"></div>
+        <div class="compare-img-wrap"><canvas id="compareEditCanvas" aria-label="편집 중인 사진 미리보기"></canvas></div>
       </div>
     </div>
     <div class="compare-tip">비교 창은 확인용입니다. 편집을 계속하려면 창을 닫고 작업 화면으로 돌아가세요.</div>
@@ -894,6 +895,7 @@
     loaded:false,
     origCanvas:document.createElement('canvas'), // 현재 작업 복구 기준 이미지
     sourceCanvas:document.createElement('canvas'), // 처음 불러온 원본 이미지(초기화·비교용)
+    sourceData:null,       // 원본 이미지 픽셀 백업(비교창/초기화 안정화용)
     tool:'wand',          // bg tools: wand|erase|restore
     fx:'square',          // mosaic effect
     applyMode:'brush',
@@ -966,9 +968,17 @@
     if(scale<1) toast('큰 이미지라 편집을 위해 '+w+'×'+h+'로 조정했어요','ok');
     canvas.width=w; canvas.height=h;
     S.origCanvas.width=w; S.origCanvas.height=h;
+    S.sourceCanvas.width=w; S.sourceCanvas.height=h;
     const octx = S.origCanvas.getContext('2d');
+    const sctx = S.sourceCanvas.getContext('2d');
     octx.clearRect(0,0,w,h); octx.drawImage(img,0,0,w,h);
+    sctx.clearRect(0,0,w,h); sctx.drawImage(img,0,0,w,h);
     ctx.clearRect(0,0,w,h); ctx.drawImage(img,0,0,w,h);
+    try{
+      S.sourceData = sctx.getImageData(0,0,w,h);
+    }catch(err){
+      S.sourceData = null;
+    }
     S.loaded=true;
     S.history=[]; S.hIndex=-1;
     S.cropRect=null;
@@ -1056,8 +1066,39 @@
     m.classList.remove('show');
     m.setAttribute('aria-hidden','true');
   }
+  function ensureSourceCanvas(){
+    if(S.sourceData){
+      if(S.sourceCanvas.width!==S.sourceData.width || S.sourceCanvas.height!==S.sourceData.height){
+        S.sourceCanvas.width=S.sourceData.width;
+        S.sourceCanvas.height=S.sourceData.height;
+      }
+      const sc=S.sourceCanvas.getContext('2d');
+      sc.clearRect(0,0,S.sourceCanvas.width,S.sourceCanvas.height);
+      sc.putImageData(S.sourceData,0,0);
+    }
+    return S.sourceCanvas && S.sourceCanvas.width>0 && S.sourceCanvas.height>0;
+  }
+  function drawPreviewCanvas(srcCanvas, previewCanvas){
+    if(!srcCanvas || !previewCanvas || srcCanvas.width===0 || srcCanvas.height===0) return false;
+    const maxDim = 1400;
+    const scale = Math.min(1, maxDim / Math.max(srcCanvas.width, srcCanvas.height));
+    const w = Math.max(1, Math.round(srcCanvas.width * scale));
+    const h = Math.max(1, Math.round(srcCanvas.height * scale));
+    previewCanvas.width = w;
+    previewCanvas.height = h;
+    previewCanvas.style.width = w + 'px';
+    previewCanvas.style.height = h + 'px';
+    const pc = previewCanvas.getContext('2d');
+    pc.clearRect(0,0,w,h);
+    pc.drawImage(srcCanvas,0,0,w,h);
+    return true;
+  }
   function resetToOriginal(){
     if(!S.loaded) return;
+    if(!ensureSourceCanvas()){
+      toast('원본 이미지를 다시 불러오지 못했어요. 새 이미지를 다시 열어주세요.','error');
+      return;
+    }
     canvas.width=S.sourceCanvas.width; canvas.height=S.sourceCanvas.height;
     ctx.clearRect(0,0,canvas.width,canvas.height);
     ctx.drawImage(S.sourceCanvas,0,0);
@@ -1072,10 +1113,18 @@
   }
   function openCompareModal(){
     if(!S.loaded) return;
-    $('compareOrigImg').src = S.sourceCanvas.toDataURL('image/png');
-    $('compareEditImg').src = canvas.toDataURL('image/png');
+    if(!ensureSourceCanvas()){
+      toast('원본 이미지를 다시 불러오지 못했어요. 새 이미지를 다시 열어주세요.','error');
+      return;
+    }
+    const okOrig = drawPreviewCanvas(S.sourceCanvas, $('compareOrigCanvas'));
+    const okEdit = drawPreviewCanvas(canvas, $('compareEditCanvas'));
     $('compareOrigSize').textContent = S.sourceCanvas.width + ' × ' + S.sourceCanvas.height + ' px';
     $('compareEditSize').textContent = canvas.width + ' × ' + canvas.height + ' px';
+    if(!okOrig || !okEdit){
+      toast('비교 미리보기를 만드는 중 문제가 생겼어요.','error');
+      return;
+    }
     openModal('compareModal');
   }
   $('resetBtn').addEventListener('click', ()=>{
