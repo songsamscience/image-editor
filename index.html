@@ -302,6 +302,122 @@
   .divider{height:1.5px;background:var(--line);margin:4px 0 16px;border:none;}
 
 
+
+  /* ===== Mobile / Tablet optimization ===== */
+  @media (pointer:coarse){
+    .btn,.tool,.tab,select,input[type=number]{min-height:44px;}
+    input[type=range]{height:10px;}
+    input[type=range]::-webkit-slider-thumb{width:26px;height:26px;}
+    input[type=range]::-moz-range-thumb{width:24px;height:24px;}
+  }
+  @media (max-width:880px){
+    body{min-height:100dvh;overflow-x:hidden;}
+    header{
+      position:sticky;top:0;
+      align-items:flex-start;flex-wrap:wrap;
+      padding:10px 12px;gap:8px;
+    }
+    .logo{min-width:0;flex:1 1 auto;}
+    .flask{width:36px;height:36px;border-radius:11px;}
+    .flask svg{width:21px;height:21px;}
+    .brand{min-width:0;}
+    .brand h1{font-size:18px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+    .brand p{font-size:10.5px;}
+    .header-spacer{display:none;}
+    .header-actions{
+      width:100%;
+      display:flex;flex-wrap:nowrap;gap:7px;
+      overflow-x:auto;overflow-y:hidden;
+      padding:2px 2px 6px;
+      -webkit-overflow-scrolling:touch;
+      scrollbar-width:none;
+    }
+    .header-actions::-webkit-scrollbar{display:none;}
+    .header-actions .btn{flex:0 0 auto;padding:10px 12px;}
+    .header-actions .btn.icon{padding:10px;}
+    .app{height:auto;min-height:calc(100dvh - 118px);}
+    .stage{height:58dvh;min-height:390px;order:1;}
+    .stage-bar{
+      position:sticky;top:0;z-index:10;
+      padding:8px 10px;gap:6px;
+      overflow-x:auto;flex-wrap:nowrap;
+      -webkit-overflow-scrolling:touch;
+    }
+    .zoom-ctrl{margin-left:0;flex:0 0 auto;}
+    .zoom-ctrl .z{min-width:44px;}
+    .mobile-help{display:inline-flex;}
+    .canvas-wrap{
+      padding:16px;
+      align-items:flex-start;
+      justify-content:flex-start;
+      overscroll-behavior:contain;
+      -webkit-overflow-scrolling:touch;
+    }
+    #canvas{touch-action:none;}
+    .sidebar{
+      order:2;
+      max-height:none;
+      overflow:visible;
+    }
+    .tabs{
+      overflow-x:auto;overflow-y:hidden;
+      flex-wrap:nowrap;
+      padding:8px 8px;
+      -webkit-overflow-scrolling:touch;
+      scrollbar-width:none;
+    }
+    .tabs::-webkit-scrollbar{display:none;}
+    .tab{flex:0 0 76px;min-width:76px;padding:9px 4px;}
+    .panel{padding:14px;}
+    .tool-grid{gap:9px;}
+    .tool{padding:12px 8px;}
+    .drop-zone{
+      width:min(100%,420px);
+      padding:30px 22px;
+      border-radius:22px;
+    }
+    .drop-zone .big-flask{width:70px;height:70px;border-radius:20px;}
+    .empty{padding:24px 16px;}
+    .empty h2{font-size:20px;}
+    .empty p{font-size:13px;}
+    .watermark-foot{font-size:10px;padding:7px;}
+  }
+  @media (max-width:520px){
+    .brand p{display:none;}
+    .header-actions .btn:not(.icon) svg{width:16px;height:16px;}
+    .header-actions .btn:not(.icon){font-size:12.5px;padding:10px 11px;}
+    .social a{min-height:44px;}
+    .stage{height:56dvh;min-height:360px;}
+    .stage-bar .btn{padding:9px 10px;}
+    .canvas-wrap{padding:12px;}
+    .panel-intro{padding:11px;margin-bottom:14px;}
+    .panel-intro .pi-tx{font-size:12px;}
+    .row2{grid-template-columns:1fr;}
+    .seg{gap:7px;}
+    #applyMode{grid-template-columns:1fr 1fr !important;}
+    .crop-actions,.fx-buttons{gap:7px;}
+    .modal-backdrop{padding:14px;}
+    .modal-card{border-radius:20px;padding:18px;}
+    .modal-title{font-size:18px;}
+    .modal-actions .btn{flex:1;}
+  }
+  @media (max-width:390px){
+    .tool-grid{grid-template-columns:1fr;}
+    .tab{flex-basis:70px;min-width:70px;font-size:10.5px;}
+    .brand h1{font-size:16px;}
+  }
+  .mobile-help{
+    display:none;
+    align-items:center;
+    padding:8px 10px;
+    border-radius:10px;
+    background:var(--pink-soft);
+    color:var(--ink-soft);
+    font-size:11.5px;
+    font-weight:700;
+    white-space:nowrap;
+  }
+
   /* ===== Confirm / Compare Modal ===== */
   .modal-backdrop{
     position:fixed;inset:0;z-index:980;
@@ -797,6 +913,7 @@
       <button class="btn ghost icon" id="fitBtn" title="화면에 맞추기">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3M21 8V5a2 2 0 0 0-2-2h-3M3 16v3a2 2 0 0 0 2 2h3M16 21h3a2 2 0 0 0 2-2v-3"/></svg>
       </button>
+      <span class="mobile-help">두 손가락 확대·축소</span>
       <div class="zoom-ctrl">
         <button class="btn ghost icon" id="zoomOut"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14"/></svg></button>
         <span class="z" id="zoomVal">100%</span>
@@ -881,7 +998,10 @@
 <script>
 (function(){
   "use strict";
-  const MAX_DIM = 2400; // 작업 해상도 상한 (성능/메모리 균형)
+  function isMobileLike(){
+    return window.matchMedia('(max-width: 760px), (pointer: coarse)').matches;
+  }
+  const MAX_DIM = isMobileLike() ? 1600 : 2400; // 작업 해상도 상한 (모바일 메모리 안정화)
   const $ = id => document.getElementById(id);
 
   // ---- DOM ----
@@ -908,6 +1028,10 @@
     cropRect:null, cropStart:null,
     adjBase:null,
     history:[], hIndex:-1,
+    activePointers:new Map(),
+    touchGesture:null,
+    pinchStart:null,
+    touchStartCanvas:null,
   };
 
   // ---- Toast ----
@@ -968,17 +1092,9 @@
     if(scale<1) toast('큰 이미지라 편집을 위해 '+w+'×'+h+'로 조정했어요','ok');
     canvas.width=w; canvas.height=h;
     S.origCanvas.width=w; S.origCanvas.height=h;
-    S.sourceCanvas.width=w; S.sourceCanvas.height=h;
     const octx = S.origCanvas.getContext('2d');
-    const sctx = S.sourceCanvas.getContext('2d');
     octx.clearRect(0,0,w,h); octx.drawImage(img,0,0,w,h);
-    sctx.clearRect(0,0,w,h); sctx.drawImage(img,0,0,w,h);
     ctx.clearRect(0,0,w,h); ctx.drawImage(img,0,0,w,h);
-    try{
-      S.sourceData = sctx.getImageData(0,0,w,h);
-    }catch(err){
-      S.sourceData = null;
-    }
     S.loaded=true;
     S.history=[]; S.hIndex=-1;
     S.cropRect=null;
@@ -1011,8 +1127,8 @@
     $('zoomVal').textContent = Math.round(S.zoom*100)+'%';
   }
   function fitToScreen(){
-    const pad=60;
-    const aw = wrap.clientWidth-pad, ah = wrap.clientHeight-pad;
+    const pad = isMobileLike() ? 28 : 60;
+    const aw = Math.max(120, wrap.clientWidth-pad), ah = Math.max(120, wrap.clientHeight-pad);
     S.zoom = Math.min(aw/canvas.width, ah/canvas.height, 1);
     if(!isFinite(S.zoom)||S.zoom<=0) S.zoom=1;
     applyZoom();
@@ -1027,15 +1143,17 @@
     applyZoom();
   }, {passive:false});
   window.addEventListener('resize', ()=>{ if(S.loaded && S.zoom<=1) fitToScreen(); });
+  window.addEventListener('orientationchange', ()=>{ setTimeout(()=>{ if(S.loaded) fitToScreen(); }, 250); });
 
   // ---- History (ImageData snapshots) ----
   function pushHistory(){
     const data = ctx.getImageData(0,0,canvas.width,canvas.height);
     S.history = S.history.slice(0, S.hIndex+1);
     S.history.push(data);
-    const BUDGET = 260*1024*1024; // 큰 이미지에서 메모리 폭주 방지
+    const BUDGET = (isMobileLike() ? 110 : 260)*1024*1024; // 큰 이미지에서 메모리 폭주 방지
+    const MAX_HISTORY = isMobileLike() ? 10 : 20;
     let total = S.history.reduce((s,d)=>s+d.data.byteLength, 0);
-    while(S.history.length>1 && (total>BUDGET || S.history.length>20)){
+    while(S.history.length>1 && (total>BUDGET || S.history.length>MAX_HISTORY)){
       total -= S.history.shift().data.byteLength;
     }
     S.hIndex = S.history.length-1;
@@ -1507,6 +1625,108 @@
     setApplyMode('brush');
   }
 
+
+  // ============================================================
+  //  Mobile touch gestures : single finger edit, two finger zoom
+  // ============================================================
+  function saveTouchStartCanvas(){
+    if(!isMobileLike() || S.touchStartCanvas) return;
+    S.touchStartCanvas=document.createElement('canvas');
+    S.touchStartCanvas.width=canvas.width;
+    S.touchStartCanvas.height=canvas.height;
+    S.touchStartCanvas.getContext('2d').drawImage(canvas,0,0);
+  }
+  function restoreTouchStartCanvas(){
+    if(!S.touchStartCanvas) return;
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    ctx.drawImage(S.touchStartCanvas,0,0);
+    S.touchStartCanvas=null;
+    S.drawing=false;
+    S.lastPt=null;
+    S.rectStart=null;
+    S.preStroke=null;
+    if(S.mode==='crop'){
+      S.cropStart=null;
+      S.cropRect=null;
+      renderCrop();
+    }
+  }
+  function pointerDistance(a,b){
+    const dx=a.clientX-b.clientX, dy=a.clientY-b.clientY;
+    return Math.hypot(dx,dy);
+  }
+  function pointerCenter(a,b){
+    return {x:(a.clientX+b.clientX)/2, y:(a.clientY+b.clientY)/2};
+  }
+  function getTwoTouchPoints(){
+    const pts=[...S.activePointers.values()];
+    return pts.length>=2 ? [pts[0],pts[1]] : null;
+  }
+  function startPinchGesture(){
+    const pts=getTwoTouchPoints();
+    if(!pts) return;
+    restoreTouchStartCanvas();
+    const center=pointerCenter(pts[0],pts[1]);
+    S.touchGesture='pinch';
+    S.pinchStart={
+      distance:Math.max(20,pointerDistance(pts[0],pts[1])),
+      zoom:S.zoom,
+      center,
+      scrollLeft:wrap.scrollLeft,
+      scrollTop:wrap.scrollTop
+    };
+    hideRing();
+  }
+  function updatePinchGesture(){
+    if(S.touchGesture!=='pinch' || !S.pinchStart) return;
+    const pts=getTwoTouchPoints();
+    if(!pts) return;
+    const center=pointerCenter(pts[0],pts[1]);
+    const dist=Math.max(20,pointerDistance(pts[0],pts[1]));
+    const ratio=dist/S.pinchStart.distance;
+    const oldZoom=S.zoom;
+    S.zoom=Math.max(0.05, Math.min(8, S.pinchStart.zoom*ratio));
+    applyZoom();
+
+    // 손가락 중심이 화면 안에서 최대한 유지되도록 스크롤 위치 보정
+    const zoomRatio = S.zoom/oldZoom;
+    const localX = S.pinchStart.scrollLeft + S.pinchStart.center.x - wrap.getBoundingClientRect().left;
+    const localY = S.pinchStart.scrollTop + S.pinchStart.center.y - wrap.getBoundingClientRect().top;
+    wrap.scrollLeft = localX*zoomRatio - (center.x - wrap.getBoundingClientRect().left);
+    wrap.scrollTop = localY*zoomRatio - (center.y - wrap.getBoundingClientRect().top);
+  }
+  function trackPointerDown(e){
+    if(e.pointerType!=='touch') return false;
+    S.activePointers.set(e.pointerId,{clientX:e.clientX,clientY:e.clientY});
+    if(S.activePointers.size>=2){
+      startPinchGesture();
+      return true;
+    }
+    return false;
+  }
+  function trackPointerMove(e){
+    if(e.pointerType!=='touch') return false;
+    if(S.activePointers.has(e.pointerId)){
+      S.activePointers.set(e.pointerId,{clientX:e.clientX,clientY:e.clientY});
+    }
+    if(S.touchGesture==='pinch'){
+      updatePinchGesture();
+      return true;
+    }
+    return false;
+  }
+  function trackPointerEnd(e){
+    if(e.pointerType!=='touch') return false;
+    const wasPinch = S.touchGesture==='pinch';
+    S.activePointers.delete(e.pointerId);
+    if(S.activePointers.size<2){
+      S.touchGesture=null;
+      S.pinchStart=null;
+      S.touchStartCanvas=null;
+    }
+    return wasPinch;
+  }
+
   // ============================================================
   //  Pointer interaction on canvas
   // ============================================================
@@ -1517,7 +1737,13 @@
     if(!S.loaded) return;
     if(S.mode==='export'||S.mode==='resize'||S.mode==='adjust') return;
     e.preventDefault();
-    canvas.setPointerCapture(e.pointerId);
+
+    if(e.pointerType==='touch'){
+      saveTouchStartCanvas();
+      if(trackPointerDown(e)) return;
+    }
+
+    try{ canvas.setPointerCapture(e.pointerId); }catch(err){}
     const p=evtToImg(e);
     // 자르기 모드: 영역 드래그 시작
     if(S.mode==='crop'){
@@ -1530,6 +1756,7 @@
       const px=Math.max(0,Math.min(canvas.width-1,Math.round(p.x)));
       const py=Math.max(0,Math.min(canvas.height-1,Math.round(p.y)));
       magicWand(px,py);
+      S.touchStartCanvas=null;
       return;
     }
     // Mosaic shape selection (rect / circle): store start + snapshot
@@ -1549,7 +1776,9 @@
   });
 
   canvas.addEventListener('pointermove', e=>{
+    if(trackPointerMove(e)) return;
     if(!S.drawing) return;
+    e.preventDefault();
     const p=evtToImg(e);
     if(S.mode==='crop' && S.cropStart){ updateCrop(p); return; }
     if(S.mode==='mosaic' && (S.applyMode==='rect'||S.applyMode==='circle') && S.rectStart){
@@ -1574,7 +1803,7 @@
   function endStroke(e){
     if(!S.drawing) return;
     S.drawing=false;
-    if(S.mode==='crop'){ S.cropStart=null; return; }
+    if(S.mode==='crop'){ S.cropStart=null; S.touchStartCanvas=null; return; }
     if(S.mode==='mosaic' && (S.applyMode==='rect'||S.applyMode==='circle') && S.rectStart){
       const p = e ? evtToImg(e) : S.rectStart;
       ctx.drawImage(S.preStroke,0,0); // remove preview overlay
@@ -1589,15 +1818,23 @@
         ctx.drawImage(S.fxCanvas,0,0);
         ctx.restore();
       }
-      S.rectStart=null; S.preStroke=null;
+      S.rectStart=null; S.preStroke=null; S.touchStartCanvas=null;
       pushHistory();
       return;
     }
     S.lastPt=null;
+    S.touchStartCanvas=null;
     pushHistory();
   }
-  canvas.addEventListener('pointerup', endStroke);
-  canvas.addEventListener('pointercancel', endStroke);
+  function handlePointerEnd(e){
+    if(trackPointerEnd(e)){
+      hideRing();
+      return;
+    }
+    endStroke(e);
+  }
+  canvas.addEventListener('pointerup', handlePointerEnd);
+  canvas.addEventListener('pointercancel', handlePointerEnd);
 
   // ============================================================
   //  Transform : Crop / Upscale / Downscale
