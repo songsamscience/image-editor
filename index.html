@@ -545,6 +545,14 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M17 8l-5-5-5 5"/><path d="M12 3v12"/></svg>
       새 이미지
     </button>
+    <button class="btn" id="copyBtn" title="현재 이미지를 클립보드에 복사 (Ctrl+V로 붙여넣기)" disabled>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      이미지 복사
+    </button>
+    <button class="btn" id="quickSaveBtn" title="현재 이미지를 PNG 파일로 바로 저장" disabled>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2Z"/><path d="M17 21v-8H7v8M7 3v5h8"/></svg>
+      저장
+    </button>
     <div class="social">
       <a class="yt" href="https://www.youtube.com/@songsamscience" target="_blank" rel="noopener" title="송쌤과학 유튜브">
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23 12s0-3.8-.5-5.6a2.9 2.9 0 0 0-2-2C18.7 4 12 4 12 4s-6.7 0-8.5.4a2.9 2.9 0 0 0-2 2C1 8.2 1 12 1 12s0 3.8.5 5.6a2.9 2.9 0 0 0 2 2C5.3 20 12 20 12 20s6.7 0 8.5-.4a2.9 2.9 0 0 0 2-2C23 15.8 23 12 23 12ZM10 15.5v-7l6 3.5-6 3.5Z"/></svg>
@@ -584,6 +592,10 @@
       <button class="tab" data-tab="adjust">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 0 0 18z"/></svg>
         보정
+      </button>
+      <button class="tab" data-tab="draw">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+        그리기
       </button>
       <button class="tab" data-tab="export">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>
@@ -826,6 +838,64 @@
       <div class="hint" id="transformInfo">현재 작업 크기: -</div>
     </div>
 
+    <!-- ===== 그리기 ===== -->
+    <div class="panel" data-panel="draw">
+      <div class="panel-intro">
+        <div class="pi-ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></div>
+        <div class="pi-tx"><b>그리기 · 글씨 넣기</b>사진 위에 도형·화살표·글씨를 더해 중요한 부분을 표시하거나 설명을 넣을 수 있어요. 그린 내용은 실행취소(↩)로 되돌릴 수 있어요.</div>
+      </div>
+      <div class="group">
+        <div class="group-title">✏️ 무엇을 그릴까요</div>
+        <div class="tool-grid" id="drawTools">
+          <button class="tool active" data-shape="rect">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/></svg>
+            사각형
+          </button>
+          <button class="tool" data-shape="circle">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/></svg>
+            원형
+          </button>
+          <button class="tool" data-shape="line">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 19 19 5"/></svg>
+            선
+          </button>
+          <button class="tool" data-shape="arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg>
+            화살표
+          </button>
+          <button class="tool" data-shape="text" style="grid-column:1/-1;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7V5h16v2"/><path d="M9 19h6"/><path d="M12 5v14"/></svg>
+            글씨 넣기
+          </button>
+        </div>
+      </div>
+      <hr class="divider" />
+      <div class="group">
+        <div class="group-title">🎨 색과 굵기</div>
+        <div class="field">
+          <label>색상</label>
+          <input type="color" id="drawColor" value="#F5483F" style="width:100%;height:40px;border-radius:10px;border:1.5px solid var(--line-strong);background:var(--card);cursor:pointer;" />
+        </div>
+        <div class="field" id="drawWidthField">
+          <label>선 굵기 <span class="val" id="drawWidthVal">6</span>px</label>
+          <input type="range" id="drawWidth" min="1" max="60" value="6" />
+        </div>
+        <label class="check" id="drawFillField"><input type="checkbox" id="drawFill" /> 도형 안쪽 색 채우기</label>
+      </div>
+      <div class="group" id="drawTextGroup" style="display:none;">
+        <hr class="divider" />
+        <div class="group-title">🔤 넣을 글씨</div>
+        <textarea id="drawText" rows="2" placeholder="여기에 넣을 글씨를 입력하세요" style="font-family:inherit;font-size:13px;padding:9px 10px;border-radius:10px;border:1.5px solid var(--line-strong);background:var(--card);color:var(--ink);width:100%;resize:vertical;line-height:1.4;"></textarea>
+        <div class="field" style="margin-top:12px;">
+          <label>글자 크기 <span class="val" id="drawFontVal">48</span>px</label>
+          <input type="range" id="drawFont" min="12" max="300" value="48" />
+        </div>
+        <label class="check"><input type="checkbox" id="drawOutline" checked /> 글자 외곽선 넣기 (배경과 대비되어 잘 보여요)</label>
+      </div>
+      <hr class="divider" />
+      <div class="hint" id="drawHint">도형을 고른 뒤 사진 위에서 마우스(또는 펜)로 <b>드래그</b>하면 그려집니다. 화살표는 시작점에서 가리킬 곳으로 드래그하세요.</div>
+    </div>
+
     <!-- ===== 저장 ===== -->
     <div class="panel" data-panel="export">
       <div class="panel-intro">
@@ -1019,12 +1089,14 @@
     tool:'wand',          // bg tools: wand|erase|restore
     fx:'square',          // mosaic effect
     applyMode:'brush',
+    drawShape:'rect',     // draw tools: rect|circle|line|arrow|text
     mode:'bg',
     zoom:1,
     drawing:false,
     lastPt:null,
     preStroke:null,       // 사각형 미리보기/스트로크 시작 스냅샷 canvas
     rectStart:null,
+    shapeStart:null,      // 도형 그리기 시작점
     cropRect:null, cropStart:null,
     adjBase:null,
     history:[], hIndex:-1,
@@ -1062,6 +1134,27 @@
   $('dropZone').addEventListener('click', ()=> fileInput.click());
   $('newBtn').addEventListener('click', ()=> fileInput.click());
   fileInput.addEventListener('change', e=>{ if(e.target.files[0]) loadFile(e.target.files[0]); fileInput.value=''; });
+
+  // ---- Header: 이미지 복사 / 빠른 저장 ----
+  $('copyBtn').addEventListener('click', async ()=>{
+    if(!S.loaded){ toast('먼저 이미지를 불러오세요','error'); return; }
+    if(!navigator.clipboard || !window.ClipboardItem){
+      toast('이 브라우저는 이미지 복사를 지원하지 않아요. 저장 버튼을 사용해 주세요.','error'); return;
+    }
+    try{
+      const blob = await new Promise(res=> canvas.toBlob(res,'image/png'));
+      if(!blob) throw new Error('no blob');
+      await navigator.clipboard.write([ new ClipboardItem({ 'image/png': blob }) ]);
+      toast('이미지를 복사했어요. 원하는 곳에 붙여넣기(Ctrl+V) 하세요','ok');
+    }catch(err){
+      console.warn('copy failed', err);
+      toast('이미지 복사에 실패했어요. 브라우저 권한을 확인해 주세요.','error');
+    }
+  });
+  $('quickSaveBtn').addEventListener('click', ()=>{
+    if(!S.loaded){ toast('먼저 이미지를 불러오세요','error'); return; }
+    download(canvas, 'image/png', 'png', undefined);
+  });
 
   const dz = $('dropZone');
   ['dragenter','dragover'].forEach(ev=> dz.addEventListener(ev, e=>{ e.preventDefault(); dz.classList.add('drag'); }));
@@ -1103,8 +1196,11 @@
     fitToScreen();
     pushHistory();
     updateSizeInfo();
+    setDrawDefaults();
     $('resetBtn').disabled=false;
     $('compareBtn').disabled=false;
+    $('copyBtn').disabled=false;
+    $('quickSaveBtn').disabled=false;
   }
 
   // 해상도(크기)가 바뀐 뒤 기준 이미지/오버레이/되돌리기 갱신
@@ -1281,10 +1377,13 @@
       // 자르기 모드를 벗어나면 크롭 선택 표시 제거
       if(prev==='crop' && name!=='crop'){ S.cropRect=null; renderCrop(); }
       if(prev==='adjust' && name!=='adjust'){ adjRestoreBase(); adjResetSliders(); }
+      // 그리기 모드를 벗어나면 미리보기/시작점 정리
+      if(prev==='draw' && name!=='draw'){ S.shapeStart=null; octx2.clearRect(0,0,overlay.width,overlay.height); }
       if(name==='export'){ updateSizeInfo(); scheduleEstimate(); }
       if(name==='crop'){ S.cropRect=null; renderCrop(); updateSizeInfo(); }
       if(name==='resize'){ updateSizeInfo(); }
       if(name==='adjust'){ adjResetSliders(); adjSnapshot(); }
+      if(name==='draw'){ updateDrawUI(); }
       hideRing();
     });
   });
@@ -1336,6 +1435,120 @@
   bind('fxSize','fxSizeVal'); bind('mosBrush','mosBrushVal'); bind('wmOpacity','wmOpVal');
 
   // ============================================================
+  //  Drawing tools : 사각형 / 원형 / 선 / 화살표 / 글씨
+  // ============================================================
+  bind('drawWidth','drawWidthVal'); bind('drawFont','drawFontVal');
+
+  document.querySelectorAll('#drawTools .tool').forEach(t=>{
+    t.addEventListener('click', ()=>{
+      document.querySelectorAll('#drawTools .tool').forEach(x=>x.classList.remove('active'));
+      t.classList.add('active');
+      S.drawShape = t.dataset.shape;
+      S.shapeStart = null;
+      octx2.clearRect(0,0,overlay.width,overlay.height);
+      updateDrawUI();
+    });
+  });
+  function updateDrawUI(){
+    const isText = S.drawShape==='text';
+    const isBox = (S.drawShape==='rect' || S.drawShape==='circle');
+    $('drawTextGroup').style.display = isText ? 'block' : 'none';
+    $('drawWidthField').style.display = isText ? 'none' : 'block';
+    $('drawFillField').style.display = isBox ? 'flex' : 'none';
+    const hints = {
+      rect:'사진 위에서 대각선으로 <b>드래그</b>하면 사각형이 그려져요.',
+      circle:'사진 위에서 대각선으로 <b>드래그</b>하면 원·타원이 그려져요.',
+      line:'시작점에서 끝점까지 <b>드래그</b>하면 직선이 그려져요.',
+      arrow:'가리킬 곳을 향해 <b>드래그</b>하면 끝에 화살촉이 달린 화살표가 그려져요.',
+      text:'글씨를 입력한 뒤, 사진에서 넣을 위치를 <b>클릭</b>하세요.'
+    };
+    $('drawHint').innerHTML = hints[S.drawShape] || '';
+  }
+  // 이미지 크기에 맞춰 선 굵기·글자 크기 기본값을 잡아줌
+  function setDrawDefaults(){
+    const base = Math.max(canvas.width, canvas.height) || 1000;
+    const dw=$('drawWidth'), df=$('drawFont');
+    dw.value = Math.min(+dw.max, Math.max(2, Math.round(base/350))); $('drawWidthVal').textContent = dw.value;
+    df.value = Math.min(+df.max, Math.max(16, Math.round(base/22)));  $('drawFontVal').textContent = df.value;
+  }
+  updateDrawUI();
+
+  function dColor(){ return $('drawColor').value; }
+  function dWidth(){ return Math.max(1, +$('drawWidth').value); }
+  function contrastInk(hex){
+    const c=(hex||'#000000').replace('#','');
+    const r=parseInt(c.substr(0,2),16)||0, g=parseInt(c.substr(2,2),16)||0, b=parseInt(c.substr(4,2),16)||0;
+    return (0.299*r+0.587*g+0.114*b) > 140 ? 'rgba(0,0,0,.85)' : 'rgba(255,255,255,.92)';
+  }
+  function drawArrowHead(g, a, b, w){
+    const ang=Math.atan2(b.y-a.y, b.x-a.x);
+    const head=Math.max(w*3.2, 14), spread=Math.PI/7;
+    g.beginPath();
+    g.moveTo(b.x, b.y);
+    g.lineTo(b.x - head*Math.cos(ang-spread), b.y - head*Math.sin(ang-spread));
+    g.lineTo(b.x - head*Math.cos(ang+spread), b.y - head*Math.sin(ang+spread));
+    g.closePath();
+    g.fillStyle=dColor(); g.fill();
+  }
+  // 한 도형을 임의의 컨텍스트(g)에 그림 — 미리보기(overlay)와 확정(canvas) 공용
+  function renderDrawShape(g, a, b){
+    const shape=S.drawShape, w=dWidth(), fill=$('drawFill').checked;
+    g.save();
+    g.lineCap='round'; g.lineJoin='round';
+    g.strokeStyle=dColor(); g.lineWidth=w;
+    const x=Math.min(a.x,b.x), y=Math.min(a.y,b.y), rw=Math.abs(b.x-a.x), rh=Math.abs(b.y-a.y);
+    if(shape==='rect'){
+      if(fill){ g.fillStyle=dColor(); g.fillRect(x,y,rw,rh); }
+      g.strokeRect(x,y,rw,rh);
+    } else if(shape==='circle'){
+      g.beginPath(); g.ellipse(x+rw/2, y+rh/2, rw/2, rh/2, 0, 0, Math.PI*2);
+      if(fill){ g.fillStyle=dColor(); g.fill(); }
+      g.stroke();
+    } else if(shape==='line'){
+      g.beginPath(); g.moveTo(a.x,a.y); g.lineTo(b.x,b.y); g.stroke();
+    } else if(shape==='arrow'){
+      const len=Math.hypot(b.x-a.x, b.y-a.y), head=Math.max(w*3.2, 14);
+      let ex=b.x, ey=b.y; // 화살촉과 겹치지 않게 선을 살짝 짧게
+      if(len>head){ const ang=Math.atan2(b.y-a.y,b.x-a.x); ex=b.x-Math.cos(ang)*head*0.55; ey=b.y-Math.sin(ang)*head*0.55; }
+      g.beginPath(); g.moveTo(a.x,a.y); g.lineTo(ex,ey); g.stroke();
+      drawArrowHead(g, a, b, w);
+    }
+    g.restore();
+  }
+  function previewDrawShape(p){
+    octx2.clearRect(0,0,overlay.width,overlay.height);
+    renderDrawShape(octx2, S.shapeStart, p);
+  }
+  function commitDrawShape(p){
+    const dx=Math.abs(p.x-S.shapeStart.x), dy=Math.abs(p.y-S.shapeStart.y);
+    if(dx<3 && dy<3) return false; // 너무 작은 드래그는 무시
+    renderDrawShape(ctx, S.shapeStart, p);
+    return true;
+  }
+  function placeDrawText(x,y){
+    const text=$('drawText').value;
+    if(!text.trim()){ toast('먼저 넣을 글씨를 입력해 주세요','error'); return; }
+    const fs=Math.max(8, +$('drawFont').value);
+    ctx.save();
+    ctx.font="700 "+fs+"px 'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif";
+    ctx.textAlign='left'; ctx.textBaseline='top'; ctx.lineJoin='round'; ctx.miterLimit=2;
+    const lines=text.split('\n'), lh=fs*1.28, outline=$('drawOutline').checked;
+    lines.forEach((ln,i)=>{
+      const ly=y+i*lh;
+      if(outline){
+        ctx.lineWidth=Math.max(2, fs*0.16);
+        ctx.strokeStyle=contrastInk(dColor());
+        ctx.strokeText(ln, x, ly);
+      }
+      ctx.fillStyle=dColor();
+      ctx.fillText(ln, x, ly);
+    });
+    ctx.restore();
+    pushHistory();
+    toast('글씨를 넣었어요','ok');
+  }
+
+  // ============================================================
   //  Coordinate helpers
   // ============================================================
   function evtToImg(e){
@@ -1349,7 +1562,7 @@
   function showRing(e){
     if(S.mode==='bg' && S.tool==='wand'){ hideRing(); return; }
     if(S.mode==='mosaic' && !(S.applyMode==='brush'||S.applyMode==='restore')){ hideRing(); return; }
-    if(S.mode==='export' || S.mode==='crop' || S.mode==='resize' || S.mode==='adjust'){ hideRing(); return; }
+    if(S.mode==='export' || S.mode==='crop' || S.mode==='resize' || S.mode==='adjust' || S.mode==='draw'){ hideRing(); return; }
     const r=canvas.getBoundingClientRect();
     const px = curBrush()*(r.width/canvas.width);
     ring.style.display='block';
@@ -1645,6 +1858,8 @@
     S.lastPt=null;
     S.rectStart=null;
     S.preStroke=null;
+    S.shapeStart=null;
+    octx2.clearRect(0,0,overlay.width,overlay.height);
     if(S.mode==='crop'){
       S.cropStart=null;
       S.cropRect=null;
@@ -1769,6 +1984,12 @@
       S.drawing=true;
       return;
     }
+    // Drawing tools: 글씨는 클릭 즉시, 도형은 드래그
+    if(S.mode==='draw'){
+      if(S.drawShape==='text'){ placeDrawText(p.x, p.y); S.touchStartCanvas=null; return; }
+      S.shapeStart=p; S.drawing=true;
+      return;
+    }
     // Brush modes (erase/restore/mosaic-brush/mosaic-restore)
     if(S.mode==='mosaic' && S.applyMode==='brush') buildEffect();
     S.drawing=true; S.lastPt=null;
@@ -1797,6 +2018,7 @@
       ctx.restore();
       return;
     }
+    if(S.mode==='draw' && S.shapeStart){ previewDrawShape(p); return; }
     strokeTo(p.x,p.y);
   });
 
@@ -1820,6 +2042,16 @@
       }
       S.rectStart=null; S.preStroke=null; S.touchStartCanvas=null;
       pushHistory();
+      return;
+    }
+    if(S.mode==='draw'){
+      octx2.clearRect(0,0,overlay.width,overlay.height);
+      if(S.shapeStart){
+        const p = e ? evtToImg(e) : S.shapeStart;
+        if(commitDrawShape(p)) pushHistory();
+        S.shapeStart=null;
+      }
+      S.touchStartCanvas=null;
       return;
     }
     S.lastPt=null;
