@@ -671,17 +671,17 @@
       <div class="group">
         <div class="group-title">🎨 가리는 모양</div>
         <div class="tool-grid">
-          <button class="tool active" data-fx="square">
+          <button class="tool active" data-fx="blur">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 22a8 8 0 0 0 8-8c0-4.4-8-12-8-12S4 9.6 4 14a8 8 0 0 0 8 8Z"/></svg>
+            흐림(블러)
+          </button>
+          <button class="tool" data-fx="square">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
             네모 픽셀
           </button>
           <button class="tool" data-fx="circle">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6.5" cy="6.5" r="3"/><circle cx="17.5" cy="6.5" r="3"/><circle cx="6.5" cy="17.5" r="3"/><circle cx="17.5" cy="17.5" r="3"/></svg>
             동그라미
-          </button>
-          <button class="tool" data-fx="blur">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 22a8 8 0 0 0 8-8c0-4.4-8-12-8-12S4 9.6 4 14a8 8 0 0 0 8 8Z"/></svg>
-            흐림(블러)
           </button>
           <button class="tool" data-fx="emoji">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M9 9h.01M15 9h.01M8.5 15a4 4 0 0 0 7 0"/></svg>
@@ -690,7 +690,7 @@
         </div>
       </div>
       <div class="field" id="fxSizeField">
-        <label><span id="fxSizeLabel">픽셀 크기</span> <span class="val" id="fxSizeVal">16</span></label>
+        <label><span id="fxSizeLabel">흐림 강도</span> <span class="val" id="fxSizeVal">16</span></label>
         <input type="range" id="fxSize" min="4" max="60" value="16" />
       </div>
       <div class="field" id="solidColorField" style="display:none;">
@@ -790,6 +790,16 @@
         <div class="pi-ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 0 0 18z"/></svg></div>
         <div class="pi-tx"><b>밝기 · 색감 보정</b>너무 어둡거나 흐릿한 사진을 또렷하고 보기 좋게 다듬습니다. 슬라이더를 움직이면 미리보기가 바로 보여요.</div>
       </div>
+      <div class="group">
+        <div class="group-title">✨ 추천 보정 (사진 자동 분석)</div>
+        <button class="btn primary" id="autoAdjustBtn" style="width:100%;justify-content:center;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 4V2"/><path d="M15 16v-2"/><path d="M8 9h2"/><path d="M20 9h2"/><path d="M17.8 11.8L19 13"/><path d="M15 9h.01"/><path d="M17.8 6.2L19 5"/><path d="M3 21l9-9"/><path d="M12.2 6.2L11 5"/></svg>
+          이 사진에 맞는 보정 추천받기
+        </button>
+        <div class="hint" id="autoAdjustResult" style="display:none;margin-top:10px;white-space:pre-line;"></div>
+        <div class="hint" style="margin-top:8px;">사진의 밝기·또렷함·색감을 자동으로 분석해서 슬라이더를 알맞게 맞춰줍니다. 미리보기를 본 뒤 마음에 들면 아래 <b>적용하기</b>를 누르세요.</div>
+      </div>
+      <hr class="divider" />
       <div class="field">
         <label>밝기 <span class="val" id="brVal">100</span>%</label>
         <input type="range" id="brightness" min="0" max="200" value="100" />
@@ -1087,7 +1097,7 @@
     sourceCanvas:document.createElement('canvas'), // 처음 불러온 원본 이미지(초기화·비교용)
     sourceData:null,       // 원본 이미지 픽셀 백업(비교창/초기화 안정화용)
     tool:'wand',          // bg tools: wand|erase|restore
-    fx:'square',          // mosaic effect
+    fx:'blur',            // mosaic effect (기본: 흐림)
     applyMode:'brush',
     drawShape:'rect',     // draw tools: rect|circle|line|arrow|text
     mode:'bg',
@@ -1198,6 +1208,15 @@
     updateSizeInfo();
     setDrawDefaults();
     $('resetBtn').disabled=false;
+    // 불러온 사진을 자동 분석해서 보정이 필요하면 알려주기
+    setTimeout(()=>{
+      try{
+        const a = analyzePhoto(canvas);
+        if(a && (a.mean<105 || a.mean>170 || a.std<48 || a.sat<0.22)){
+          toast('💡 이 사진, [보정] 탭의 추천 보정으로 더 좋아질 수 있어요!','ok');
+        }
+      }catch(e){}
+    }, 400);
     $('compareBtn').disabled=false;
     $('copyBtn').disabled=false;
     $('quickSaveBtn').disabled=false;
@@ -2269,7 +2288,79 @@
     pushHistory();
     adjSnapshot();             // 적용본을 새 기준으로
     adjResetSliders();
+    $('autoAdjustResult').style.display='none';
     toast('보정을 적용했어요','ok');
+  });
+
+  // ---- 사진 자동 분석 → 추천 보정 ----
+  function analyzePhoto(srcCanvas){
+    const src = srcCanvas || S.adjBase || canvas;
+    const w=src.width, h=src.height;
+    if(!w || !h) return null;
+    const s=Math.min(1, 240/Math.max(w,h));
+    const aw=Math.max(1,Math.round(w*s)), ah=Math.max(1,Math.round(h*s));
+    const t=document.createElement('canvas'); t.width=aw; t.height=ah;
+    const tc=t.getContext('2d'); tc.drawImage(src,0,0,aw,ah);
+    let d; try{ d=tc.getImageData(0,0,aw,ah).data; }catch(e){ return null; }
+    let sum=0,sum2=0,satSum=0,n=0;
+    for(let i=0;i<d.length;i+=4){
+      if(d[i+3]<10) continue; // 배경제거 후 투명 픽셀은 제외
+      const r=d[i],g=d[i+1],b=d[i+2];
+      const lum=0.299*r+0.587*g+0.114*b;
+      sum+=lum; sum2+=lum*lum;
+      const mx=Math.max(r,g,b);
+      satSum += mx===0 ? 0 : (mx-Math.min(r,g,b))/mx;
+      n++;
+    }
+    if(n<50) return null;
+    const mean=sum/n;
+    const std=Math.sqrt(Math.max(0, sum2/n - mean*mean));
+    return { mean, std, sat: satSum/n };
+  }
+  function recommendAdjust(a){
+    const clamp=(v,lo,hi)=>Math.max(lo,Math.min(hi,Math.round(v)));
+    let br=100, co=100, sa=100;
+    const reasons=[];
+    if(a.mean < 105){          // 어두운 사진
+      br = clamp(100 + (118 - a.mean)*0.55, 105, 135);
+      reasons.push('🌙 사진이 조금 어두워요 → 밝기 '+br+'%');
+    } else if(a.mean > 170){   // 너무 밝은(하얗게 뜬) 사진
+      br = clamp(100 - (a.mean - 155)*0.4, 78, 96);
+      reasons.push('☀️ 사진이 너무 밝아요 → 밝기 '+br+'%');
+    }
+    if(a.std < 48){            // 대비가 낮아 뿌연 사진
+      co = clamp(100 + (52 - a.std)*0.7, 104, 125);
+      reasons.push('🌫️ 사진이 뿌옇고 흐릿해요 → 대비 '+co+'%');
+    }
+    if(a.sat < 0.22){          // 색이 바랜 사진
+      sa = clamp(100 + (0.28 - a.sat)*90, 105, 125);
+      reasons.push('🎨 색이 옅고 바래 보여요 → 채도 '+sa+'%');
+    } else if(a.sat > 0.62){   // 색이 과한 사진
+      sa = 92;
+      reasons.push('🌈 색이 조금 과해요 → 채도 92%');
+    }
+    return { br, co, sa, reasons };
+  }
+  $('autoAdjustBtn').addEventListener('click', ()=>{
+    if(!S.loaded){ toast('먼저 이미지를 불러오세요','error'); return; }
+    if(!S.adjBase) adjSnapshot();
+    const a = analyzePhoto();
+    const box = $('autoAdjustResult');
+    if(!a){ toast('사진을 분석할 수 없어요','error'); return; }
+    const rec = recommendAdjust(a);
+    if(!rec.reasons.length){
+      adjResetSliders(); adjRestoreBase();
+      box.textContent='👍 이미 밝기·또렷함·색감이 알맞은 사진이에요! 따로 보정하지 않아도 좋습니다.';
+      box.style.display='block';
+      toast('이미 잘 나온 사진이에요','ok');
+      return;
+    }
+    $('brightness').value=rec.br; $('contrast').value=rec.co; $('saturate').value=rec.sa;
+    $('brVal').textContent=rec.br; $('coVal').textContent=rec.co; $('saVal').textContent=rec.sa;
+    adjPreview();
+    box.textContent = rec.reasons.join('\n') + '\n\n미리보기가 마음에 들면 아래 [적용하기]를 누르세요. 슬라이더를 직접 움직여 더 다듬어도 좋아요.';
+    box.style.display='block';
+    toast('추천 보정을 미리보기로 적용했어요','ok');
   });
 
 
