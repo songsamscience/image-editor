@@ -541,6 +541,10 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="8" height="14" rx="2"/><rect x="13" y="5" width="8" height="14" rx="2"/><path d="M7 9h.01M17 9h.01"/><path d="M5 16l2-2 2 2"/><path d="M15 16l2-2 2 2"/></svg>
       원본 비교
     </button>
+    <button class="btn" id="batchModeBtn" title="여러 장을 한꺼번에 배경 제거·보정·저장">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="7" width="14" height="14" rx="2"/><path d="M3 17V5a2 2 0 0 1 2-2h12"/><path d="m10 15 2.5-3 2 2.4L16 12l3 4"/></svg>
+      일괄 편집
+    </button>
     <button class="btn" id="newBtn" title="새 이미지 불러오기">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M17 8l-5-5-5 5"/><path d="M12 3v12"/></svg>
       새 이미지
@@ -1009,6 +1013,7 @@
           <h2 class="font-jua">이미지를 올려주세요</h2>
           <p>여기로 사진을 끌어다 놓거나<br/>클릭해서 파일을 선택하세요</p>
           <button class="btn primary">파일 선택하기</button>
+          <p class="drop-multi-hint">💡 여러 장을 한꺼번에 선택하면<br/><b>일괄 편집 모드</b>가 열려요 (배경 제거·보정을 한 번에!)</p>
         </div>
       </div>
       <div class="canvas-inner" id="canvasInner" style="display:none;">
@@ -1070,10 +1075,138 @@
   </div>
 </div>
 
+<!-- Batch editing modal -->
+<div class="modal-backdrop" id="batchModal" aria-hidden="true">
+  <div class="modal-card batch" role="dialog" aria-modal="true" aria-labelledby="batchTitle">
+    <div class="modal-head">
+      <div class="modal-ic">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="7" width="14" height="14" rx="2"/><path d="M3 17V5a2 2 0 0 1 2-2h12"/><path d="m10 15 2.5-3 2 2.4L16 12l3 4"/></svg>
+      </div>
+      <div>
+        <h2 class="modal-title" id="batchTitle">여러 장 일괄 편집</h2>
+        <p class="modal-desc">올린 사진 전체에 배경 제거와 보정을 한 번에 적용하고, 한꺼번에 저장합니다. 모든 처리는 내 기기 안에서만 이루어져요.</p>
+      </div>
+    </div>
+
+    <div class="batch-options">
+      <div class="batch-opt">
+        <div class="batch-opt-title">🪄 배경 제거</div>
+        <select id="batchBg">
+          <option value="none">사용 안 함</option>
+          <option value="ai" selected>AI 자동 배경 제거</option>
+          <option value="corner">테두리 배경색 자동 제거</option>
+        </select>
+        <div id="batchTolWrap" style="display:none;margin-top:8px;">
+          <label class="batch-mini-label">색 허용 범위 <b id="batchTolVal">30</b></label>
+          <input type="range" id="batchTol" min="5" max="90" value="30" />
+        </div>
+        <div class="hint" id="batchBgHint">AI가 인물·사물만 남기고 배경을 지워요. (첫 사용 시 모델 다운로드)</div>
+      </div>
+      <div class="batch-opt">
+        <div class="batch-opt-title">🎨 사진 보정</div>
+        <select id="batchAdj">
+          <option value="none" selected>사용 안 함</option>
+          <option value="auto">자동 추천 보정 (사진마다 알아서)</option>
+          <option value="manual">직접 설정 (전체 동일하게)</option>
+        </select>
+        <div id="batchManualWrap" style="display:none;margin-top:8px;">
+          <label class="batch-mini-label">밝기 <b id="batchBrVal">100</b>%</label>
+          <input type="range" id="batchBr" min="50" max="160" value="100" />
+          <label class="batch-mini-label">대비 <b id="batchCoVal">100</b>%</label>
+          <input type="range" id="batchCo" min="50" max="160" value="100" />
+          <label class="batch-mini-label">채도 <b id="batchSaVal">100</b>%</label>
+          <input type="range" id="batchSa" min="0" max="200" value="100" />
+        </div>
+        <div class="hint">자동 추천은 어둡거나 뿌연 사진만 골라서 알맞게 보정해요.</div>
+      </div>
+      <div class="batch-opt">
+        <div class="batch-opt-title">💾 저장 설정</div>
+        <label class="batch-mini-label">파일 형식</label>
+        <select id="batchFormat">
+          <option value="png" selected>PNG (투명 배경 유지)</option>
+          <option value="jpg">JPG (흰 배경, 용량 작음)</option>
+        </select>
+        <label class="batch-mini-label" style="margin-top:8px;">크기 줄이기</label>
+        <select id="batchSize">
+          <option value="0" selected>원본 크기 유지</option>
+          <option value="1920">긴 변 1920px</option>
+          <option value="1280">긴 변 1280px</option>
+          <option value="800">긴 변 800px</option>
+        </select>
+        <div class="hint">배경을 제거했다면 PNG로 저장해야 투명하게 유지돼요.</div>
+      </div>
+    </div>
+
+    <div class="batch-grid" id="batchGrid"></div>
+
+    <div class="batch-progress" id="batchProgress" style="display:none;">
+      <div class="batch-bar"><div class="batch-bar-fill" id="batchBarFill"></div></div>
+      <div class="batch-prog-text" id="batchProgText">준비 중...</div>
+    </div>
+
+    <div class="modal-actions batch-actions">
+      <button class="btn" id="batchAddBtn">➕ 사진 추가</button>
+      <span class="batch-actions-spacer"></span>
+      <button class="btn primary" id="batchRunBtn">🚀 전체 처리 시작</button>
+      <button class="btn" id="batchZipBtn" disabled>📦 ZIP으로 모두 저장</button>
+      <button class="btn" id="batchEachBtn" disabled>⬇️ 한 장씩 모두 저장</button>
+      <button class="btn" id="batchCloseBtn">닫기</button>
+    </div>
+  </div>
+</div>
+
+<style>
+.modal-card.batch{width:min(1120px,96vw);max-height:92vh;overflow-y:auto;}
+.batch-options{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0;}
+.batch-opt{background:rgba(0,0,0,.035);border-radius:14px;padding:12px;}
+[data-theme="dark"] .batch-opt{background:rgba(255,255,255,.05);}
+.batch-opt-title{font-weight:700;font-size:14px;margin-bottom:8px;}
+.batch-opt select{width:100%;padding:8px 10px;border-radius:10px;border:1px solid rgba(0,0,0,.15);font:inherit;font-size:13px;background:var(--panel,#fff);color:inherit;}
+.batch-opt input[type="range"]{width:100%;}
+.batch-mini-label{display:block;font-size:12px;opacity:.85;margin:4px 0 2px;}
+.batch-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;min-height:120px;}
+.batch-empty-msg{grid-column:1/-1;text-align:center;opacity:.6;font-size:14px;padding:36px 0;}
+.batch-item{position:relative;border:1px solid rgba(0,0,0,.12);border-radius:12px;overflow:hidden;background:var(--panel,#fff);display:flex;flex-direction:column;}
+[data-theme="dark"] .batch-item{border-color:rgba(255,255,255,.14);background:rgba(255,255,255,.04);}
+.batch-thumb-wrap{aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;background:repeating-conic-gradient(#e3e3e3 0% 25%, #fff 0% 50%) 0 0/16px 16px;}
+[data-theme="dark"] .batch-thumb-wrap{background:repeating-conic-gradient(#3a3a44 0% 25%, #2a2a32 0% 50%) 0 0/16px 16px;}
+.batch-thumb-wrap canvas{max-width:100%;max-height:100%;display:block;}
+.batch-item-name{font-size:11px;padding:5px 8px 0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;opacity:.85;}
+.batch-item-foot{display:flex;align-items:center;gap:4px;padding:4px 6px 6px;}
+.batch-status{font-size:11px;font-weight:700;padding:2px 8px;border-radius:20px;background:rgba(0,0,0,.08);}
+.batch-status.work{background:#FFE9A8;color:#7a5b00;}
+.batch-status.done{background:#C9F2D0;color:#14691f;}
+.batch-status.error{background:#FFD2CE;color:#a02318;}
+[data-theme="dark"] .batch-status{background:rgba(255,255,255,.12);}
+[data-theme="dark"] .batch-status.work{background:#5c4a12;color:#ffe8a3;}
+[data-theme="dark"] .batch-status.done{background:#1d4d26;color:#b8f0c2;}
+[data-theme="dark"] .batch-status.error{background:#5e1f19;color:#ffc9c4;}
+.batch-item-foot .spacer{flex:1;}
+.batch-mini-btn{border:none;background:rgba(0,0,0,.07);border-radius:8px;width:26px;height:26px;cursor:pointer;font-size:13px;line-height:1;display:flex;align-items:center;justify-content:center;color:inherit;}
+.batch-mini-btn:hover{background:rgba(0,0,0,.15);}
+[data-theme="dark"] .batch-mini-btn{background:rgba(255,255,255,.12);}
+[data-theme="dark"] .batch-mini-btn:hover{background:rgba(255,255,255,.22);}
+.batch-x{position:absolute;top:6px;right:6px;width:24px;height:24px;border:none;border-radius:50%;background:rgba(0,0,0,.55);color:#fff;cursor:pointer;font-size:13px;line-height:1;display:flex;align-items:center;justify-content:center;}
+.batch-x:hover{background:rgba(200,30,30,.85);}
+.batch-progress{margin:12px 0 2px;}
+.batch-bar{height:10px;border-radius:8px;background:rgba(0,0,0,.1);overflow:hidden;}
+[data-theme="dark"] .batch-bar{background:rgba(255,255,255,.12);}
+.batch-bar-fill{height:100%;width:0%;border-radius:8px;background:linear-gradient(90deg,#FFB2AC,#F58C84);transition:width .25s;}
+.batch-prog-text{font-size:12px;margin-top:6px;opacity:.85;}
+.batch-actions{flex-wrap:wrap;}
+.batch-actions-spacer{flex:1;}
+.drop-multi-hint{margin-top:14px;font-size:12.5px;opacity:.75;line-height:1.5;}
+@media (max-width:760px){
+  .batch-options{grid-template-columns:1fr;}
+  .batch-grid{grid-template-columns:repeat(auto-fill,minmax(110px,1fr));}
+  .batch-actions .btn{flex:1 1 45%;justify-content:center;}
+}
+</style>
+
 <div id="cursor-ring"></div>
 <div id="toast-wrap"></div>
 <div id="loading"><div class="spinner"></div><div class="msg" id="loadingMsg">처리 중...</div></div>
-<input type="file" id="fileInput" accept="image/*" />
+<input type="file" id="fileInput" accept="image/*" multiple />
 
 <script>
 (function(){
@@ -1143,7 +1276,13 @@
   const fileInput = $('fileInput');
   $('dropZone').addEventListener('click', ()=> fileInput.click());
   $('newBtn').addEventListener('click', ()=> fileInput.click());
-  fileInput.addEventListener('change', e=>{ if(e.target.files[0]) loadFile(e.target.files[0]); fileInput.value=''; });
+  fileInput.addEventListener('change', e=>{
+    const files = Array.from(e.target.files||[]);
+    if(B.picking){ B.picking=false; if(files.length) batchAddFiles(files, true); }
+    else if(files.length>1) batchAddFiles(files, true);
+    else if(files[0]) loadFile(files[0]);
+    fileInput.value='';
+  });
 
   // ---- Header: 이미지 복사 / 빠른 저장 ----
   $('copyBtn').addEventListener('click', async ()=>{
@@ -1169,9 +1308,18 @@
   const dz = $('dropZone');
   ['dragenter','dragover'].forEach(ev=> dz.addEventListener(ev, e=>{ e.preventDefault(); dz.classList.add('drag'); }));
   ['dragleave','drop'].forEach(ev=> dz.addEventListener(ev, e=>{ e.preventDefault(); dz.classList.remove('drag'); }));
-  dz.addEventListener('drop', e=>{ const f=e.dataTransfer.files[0]; if(f) loadFile(f); });
+  dz.addEventListener('drop', e=>{
+    const fs=Array.from(e.dataTransfer.files||[]);
+    if(fs.length>1) batchAddFiles(fs, true);
+    else if(fs[0]) loadFile(fs[0]);
+  });
   window.addEventListener('dragover', e=>e.preventDefault());
-  window.addEventListener('drop', e=>{ e.preventDefault(); if(!S.loaded && e.dataTransfer.files[0]) loadFile(e.dataTransfer.files[0]); });
+  window.addEventListener('drop', e=>{
+    e.preventDefault();
+    const fs=Array.from(e.dataTransfer.files||[]);
+    if(fs.length>1) batchAddFiles(fs, true);
+    else if(!S.loaded && fs[0]) loadFile(fs[0]);
+  });
   // paste
   window.addEventListener('paste', e=>{
     const items = e.clipboardData && e.clipboardData.items;
@@ -1189,7 +1337,7 @@
   }
 
   function setupImage(img){
-    let w = img.naturalWidth, h = img.naturalHeight;
+    let w = img.naturalWidth || img.width, h = img.naturalHeight || img.height;
     const scale = Math.min(1, MAX_DIM/Math.max(w,h));
     w = Math.max(1, Math.round(w*scale)); h = Math.max(1, Math.round(h*scale));
     if(scale<1) toast('큰 이미지라 편집을 위해 '+w+'×'+h+'로 조정했어요','ok');
@@ -1198,6 +1346,11 @@
     const octx = S.origCanvas.getContext('2d');
     octx.clearRect(0,0,w,h); octx.drawImage(img,0,0,w,h);
     ctx.clearRect(0,0,w,h); ctx.drawImage(img,0,0,w,h);
+    // 처음 불러온 원본 백업 (초기화·원본 비교용)
+    S.sourceCanvas.width=w; S.sourceCanvas.height=h;
+    const sctx = S.sourceCanvas.getContext('2d');
+    sctx.clearRect(0,0,w,h); sctx.drawImage(img,0,0,w,h);
+    try{ S.sourceData = sctx.getImageData(0,0,w,h); }catch(e){ S.sourceData=null; }
     S.loaded=true;
     S.history=[]; S.hIndex=-1;
     S.cropRect=null;
@@ -1624,11 +1777,12 @@
     ctx.putImageData(id,0,0);
     pushHistory();
   }
-  function cornerRemove(){
-    if(!S.loaded) return;
-    const w=canvas.width,h=canvas.height;
-    const id=ctx.getImageData(0,0,w,h), d=id.data;
-    const tol=+$('tolerance').value; const tol2=tol*tol*3;
+  // 캔버스 하나의 테두리 배경색을 제거하는 공용 함수 (단일/일괄 편집 공용)
+  function cornerRemoveCanvas(cv, tol){
+    const w=cv.width,h=cv.height;
+    const cctx=cv.getContext('2d', { willReadFrequently:true });
+    const id=cctx.getImageData(0,0,w,h), d=id.data;
+    const tol2=tol*tol*3;
     const corners=[0,(w-1),(h-1)*w,(h-1)*w+(w-1)].map(p=>p*4);
     function matchAny(i){
       for(const c of corners){
@@ -1650,7 +1804,11 @@
       if(y>0 && !seen[p-w]){seen[p-w]=1;stack.push(p-w);}
       if(y<h-1 && !seen[p+w]){seen[p+w]=1;stack.push(p+w);}
     }
-    ctx.putImageData(id,0,0);
+    cctx.putImageData(id,0,0);
+  }
+  function cornerRemove(){
+    if(!S.loaded) return;
+    cornerRemoveCanvas(canvas, +$('tolerance').value);
     pushHistory();
     toast('모서리 배경색을 제거했어요','ok');
   }
@@ -1677,21 +1835,38 @@
   // ============================================================
   //  AI background removal (optional, downloads model on first use)
   // ============================================================
+  let aiRemoverPromise=null;
+  function getAiRemover(){
+    if(!aiRemoverPromise){
+      aiRemoverPromise = import('https://cdn.jsdelivr.net/npm/@imgly/background-removal/+esm').then(mod=>{
+        const fn = mod.removeBackground || (mod.default && mod.default.removeBackground) || mod.default;
+        if(typeof fn!=='function') throw new Error('no fn');
+        return fn;
+      });
+      aiRemoverPromise.catch(()=>{ aiRemoverPromise=null; }); // 실패 시 다음에 다시 시도
+    }
+    return aiRemoverPromise;
+  }
+  // 캔버스 하나의 배경을 AI로 제거 (단일/일괄 편집 공용)
+  async function aiRemoveCanvas(cv){
+    const removeBackground = await getAiRemover();
+    const blob = await new Promise(res=> cv.toBlob(res,'image/png'));
+    const resBlob = await removeBackground(blob, { output:{ format:'image/png' } });
+    const url = URL.createObjectURL(resBlob);
+    try{
+      const img = await new Promise((res,rej)=>{ const im=new Image(); im.onload=()=>res(im); im.onerror=rej; im.src=url; });
+      const cctx = cv.getContext('2d');
+      cctx.clearRect(0,0,cv.width,cv.height);
+      cctx.drawImage(img,0,0,cv.width,cv.height);
+    } finally { URL.revokeObjectURL(url); }
+  }
   $('aiRemoveBtn').addEventListener('click', async ()=>{
     if(!S.loaded){ toast('먼저 이미지를 불러와 주세요','error'); return; }
     showLoading('AI 모델을 불러오는 중...\n(처음엔 다운로드로 시간이 걸려요)');
     try{
-      const mod = await import('https://cdn.jsdelivr.net/npm/@imgly/background-removal/+esm');
-      const removeBackground = mod.removeBackground || (mod.default && mod.default.removeBackground) || mod.default;
-      if(typeof removeBackground!=='function') throw new Error('no fn');
-      const blob = await new Promise(res=> canvas.toBlob(res,'image/png'));
+      await getAiRemover();
       $('loadingMsg').textContent='배경을 분석하고 있어요...';
-      const resBlob = await removeBackground(blob, { output:{ format:'image/png' } });
-      const url = URL.createObjectURL(resBlob);
-      const img = await new Promise((res,rej)=>{ const im=new Image(); im.onload=()=>res(im); im.onerror=rej; im.src=url; });
-      ctx.clearRect(0,0,canvas.width,canvas.height);
-      ctx.drawImage(img,0,0,canvas.width,canvas.height);
-      URL.revokeObjectURL(url);
+      await aiRemoveCanvas(canvas);
       pushHistory();
       hideLoading();
       toast('AI로 배경을 제거했어요','ok');
@@ -2493,6 +2668,295 @@
     const fi=formatInfo();
     download(buildExportCanvas(fi.white), fi.type, fi.ext, fi.q);
   });
+
+  // ============================================================
+  //  여러 장 일괄 편집 (배경 제거 · 보정 · 일괄 저장)
+  // ============================================================
+  const B = { items:[], busy:false, seq:0, picking:false };
+
+  function batchRefreshButtons(){
+    const has = B.items.length>0;
+    $('batchRunBtn').disabled = B.busy;
+    $('batchZipBtn').disabled = !has || B.busy;
+    $('batchEachBtn').disabled = !has || B.busy;
+    $('batchAddBtn').disabled = B.busy;
+    $('batchCloseBtn').disabled = B.busy;
+  }
+  function batchSetBusy(v){ B.busy=v; batchRefreshButtons(); }
+
+  function batchSyncEmpty(){
+    const grid=$('batchGrid');
+    const msg=grid.querySelector('.batch-empty-msg');
+    if(B.items.length){ if(msg) msg.remove(); }
+    else if(!msg){
+      const d=document.createElement('div'); d.className='batch-empty-msg';
+      d.textContent='아직 사진이 없어요. [➕ 사진 추가] 버튼을 눌러 여러 장을 선택해 보세요.';
+      grid.appendChild(d);
+    }
+  }
+
+  function batchDrawThumb(it){
+    const src=it.outCanvas||it.srcCanvas;
+    const s=Math.min(1, 320/Math.max(src.width,src.height));
+    const w=Math.max(1,Math.round(src.width*s)), h=Math.max(1,Math.round(src.height*s));
+    it.thumb.width=w; it.thumb.height=h;
+    const c=it.thumb.getContext('2d');
+    c.clearRect(0,0,w,h); c.drawImage(src,0,0,w,h);
+  }
+  function batchSetStatus(it, status){
+    it.status=status;
+    const map={ wait:['대기',''], work:['처리 중…','work'], done:['완료 ✓','done'], error:['실패','error'] };
+    it.statusEl.textContent=map[status][0];
+    it.statusEl.className='batch-status'+(map[status][1]?' '+map[status][1]:'');
+  }
+
+  function batchMakeItem(name, srcCanvas){
+    const it={ id:++B.seq, name, srcCanvas, outCanvas:null, status:'wait' };
+    const el=document.createElement('div'); el.className='batch-item';
+    const tw=document.createElement('div'); tw.className='batch-thumb-wrap';
+    const tc=document.createElement('canvas'); tw.appendChild(tc);
+    const nm=document.createElement('div'); nm.className='batch-item-name'; nm.textContent=name; nm.title=name;
+    const foot=document.createElement('div'); foot.className='batch-item-foot';
+    const st=document.createElement('span'); st.className='batch-status'; st.textContent='대기';
+    const sp=document.createElement('span'); sp.className='spacer';
+    const editBtn=document.createElement('button'); editBtn.className='batch-mini-btn'; editBtn.title='이 사진만 편집기에서 자세히 편집'; editBtn.textContent='✏️';
+    const dlBtn=document.createElement('button'); dlBtn.className='batch-mini-btn'; dlBtn.title='이 사진만 저장'; dlBtn.textContent='⬇';
+    const x=document.createElement('button'); x.className='batch-x'; x.title='목록에서 빼기'; x.textContent='✕';
+    foot.append(st,sp,editBtn,dlBtn);
+    el.append(x,tw,nm,foot);
+    it.el=el; it.thumb=tc; it.statusEl=st;
+    editBtn.addEventListener('click', ()=> batchOpenInEditor(it));
+    dlBtn.addEventListener('click', ()=> batchSaveOne(it));
+    x.addEventListener('click', ()=>{
+      if(B.busy) return;
+      B.items=B.items.filter(o=>o!==it);
+      el.remove(); batchSyncEmpty(); batchRefreshButtons();
+    });
+    batchDrawThumb(it);
+    return it;
+  }
+
+  function fileToCanvas(file){
+    return new Promise((res,rej)=>{
+      const url=URL.createObjectURL(file);
+      const img=new Image();
+      img.onload=()=>{
+        let w=img.naturalWidth,h=img.naturalHeight;
+        const sc=Math.min(1, MAX_DIM/Math.max(w,h));
+        w=Math.max(1,Math.round(w*sc)); h=Math.max(1,Math.round(h*sc));
+        const c=document.createElement('canvas'); c.width=w; c.height=h;
+        c.getContext('2d').drawImage(img,0,0,w,h);
+        URL.revokeObjectURL(url); res(c);
+      };
+      img.onerror=()=>{ URL.revokeObjectURL(url); rej(new Error('이미지 로드 실패')); };
+      img.src=url;
+    });
+  }
+
+  async function batchAddFiles(files, openToo){
+    const imgs=Array.from(files).filter(f=> f && f.type && f.type.indexOf('image')===0);
+    if(!imgs.length){ toast('이미지 파일만 불러올 수 있어요','error'); return; }
+    if(openToo) openModal('batchModal');
+    let ok=0;
+    for(const f of imgs){
+      try{
+        const c=await fileToCanvas(f);
+        const it=batchMakeItem(f.name||('사진_'+(B.seq+1)), c);
+        B.items.push(it);
+        batchSyncEmpty();
+        $('batchGrid').appendChild(it.el);
+        ok++;
+      }catch(e){ console.warn('batch load fail:', f && f.name, e); }
+    }
+    batchRefreshButtons();
+    if(ok) toast(ok+'장의 사진을 일괄 편집 목록에 담았어요','ok');
+    else toast('사진을 불러오지 못했어요','error');
+  }
+
+  // ---- 일괄 처리 도우미 ----
+  function cloneCanvas(src){
+    const c=document.createElement('canvas'); c.width=src.width; c.height=src.height;
+    c.getContext('2d').drawImage(src,0,0); return c;
+  }
+  function filterCanvas(cv, filterStr){
+    const t=cloneCanvas(cv);
+    const c=cv.getContext('2d');
+    c.clearRect(0,0,cv.width,cv.height);
+    c.filter=filterStr; c.drawImage(t,0,0); c.filter='none';
+  }
+  function autoAdjustCanvas(cv){
+    const a=analyzePhoto(cv); if(!a) return false;
+    const rec=recommendAdjust(a);
+    if(rec.br===100 && rec.co===100 && rec.sa===100) return false;
+    filterCanvas(cv,'brightness('+rec.br+'%) contrast('+rec.co+'%) saturate('+rec.sa+'%)');
+    return true;
+  }
+
+  async function batchRun(){
+    if(B.busy) return;
+    if(!B.items.length){ toast('먼저 사진을 추가해 주세요','error'); return; }
+    const bgMode=$('batchBg').value, adjMode=$('batchAdj').value;
+    if(bgMode==='none' && adjMode==='none'){
+      toast('배경 제거나 보정 중 하나 이상을 선택해 주세요','error'); return;
+    }
+    batchSetBusy(true);
+    $('batchProgress').style.display='block';
+    $('batchBarFill').style.width='0%';
+    const total=B.items.length; let done=0, fail=0;
+    if(bgMode==='ai'){
+      $('batchProgText').textContent='AI 모델을 준비하는 중... (처음엔 다운로드로 시간이 걸려요)';
+      try{ await getAiRemover(); }
+      catch(e){
+        console.warn('AI model load failed:', e);
+        batchSetBusy(false); $('batchProgress').style.display='none';
+        toast('AI 모델을 불러오지 못했어요. 인터넷 연결을 확인하거나 "테두리 배경색 자동 제거"를 사용해 보세요.','error');
+        return;
+      }
+    }
+    for(const it of B.items){
+      batchSetStatus(it,'work');
+      $('batchProgText').textContent=(done+1)+' / '+total+' — "'+it.name+'" 처리 중...';
+      await new Promise(r=>setTimeout(r,30)); // 화면 갱신 여유
+      try{
+        const c=cloneCanvas(it.srcCanvas);
+        if(bgMode==='ai') await aiRemoveCanvas(c);
+        else if(bgMode==='corner') cornerRemoveCanvas(c, +$('batchTol').value);
+        if(adjMode==='auto') autoAdjustCanvas(c);
+        else if(adjMode==='manual') filterCanvas(c,'brightness('+$('batchBr').value+'%) contrast('+$('batchCo').value+'%) saturate('+$('batchSa').value+'%)');
+        it.outCanvas=c;
+        batchDrawThumb(it);
+        batchSetStatus(it,'done');
+      }catch(err){
+        console.warn('batch process fail:', it.name, err);
+        batchSetStatus(it,'error'); fail++;
+      }
+      done++;
+      $('batchBarFill').style.width=Math.round(done/total*100)+'%';
+    }
+    $('batchProgText').textContent = fail
+      ? '완료: '+(total-fail)+'장 성공, '+fail+'장 실패 — 실패한 사진은 ✏️로 열어 직접 편집해 보세요.'
+      : total+'장 모두 처리 완료! 아래 버튼으로 한꺼번에 저장하세요.';
+    batchSetBusy(false);
+    toast(fail ? (total-fail)+'장 처리 완료, '+fail+'장 실패' : '전체 '+total+'장 처리 완료!', fail?'error':'ok');
+  }
+
+  // ---- 일괄 저장 ----
+  function batchFormatInfo(){
+    return $('batchFormat').value==='jpg'
+      ? { type:'image/jpeg', ext:'jpg', white:true, q:0.92 }
+      : { type:'image/png', ext:'png', white:false, q:undefined };
+  }
+  function batchExportCanvas(it, fi){
+    const src=it.outCanvas||it.srcCanvas;
+    const long=+$('batchSize').value;
+    let w=src.width, h=src.height;
+    if(long>0){ const r=Math.min(1,long/Math.max(w,h)); w=Math.max(1,Math.round(w*r)); h=Math.max(1,Math.round(h*r)); }
+    const c=document.createElement('canvas'); c.width=w; c.height=h;
+    const cx=c.getContext('2d');
+    if(fi.white){ cx.fillStyle='#ffffff'; cx.fillRect(0,0,w,h); }
+    cx.imageSmoothingEnabled=true; cx.imageSmoothingQuality='high';
+    cx.drawImage(src,0,0,w,h);
+    return c;
+  }
+  function batchBaseName(name){ return ((name||'사진').replace(/\.[^.]+$/,'')||'사진'); }
+  function canvasToBlob(c, type, q){ return new Promise(res=> c.toBlob(res, type, q)); }
+  function saveBlob(blob, filename){
+    const a=document.createElement('a');
+    a.download=filename; a.href=URL.createObjectURL(blob); a.click();
+    setTimeout(()=>URL.revokeObjectURL(a.href),1500);
+  }
+  function batchUniqueNames(fi){
+    const used={};
+    return B.items.map(it=>{
+      const base=batchBaseName(it.name);
+      let fn=base+'_편집.'+fi.ext, n=2;
+      while(used[fn]){ fn=base+'_편집('+n+').'+fi.ext; n++; }
+      used[fn]=1;
+      return fn;
+    });
+  }
+
+  async function batchSaveOne(it){
+    if(B.busy) return;
+    const fi=batchFormatInfo();
+    const blob=await canvasToBlob(batchExportCanvas(it,fi), fi.type, fi.q);
+    if(!blob){ toast('저장에 실패했어요','error'); return; }
+    saveBlob(blob, batchBaseName(it.name)+'_편집.'+fi.ext);
+    toast('"'+it.name+'" 저장 완료 ('+fmtBytes(blob.size)+')','ok');
+  }
+
+  async function batchSaveZip(){
+    if(B.busy || !B.items.length) return;
+    batchSetBusy(true);
+    showLoading('ZIP 파일을 만드는 중...');
+    try{
+      const mod=await import('https://cdn.jsdelivr.net/npm/jszip@3.10.1/+esm');
+      const JSZip=mod.default||mod;
+      const zip=new JSZip();
+      const fi=batchFormatInfo();
+      const names=batchUniqueNames(fi);
+      for(let i=0;i<B.items.length;i++){
+        const blob=await canvasToBlob(batchExportCanvas(B.items[i],fi), fi.type, fi.q);
+        if(blob) zip.file(names[i], blob);
+      }
+      const zb=await zip.generateAsync({type:'blob'});
+      const ts=new Date();
+      const stamp=ts.getFullYear()+('0'+(ts.getMonth()+1)).slice(-2)+('0'+ts.getDate()).slice(-2)+'_'+('0'+ts.getHours()).slice(-2)+('0'+ts.getMinutes()).slice(-2);
+      saveBlob(zb,'송쌤과학_일괄편집_'+stamp+'.zip');
+      hideLoading();
+      toast(B.items.length+'장을 ZIP으로 저장했어요 ('+fmtBytes(zb.size)+')','ok');
+    }catch(err){
+      hideLoading();
+      console.warn('zip save failed:', err);
+      toast('ZIP 저장에 실패했어요. 인터넷 연결을 확인하거나 [한 장씩 모두 저장]을 이용해 주세요.','error');
+    }
+    batchSetBusy(false);
+  }
+
+  async function batchSaveEach(){
+    if(B.busy || !B.items.length) return;
+    batchSetBusy(true);
+    const fi=batchFormatInfo();
+    const names=batchUniqueNames(fi);
+    toast('브라우저가 "여러 파일 다운로드" 허용을 물으면 [허용]을 눌러 주세요','ok');
+    let saved=0;
+    for(let i=0;i<B.items.length;i++){
+      const blob=await canvasToBlob(batchExportCanvas(B.items[i],fi), fi.type, fi.q);
+      if(blob){ saveBlob(blob, names[i]); saved++; }
+      await new Promise(r=>setTimeout(r,450)); // 연속 다운로드 차단 방지
+    }
+    batchSetBusy(false);
+    toast(saved+'장 저장을 마쳤어요','ok');
+  }
+
+  function batchOpenInEditor(it){
+    if(B.busy) return;
+    setupImage(it.outCanvas||it.srcCanvas);
+    closeModal('batchModal');
+    toast('"'+it.name+'" 사진을 편집기로 가져왔어요. 세부 편집 후 [저장] 하세요.','ok');
+  }
+
+  // ---- 일괄 편집 UI 이벤트 ----
+  $('batchBg').addEventListener('change', ()=>{
+    const v=$('batchBg').value;
+    $('batchTolWrap').style.display = v==='corner' ? 'block' : 'none';
+    $('batchBgHint').textContent =
+      v==='ai' ? 'AI가 인물·사물만 남기고 배경을 지워요. (첫 사용 시 모델 다운로드)' :
+      v==='corner' ? '사진 네 모서리와 비슷한 색을 배경으로 보고 지워요. 단색 배경 사진에 좋아요.' :
+      '배경은 그대로 두고 보정·크기 변경만 할 수 있어요.';
+  });
+  $('batchTol').addEventListener('input', ()=> $('batchTolVal').textContent=$('batchTol').value);
+  $('batchAdj').addEventListener('change', ()=> $('batchManualWrap').style.display = $('batchAdj').value==='manual' ? 'block' : 'none');
+  [['batchBr','batchBrVal'],['batchCo','batchCoVal'],['batchSa','batchSaVal']].forEach(p=>{
+    $(p[0]).addEventListener('input', ()=> $(p[1]).textContent=$(p[0]).value);
+  });
+  $('batchModeBtn').addEventListener('click', ()=>{ openModal('batchModal'); });
+  $('batchAddBtn').addEventListener('click', ()=>{ B.picking=true; fileInput.click(); });
+  $('batchRunBtn').addEventListener('click', batchRun);
+  $('batchZipBtn').addEventListener('click', batchSaveZip);
+  $('batchEachBtn').addEventListener('click', batchSaveEach);
+  $('batchCloseBtn').addEventListener('click', ()=>{ if(B.busy) return; B.picking=false; closeModal('batchModal'); });
+  batchSyncEmpty();
 
 })();
 </script>
