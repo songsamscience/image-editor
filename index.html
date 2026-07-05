@@ -904,13 +904,8 @@
       </div>
       <div class="group" id="drawTextGroup" style="display:none;">
         <hr class="divider" />
-        <div class="group-title">🔤 넣을 글씨</div>
-        <textarea id="drawText" rows="2" placeholder="여기에 넣을 글씨를 입력하세요" style="font-family:inherit;font-size:13px;padding:9px 10px;border-radius:10px;border:1.5px solid var(--line-strong);background:var(--card);color:var(--ink);width:100%;resize:vertical;line-height:1.4;"></textarea>
-        <div class="field" style="margin-top:12px;">
-          <label>글자 크기 <span class="val" id="drawFontVal">48</span>px</label>
-          <input type="range" id="drawFont" min="12" max="300" value="48" />
-        </div>
-        <label class="check"><input type="checkbox" id="drawOutline" checked /> 글자 외곽선 넣기 (배경과 대비되어 잘 보여요)</label>
+        <div class="group-title">🔤 글씨 넣기</div>
+        <div class="hint">사진에서 글씨를 넣을 곳을 <b>클릭</b>하면 그 자리에 입력 창이 열려요.<br><br>입력 창에서 글씨·크기·색을 바꾸면 사진 위에 <b>실제 크기 그대로 미리보기</b>가 표시되고, 사진을 드래그하면 위치도 옮길 수 있어요.</div>
       </div>
       <hr class="divider" />
       <div class="hint" id="drawHint">도형을 고른 뒤 사진 위에서 마우스(또는 펜)로 <b>드래그</b>하면 그려집니다. 화살표는 시작점에서 가리킬 곳으로 드래그하세요.</div>
@@ -1292,6 +1287,59 @@
 }
 </style>
 
+<!-- Floating text editor (글씨 넣기) -->
+<div id="textEditor" role="dialog" aria-label="글씨 입력">
+  <div class="te-head">
+    <span>🔤 글씨 넣기</span>
+    <button class="batch-mini-btn" id="teClose" title="닫기 (Esc)">✕</button>
+  </div>
+  <textarea id="teText" rows="2" placeholder="넣을 글씨를 입력하세요 (여러 줄 가능)"></textarea>
+  <div class="te-row">
+    <label>글자 크기 <b><span id="teSizeVal">48</span>px</b></label>
+    <input type="range" id="teSize" min="12" max="300" value="48" />
+  </div>
+  <div class="te-row te-inline">
+    <input type="color" id="teColor" value="#F5483F" title="글자 색" />
+    <label class="te-check"><input type="checkbox" id="teOutline" checked /> 외곽선 (잘 보이게)</label>
+  </div>
+  <div class="te-btns">
+    <button class="btn" id="teCancel">취소</button>
+    <button class="btn primary" id="teApply">이 자리에 넣기</button>
+  </div>
+  <div class="te-tip">💡 사진의 다른 곳을 클릭·드래그하면 글씨가 그 자리로 이동해요. Ctrl+Enter로 바로 넣을 수 있어요.</div>
+</div>
+
+<style>
+#textEditor{
+  position:fixed; z-index:9000; display:none;
+  width:min(302px, calc(100vw - 28px));
+  background:#fff; border:1.5px solid rgba(0,0,0,.14);
+  border-radius:16px; padding:13px;
+  box-shadow:0 14px 44px rgba(0,0,0,.24);
+}
+[data-theme="dark"] #textEditor{ background:#2e262c; border-color:rgba(255,255,255,.17); color:#f3e9ee; }
+.te-head{display:flex;align-items:center;justify-content:space-between;font-weight:800;font-size:13.5px;margin-bottom:9px;}
+#teText{width:100%;resize:vertical;font-family:inherit;font-size:14px;padding:9px 10px;border-radius:10px;border:1.5px solid rgba(0,0,0,.16);background:transparent;color:inherit;line-height:1.45;}
+[data-theme="dark"] #teText{border-color:rgba(255,255,255,.2);}
+#teText:focus{outline:none;border-color:#F58C84;}
+.te-row{margin-top:10px;font-size:12px;}
+.te-row>label{display:flex;justify-content:space-between;align-items:center;margin-bottom:3px;font-weight:600;}
+#teSize{width:100%;}
+.te-inline{display:flex;align-items:center;gap:10px;}
+#teColor{width:46px;height:33px;border-radius:9px;border:1.5px solid rgba(0,0,0,.16);background:transparent;cursor:pointer;flex:none;padding:2px;}
+.te-check{display:flex;align-items:center;gap:6px;font-size:12.5px;cursor:pointer;user-select:none;}
+.te-btns{display:flex;gap:8px;margin-top:12px;}
+.te-btns .btn{flex:1;justify-content:center;}
+.te-tip{margin-top:9px;font-size:11.5px;opacity:.65;line-height:1.5;}
+@media (max-width:760px){
+  #textEditor{
+    left:50% !important; top:auto !important; bottom:12px;
+    transform:translateX(-50%);
+    width:min(430px, calc(100vw - 18px));
+  }
+}
+</style>
+
 <div id="cursor-ring"></div>
 <div id="toast-wrap"></div>
 <div id="loading"><div class="spinner"></div><div class="msg" id="loadingMsg">처리 중...</div></div>
@@ -1632,6 +1680,7 @@
   });
   window.addEventListener('keydown', e=>{
     if(e.key==='Escape'){
+      if(T.open){ closeTextEditor(); return; }
       closeModal('resetConfirmModal');
       closeModal('compareModal');
       closeModal('helpModal');
@@ -1668,8 +1717,8 @@
       // 자르기 모드를 벗어나면 크롭 선택 표시 제거
       if(prev==='crop' && name!=='crop'){ S.cropRect=null; renderCrop(); }
       if(prev==='adjust' && name!=='adjust'){ adjRestoreBase(); adjResetSliders(); }
-      // 그리기 모드를 벗어나면 미리보기/시작점 정리
-      if(prev==='draw' && name!=='draw'){ S.shapeStart=null; octx2.clearRect(0,0,overlay.width,overlay.height); }
+      // 그리기 모드를 벗어나면 미리보기/시작점/글씨 입력 창 정리
+      if(prev==='draw' && name!=='draw'){ S.shapeStart=null; closeTextEditor(); octx2.clearRect(0,0,overlay.width,overlay.height); }
       if(name==='export'){ updateSizeInfo(); scheduleEstimate(); }
       if(name==='crop'){ S.cropRect=null; renderCrop(); updateSizeInfo(); }
       if(name==='resize'){ updateSizeInfo(); }
@@ -1728,7 +1777,7 @@
   // ============================================================
   //  Drawing tools : 사각형 / 원형 / 선 / 화살표 / 글씨
   // ============================================================
-  bind('drawWidth','drawWidthVal'); bind('drawFont','drawFontVal');
+  bind('drawWidth','drawWidthVal');
 
   document.querySelectorAll('#drawTools .tool').forEach(t=>{
     t.addEventListener('click', ()=>{
@@ -1736,6 +1785,7 @@
       t.classList.add('active');
       S.drawShape = t.dataset.shape;
       S.shapeStart = null;
+      closeTextEditor();
       octx2.clearRect(0,0,overlay.width,overlay.height);
       updateDrawUI();
     });
@@ -1751,16 +1801,17 @@
       circle:'사진 위에서 대각선으로 <b>드래그</b>하면 원·타원이 그려져요.',
       line:'시작점에서 끝점까지 <b>드래그</b>하면 직선이 그려져요.',
       arrow:'가리킬 곳을 향해 <b>드래그</b>하면 끝에 화살촉이 달린 화살표가 그려져요.',
-      text:'글씨를 입력한 뒤, 사진에서 넣을 위치를 <b>클릭</b>하세요.'
+      text:'사진에서 글씨를 넣을 곳을 <b>클릭</b>하면 입력 창이 열려요. 미리보기를 보며 크기·위치를 정한 뒤 [이 자리에 넣기]를 누르세요.'
     };
     $('drawHint').innerHTML = hints[S.drawShape] || '';
   }
   // 이미지 크기에 맞춰 선 굵기·글자 크기 기본값을 잡아줌
   function setDrawDefaults(){
     const base = Math.max(canvas.width, canvas.height) || 1000;
-    const dw=$('drawWidth'), df=$('drawFont');
+    const dw=$('drawWidth');
     dw.value = Math.min(+dw.max, Math.max(2, Math.round(base/350))); $('drawWidthVal').textContent = dw.value;
-    df.value = Math.min(+df.max, Math.max(16, Math.round(base/22)));  $('drawFontVal').textContent = df.value;
+    T.size = Math.min(300, Math.max(16, Math.round(base/22))); // 새 이미지에 맞는 기본 글자 크기
+    closeTextEditor(); // 새 이미지가 열리면 글씨 입력 창 정리
   }
   updateDrawUI();
 
@@ -1816,28 +1867,104 @@
     renderDrawShape(ctx, S.shapeStart, p);
     return true;
   }
-  function placeDrawText(x,y){
-    const text=$('drawText').value;
-    if(!text.trim()){ toast('먼저 넣을 글씨를 입력해 주세요','error'); return; }
-    const fs=Math.max(8, +$('drawFont').value);
-    ctx.save();
-    ctx.font="700 "+fs+"px 'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif";
-    ctx.textAlign='left'; ctx.textBaseline='top'; ctx.lineJoin='round'; ctx.miterLimit=2;
-    const lines=text.split('\n'), lh=fs*1.28, outline=$('drawOutline').checked;
+  // ---- 글씨 넣기: 사진 클릭 → 입력 창 + 실시간 미리보기 ----
+  const T={ open:false, dragging:false, x:0, y:0, size:48 };
+  const TEXT_FONT="'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif";
+  // 글자 블록을 (cx,cy) 중심 기준으로 그림 — 미리보기(overlay)와 확정(canvas) 공용
+  function drawTextBlock(g, text, cx, cy, fs, color, outline, preview){
+    const lines=(text||'').split('\n');
+    g.save();
+    g.font="700 "+fs+"px "+TEXT_FONT;
+    g.textAlign='left'; g.textBaseline='top'; g.lineJoin='round'; g.miterLimit=2;
+    const lh=fs*1.28;
+    let w=0; lines.forEach(l=>{ w=Math.max(w, g.measureText(l).width); });
+    const h=lines.length*lh;
+    const x=cx-w/2, y=cy-h/2;
+    if(preview){
+      const pad=Math.max(8, fs*0.18);
+      g.setLineDash([7,5]);
+      g.lineWidth=Math.max(1.5, canvas.width/700);
+      g.strokeStyle='rgba(245,72,63,.8)';
+      g.strokeRect(x-pad, y-pad, w+pad*2, h+pad*2);
+      g.setLineDash([]);
+    }
     lines.forEach((ln,i)=>{
       const ly=y+i*lh;
       if(outline){
-        ctx.lineWidth=Math.max(2, fs*0.16);
-        ctx.strokeStyle=contrastInk(dColor());
-        ctx.strokeText(ln, x, ly);
+        g.lineWidth=Math.max(2, fs*0.16);
+        g.strokeStyle=contrastInk(color);
+        g.strokeText(ln, x, ly);
       }
-      ctx.fillStyle=dColor();
-      ctx.fillText(ln, x, ly);
+      g.fillStyle=color;
+      g.fillText(ln, x, ly);
     });
-    ctx.restore();
+    g.restore();
+  }
+  function teRender(){
+    if(!T.open) return;
+    octx2.clearRect(0,0,overlay.width,overlay.height);
+    const raw=$('teText').value;
+    const fs=Math.max(8, +$('teSize').value);
+    if(raw.trim()){
+      drawTextBlock(octx2, raw, T.x, T.y, fs, $('teColor').value, $('teOutline').checked, true);
+    } else {
+      octx2.save(); octx2.globalAlpha=0.45;
+      drawTextBlock(octx2, '글씨를 입력하세요', T.x, T.y, fs, $('teColor').value, $('teOutline').checked, true);
+      octx2.restore();
+    }
+  }
+  function positionTextEditor(cx, cy){
+    const te=$('textEditor');
+    if(window.matchMedia('(max-width:760px)').matches) return; // 모바일: CSS로 하단 고정
+    const pad=12, W=te.offsetWidth||302, H=te.offsetHeight||330;
+    let x=cx+20, y=cy+20;
+    if(x+W > window.innerWidth-pad) x=cx-W-20;
+    if(x<pad) x=pad;
+    if(y+H > window.innerHeight-pad) y=window.innerHeight-H-pad;
+    if(y<pad) y=pad;
+    te.style.left=x+'px'; te.style.top=y+'px';
+  }
+  function openTextEditor(p, e){
+    T.x=p.x; T.y=p.y;
+    if(!T.open){
+      T.open=true;
+      $('teSize').value=Math.min(+$('teSize').max, T.size);
+      $('teSizeVal').textContent=$('teSize').value;
+      $('teColor').value=$('drawColor').value;
+      $('textEditor').style.display='block';
+      positionTextEditor(e.clientX, e.clientY);
+      setTimeout(()=>{ try{ $('teText').focus(); }catch(err){} }, 60);
+    }
+    teRender();
+  }
+  function closeTextEditor(){
+    if(!T.open) return;
+    T.open=false; T.dragging=false;
+    $('textEditor').style.display='none';
+    octx2.clearRect(0,0,overlay.width,overlay.height);
+  }
+  function commitTextEditor(){
+    const text=$('teText').value;
+    if(!text.trim()){ toast('먼저 넣을 글씨를 입력해 주세요','error'); $('teText').focus(); return; }
+    const fs=Math.max(8, +$('teSize').value);
+    T.size=fs; // 다음에도 같은 크기로 시작
+    $('drawColor').value=$('teColor').value; // 고른 색을 그리기 기본색으로 기억
+    octx2.clearRect(0,0,overlay.width,overlay.height);
+    drawTextBlock(ctx, text, T.x, T.y, fs, $('teColor').value, $('teOutline').checked, false);
     pushHistory();
+    $('teText').value='';
+    closeTextEditor();
     toast('글씨를 넣었어요','ok');
   }
+  ['teText','teOutline','teColor'].forEach(id=> $(id).addEventListener('input', teRender));
+  $('teSize').addEventListener('input', ()=>{ $('teSizeVal').textContent=$('teSize').value; teRender(); });
+  $('teApply').addEventListener('click', commitTextEditor);
+  $('teCancel').addEventListener('click', closeTextEditor);
+  $('teClose').addEventListener('click', closeTextEditor);
+  $('teText').addEventListener('keydown', e=>{
+    if((e.ctrlKey||e.metaKey) && e.key==='Enter'){ e.preventDefault(); commitTextEditor(); }
+    else if(e.key==='Escape'){ e.stopPropagation(); closeTextEditor(); }
+  });
 
   // ============================================================
   //  Coordinate helpers
@@ -2297,9 +2424,14 @@
       S.drawing=true;
       return;
     }
-    // Drawing tools: 글씨는 클릭 즉시, 도형은 드래그
+    // Drawing tools: 글씨는 클릭 → 입력 창(미리보기), 도형은 드래그
     if(S.mode==='draw'){
-      if(S.drawShape==='text'){ placeDrawText(p.x, p.y); S.touchStartCanvas=null; return; }
+      if(S.drawShape==='text'){
+        openTextEditor(p, e);
+        T.dragging=true; // 누른 채 움직이면 위치 이동
+        S.touchStartCanvas=null;
+        return;
+      }
       S.shapeStart=p; S.drawing=true;
       return;
     }
@@ -2311,6 +2443,7 @@
 
   canvas.addEventListener('pointermove', e=>{
     if(trackPointerMove(e)) return;
+    if(T.dragging){ e.preventDefault(); const tp=evtToImg(e); T.x=tp.x; T.y=tp.y; teRender(); return; }
     if(!S.drawing) return;
     e.preventDefault();
     const p=evtToImg(e);
@@ -2372,6 +2505,7 @@
     pushHistory();
   }
   function handlePointerEnd(e){
+    T.dragging=false;
     if(trackPointerEnd(e)){
       hideRing();
       return;
