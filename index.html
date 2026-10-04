@@ -324,6 +324,13 @@ body.pan-mode #cursor-ring{display:none!important}
 #cursor-ring{position:fixed;display:none;pointer-events:none;z-index:200;border:2px solid var(--accent);border-radius:50%;transform:translate(-50%,-50%);background:#4f3b9a1f;box-shadow:0 0 0 1.5px #ffffffcc}
 .watermark-foot{flex:none;padding:7px 12px;border-top:1px solid var(--border-line);text-align:center;font-size:10.5px;color:var(--text-sub)}
 .sb-mini{display:none}
+/* 자르기 확인 막대 (선택 영역 옆에 뜸) */
+.crop-float{position:absolute;z-index:6;display:flex;align-items:center;gap:6px;padding:5px;border-radius:12px;border:1px solid var(--border-soft);background:var(--bg-card);box-shadow:var(--pop-shadow);line-height:1.2;white-space:nowrap;animation:fade .15s ease-out}
+.crop-float .btn{min-height:34px;padding:6px 12px;gap:6px}
+.crop-float .btn svg{width:16px;height:16px}
+.crop-float kbd{padding:0 5px;font-family:inherit;font-size:10px;font-weight:600;line-height:1.5}
+.crop-float .btn.primary kbd{background:#ffffff26;border-color:#ffffff4d;color:#fff}
+@media (pointer:coarse){.crop-float kbd{display:none}.crop-float .btn{min-height:40px}}
 
 /* 빈 화면 */
 .empty{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;width:100%;padding:20px;margin:auto}
@@ -791,7 +798,7 @@ html[data-theme="dark"] .batch-thumb-wrap{background:repeating-conic-gradient(#3
             <option value="1.5">3 : 2</option>
           </select>
         </div>
-        <div class="hint" style="margin-bottom:12px;">이미지 위에서 마우스(또는 펜)로 드래그해 남길 영역을 선택한 뒤 아래 <b>자르기 적용</b>을 누르세요.</div>
+        <div class="hint" style="margin-bottom:12px;">사진 위에서 남길 영역을 드래그하면 영역 옆에 <b>[자르기]</b> 단추가 떠요. <b>Enter</b>를 누르거나 영역 안을 <b>더블클릭</b>해도 잘리고, <b>Esc</b>로 선택을 취소해요.</div>
         <div class="crop-actions">
           <button class="btn primary" id="cropApply">자르기 적용</button>
           <button class="btn" id="cropCancel">선택 취소</button>
@@ -824,7 +831,7 @@ html[data-theme="dark"] .batch-thumb-wrap{background:repeating-conic-gradient(#3
         </div>
         <label class="check" style="margin-bottom:10px;"><input type="checkbox" id="rotCrop" checked /> 돌린 뒤 빈 모서리 잘라내기</label>
         <div class="fx-buttons"><button class="btn" id="rotReset" type="button">0°로</button><button class="btn primary" id="rotApply" type="button">기울기 적용</button></div>
-        <div class="hint">비스듬히 찍힌 칠판·실험대 사진을 반듯하게 맞춰요. 격자를 보며 슬라이더를 움직이세요.</div>
+        <div class="hint">비스듬히 찍힌 칠판·실험대 사진을 반듯하게 맞춰요. 격자를 보며 슬라이더를 움직이세요. <b>기울기 적용</b>을 누르지 않고 다른 작업으로 넘어가도 자동으로 적용되고, <b>Ctrl+Z</b>로 되돌릴 수 있어요.</div>
       </div>
     </div>
 
@@ -857,7 +864,7 @@ html[data-theme="dark"] .batch-thumb-wrap{background:repeating-conic-gradient(#3
         <button class="btn" id="adjReset">처음으로</button>
         <button class="btn primary" id="adjApply">적용하기</button>
       </div>
-      <div class="hint" style="margin-top:12px;">슬라이더는 미리보기일 뿐이라, <b>적용하기</b>를 눌러야 사진에 실제로 반영됩니다. 100%가 원래 상태예요.</div>
+      <div class="hint" style="margin-top:12px;">슬라이더를 움직이면 미리보기로 보여요. <b>적용하기</b>를 누르거나 다른 도구로 넘어가면 사진에 반영되고, 마음에 들지 않으면 <b>Ctrl+Z</b>로 되돌릴 수 있어요. 100%가 원래 상태예요.</div>
     </div>
 
     <!-- ===== 크기 조정 ===== -->
@@ -1064,6 +1071,10 @@ html[data-theme="dark"] .batch-thumb-wrap{background:repeating-conic-gradient(#3
       <div class="canvas-inner" id="canvasInner" style="display:none;">
         <canvas id="canvas" aria-label="편집 중인 사진"></canvas>
         <canvas id="overlay" aria-hidden="true"></canvas>
+        <div class="crop-float" id="cropFloat" role="group" aria-label="자르기 확인" hidden>
+          <button class="btn primary" id="cropFloatApply" type="button" title="고른 영역만 남기고 자르기 (Enter · 영역 안 더블클릭)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>자르기<kbd>Enter</kbd></button>
+          <button class="btn" id="cropFloatCancel" type="button" title="선택 취소 (Esc)">취소<kbd>Esc</kbd></button>
+        </div>
       </div>
     </div>
     <div class="watermark-foot">모든 편집은 내 기기 안에서만 이루어져요 · 사진은 외부로 전송되지 않습니다</div>
@@ -1182,9 +1193,10 @@ html[data-theme="dark"] .batch-thumb-wrap{background:repeating-conic-gradient(#3
           <tr><td><kbd>1</kbd>~<kbd>7</kbd></td><td>편집 도구 바꾸기</td></tr>
           <tr><td><kbd>[</kbd></td><td>편집 도구 레일 접기·펼치기</td></tr>
           <tr><td><kbd>+</kbd> <kbd>−</kbd> <kbd>0</kbd></td><td>확대 · 축소 · 화면에 맞추기</td></tr>
-          <tr><td><kbd>Ctrl</kbd>+휠</td><td>확대·축소</td></tr>
+          <tr><td><kbd>Ctrl</kbd>+휠</td><td>마우스 위치를 중심으로 확대·축소</td></tr>
           <tr><td><kbd>Space</kbd>+끌기</td><td>화면 이동</td></tr>
-          <tr><td><kbd>Esc</kbd></td><td>열린 창 닫기</td></tr>
+          <tr><td><kbd>Enter</kbd></td><td>고른 영역 자르기 (자르기 도구)</td></tr>
+          <tr><td><kbd>Esc</kbd></td><td>열린 창 닫기 · 자르기 선택 취소</td></tr>
           <tr><td><kbd>F1</kbd></td><td>이 도움말</td></tr>
         </table>
       </div>
@@ -1311,7 +1323,7 @@ html[data-theme="dark"] .batch-thumb-wrap{background:repeating-conic-gradient(#3
     <button class="btn" id="teCancel">취소</button>
     <button class="btn primary" id="teApply">이 자리에 넣기</button>
   </div>
-  <div class="te-tip">사진의 다른 곳을 클릭·드래그하면 글씨가 그 자리로 이동해요. Ctrl+Enter로 바로 넣을 수 있어요.</div>
+  <div class="te-tip">사진의 다른 곳을 클릭·드래그하면 글씨가 그 자리로 이동해요. Ctrl+Enter로 바로 넣고, 다른 도구로 넘어가도 자동으로 들어가요. 넣지 않으려면 Esc.</div>
 </div>
 
 
@@ -1493,7 +1505,7 @@ html[data-theme="dark"] .batch-thumb-wrap{background:repeating-conic-gradient(#3
   // ---- Header: 이미지 복사 / 빠른 저장 ----
   $('copyBtn').addEventListener('click', async ()=>{
     if(!S.loaded){ toast('먼저 이미지를 불러오세요','error'); return; }
-    if(rotPending()) return;
+    commitPending();
     if(!navigator.clipboard || !window.ClipboardItem){
       toast('이 브라우저는 이미지 복사를 지원하지 않아요. 저장 버튼을 사용해 주세요.','error'); return;
     }
@@ -1508,7 +1520,7 @@ html[data-theme="dark"] .batch-thumb-wrap{background:repeating-conic-gradient(#3
   });
   $('quickSaveBtn').addEventListener('click', ()=>{
     if(!S.loaded){ toast('먼저 이미지를 불러오세요','error'); return; }
-    if(rotPending()) return;
+    commitPending();
     download(canvas, 'image/png', 'png', undefined);
   });
 
@@ -1541,7 +1553,7 @@ html[data-theme="dark"] .batch-thumb-wrap{background:repeating-conic-gradient(#3
   });
 
   // 저장하지 않은 편집이 있으면 바꾸기 전에 물어봄
-  function hasUnsaved(){ return S.loaded && S.dirty; }
+  function hasUnsaved(){ return S.loaded && (S.dirty || hasPending()); }
   function ask(title, desc, okLabel){
     return new Promise(res=>{
       $('askTitle').textContent=title; $('askDesc').textContent=desc; $('askOkBtn').textContent=okLabel||'확인';
@@ -1629,6 +1641,7 @@ html[data-theme="dark"] .batch-thumb-wrap{background:repeating-conic-gradient(#3
   function syncOverlay(){
     overlay.width=canvas.width; overlay.height=canvas.height;
     octx2.clearRect(0,0,overlay.width,overlay.height);
+    updateCropFloat();
   }
 
   // ---- Zoom / Fit ----
@@ -1638,6 +1651,7 @@ html[data-theme="dark"] .batch-thumb-wrap{background:repeating-conic-gradient(#3
     overlay.style.width = (canvas.width*S.zoom)+'px';
     overlay.style.height = (canvas.height*S.zoom)+'px';
     $('zoomVal').textContent = Math.round(S.zoom*100)+'%';
+    updateCropFloat();
   }
   function fitToScreen(){
     const cs = getComputedStyle(wrap);
@@ -1648,18 +1662,31 @@ html[data-theme="dark"] .batch-thumb-wrap{background:repeating-conic-gradient(#3
     S.userZoomed=false;
     applyZoom();
   }
+  // 확대·축소: 화면의 (cx,cy) 아래에 있던 사진 지점이 그대로 남도록 스크롤을 맞춤
+  //  anchor(사진 좌표)를 주면 그 지점을 (cx,cy)로 옮김 — 두 손가락 확대에서 확대+이동
+  function zoomAt(z, cx, cy, anchor){
+    const r=canvas.getBoundingClientRect();
+    const ax = anchor ? anchor.x : (cx-r.left)/S.zoom, ay = anchor ? anchor.y : (cy-r.top)/S.zoom;
+    S.zoom = Math.max(0.05, Math.min(8, z));
+    S.userZoomed=true;
+    applyZoom();
+    const r2=canvas.getBoundingClientRect();
+    wrap.scrollLeft += r2.left + ax*S.zoom - cx;
+    wrap.scrollTop  += r2.top  + ay*S.zoom - cy;
+    updateCropFloat();
+  }
+  function viewCenter(){ const r=wrap.getBoundingClientRect(); return { x:r.left+wrap.clientLeft+wrap.clientWidth/2, y:r.top+wrap.clientTop+wrap.clientHeight/2 }; }
   $('fitBtn').addEventListener('click', fitToScreen);
-  $('zoomIn').addEventListener('click', ()=>{ S.zoom=Math.min(S.zoom*1.25,8); S.userZoomed=true; applyZoom(); });
-  $('zoomOut').addEventListener('click', ()=>{ S.zoom=Math.max(S.zoom/1.25,0.05); S.userZoomed=true; applyZoom(); });
+  $('zoomIn').addEventListener('click', ()=>{ const c=viewCenter(); zoomAt(S.zoom*1.25, c.x, c.y); });
+  $('zoomOut').addEventListener('click', ()=>{ const c=viewCenter(); zoomAt(S.zoom/1.25, c.x, c.y); });
   wrap.addEventListener('wheel', e=>{
     if(!S.loaded || !e.ctrlKey) return;
     e.preventDefault();
     let dy = e.deltaMode===1 ? e.deltaY*33 : e.deltaY;
     dy = Math.max(-100, Math.min(100, dy));
-    S.zoom = Math.max(0.05, Math.min(8, S.zoom * Math.exp(-dy*0.0022)));
-    S.userZoomed=true;
-    applyZoom();
+    zoomAt(S.zoom * Math.exp(-dy*0.0022), e.clientX, e.clientY);
   }, {passive:false});
+  wrap.addEventListener('scroll', ()=> updateCropFloat(), {passive:true});
   let lastVW = window.innerWidth, lastVH = window.innerHeight;
   window.addEventListener('resize', ()=>{
     const changed = Math.abs(window.innerWidth-lastVW)>2 || (window.innerWidth>900 && Math.abs(window.innerHeight-lastVH)>40);
@@ -1703,9 +1730,10 @@ html[data-theme="dark"] .batch-thumb-wrap{background:repeating-conic-gradient(#3
     refreshAdjBase();
     S.dirty=true;
   }
-  function undo(){ if(S.hIndex>0){ S.hIndex--; restore(S.hIndex); updateUndoUI(); } }
-  function redo(){ if(S.hIndex<S.history.length-1){ S.hIndex++; restore(S.hIndex); updateUndoUI(); } }
-  function updateUndoUI(){ $('undoBtn').disabled = S.hIndex<=0; $('redoBtn').disabled = S.hIndex>=S.history.length-1; }
+  // 적용하지 않은 미리보기가 있으면 먼저 확정 → 실행 취소가 그 미리보기만 되돌림(다시 실행으로 복구 가능)
+  function undo(){ commitPending(true); if(S.hIndex>0){ S.hIndex--; restore(S.hIndex); updateUndoUI(); } }
+  function redo(){ commitPending(true); if(S.hIndex<S.history.length-1){ S.hIndex++; restore(S.hIndex); updateUndoUI(); } }
+  function updateUndoUI(){ $('undoBtn').disabled = S.hIndex<=0 && !hasPending(); $('redoBtn').disabled = S.hIndex>=S.history.length-1; }
   $('undoBtn').addEventListener('click', undo);
   $('redoBtn').addEventListener('click', redo);
   const SHELL_PARTS=['.top-bar','.app-header','.app-body'];
@@ -1808,9 +1836,14 @@ html[data-theme="dark"] .batch-thumb-wrap{background:repeating-conic-gradient(#3
       closeModal(m.id);
     });
   });
+  // Tab으로 고른 단추에서 누르는 Enter는 그 단추 몫으로 남겨 둠
+  let kbNav=false;
+  window.addEventListener('keydown', e=>{ if(e.key==='Tab') kbNav=true; }, true);
+  window.addEventListener('pointerdown', ()=>{ kbNav=false; }, true);
   window.addEventListener('keydown', e=>{
     if(e.key==='Escape'){
       if(T.open){ closeTextEditor(); return; }
+      if(!document.querySelector('.modal-backdrop.show') && S.mode==='crop' && (S.cropRect || S.cropStart)){ cropClear(); return; }
       closeModal('askModal');
       closeModal('resetConfirmModal');
       closeModal('compareModal');
@@ -1823,6 +1856,11 @@ html[data-theme="dark"] .batch-thumb-wrap{background:repeating-conic-gradient(#3
     const typing = el && (el.tagName==='INPUT' || el.tagName==='TEXTAREA' || el.tagName==='SELECT' || el.isContentEditable);
     const textEntry = el && (el.tagName==='TEXTAREA' || el.isContentEditable || (el.tagName==='INPUT' && /^(text|number|search|url|email|tel|password)$/.test(el.type)));
     const modalOpen = !!document.querySelector('.modal-backdrop.show');
+    if(e.key==='Enter' && !e.ctrlKey && !e.metaKey && !e.altKey && !e.shiftKey && !e.isComposing && !textEntry && !modalOpen
+       && S.mode==='crop' && !S.drawing && cropReady()
+       && !(kbNav && el && (el.tagName==='BUTTON' || el.tagName==='A' || el.getAttribute('role')==='button'))){
+      e.preventDefault(); applyCrop(); return;
+    }
     if((e.ctrlKey||e.metaKey) && !textEntry && !modalOpen && e.key.toLowerCase()==='z'){ e.preventDefault(); e.shiftKey?redo():undo(); }
     else if((e.ctrlKey||e.metaKey) && !textEntry && !modalOpen && e.key.toLowerCase()==='y'){ e.preventDefault(); redo(); }
     else if((e.ctrlKey||e.metaKey) && e.key.toLowerCase()==='s'){
@@ -1853,14 +1891,16 @@ html[data-theme="dark"] .batch-thumb-wrap{background:repeating-conic-gradient(#3
       const prev = S.mode;
       S.mode = name;
       // 자르기 모드를 벗어나면 크롭 선택 표시 제거
-      if(prev==='crop' && name!=='crop'){ S.cropRect=null; renderCrop(); }
-      if(prev==='adjust' && name!=='adjust'){ adjRestoreBase(); adjResetSliders(); }
+      // 적용하지 않은 미리보기(보정·기울기·입력 중인 글씨)는 버리지 않고 자동으로 적용 — Ctrl+Z로 되돌릴 수 있음
+      const auto=[];
+      if(prev==='adjust' && name!=='adjust'){ if(adjCommit()) auto.push('밝기·색 보정'); else { adjRestoreBase(); adjResetSliders(); } }
+      if(prev==='crop' && name!=='crop'){ S.cropRect=null; renderCrop(); if(rotCommit()) auto.push('기울기'); }
       if(prev==='mosaic' && name!=='mosaic') clearFaceReview();
-      if(prev==='crop' && name!=='crop') rotCancel();
       // 그리기 모드를 벗어나면 미리보기/시작점/글씨 입력 창 정리
-      if(prev==='draw' && name!=='draw'){ S.shapeStart=null; closeTextEditor(); octx2.clearRect(0,0,overlay.width,overlay.height); }
+      if(prev==='draw' && name!=='draw'){ S.shapeStart=null; if(textCommit()) auto.push('글씨'); closeTextEditor(); octx2.clearRect(0,0,overlay.width,overlay.height); }
+      if(auto.length) toastAuto(auto);
       if(name==='export'){ updateSizeInfo(); scheduleEstimate(); }
-      if(name==='crop'){ S.cropRect=null; renderCrop(); updateSizeInfo(); }
+      if(name==='crop' && prev!=='crop'){ S.cropRect=null; renderCrop(); updateSizeInfo(); }
       if(name==='resize'){ updateSizeInfo(); }
       if(name==='adjust' && prev!=='adjust'){ adjResetSliders(); adjSnapshot(); }
       if(name==='draw'){ updateDrawUI(); }
@@ -1921,10 +1961,12 @@ html[data-theme="dark"] .batch-thumb-wrap{background:repeating-conic-gradient(#3
 
   document.querySelectorAll('#drawTools .tool').forEach(t=>{
     t.addEventListener('click', ()=>{
+      if(S.drawShape===t.dataset.shape) return; // 지금 도구를 다시 눌러도 입력 중인 글씨는 그대로
       document.querySelectorAll('#drawTools .tool').forEach(x=>x.classList.remove('active'));
       t.classList.add('active');
       S.drawShape = t.dataset.shape;
       S.shapeStart = null;
+      if(textCommit()) toastAuto(['글씨']);
       closeTextEditor();
       octx2.clearRect(0,0,overlay.width,overlay.height);
       updateDrawUI();
@@ -2117,6 +2159,7 @@ html[data-theme="dark"] .batch-thumb-wrap{background:repeating-conic-gradient(#3
       box=drawTextBlock(octx2, '글씨를 입력하세요', T.x, T.y, fs, $('teColor').value, $('teOutline').checked, true, $('teBox').checked);
       octx2.restore();
     }
+    updateUndoUI();
     return box;
   }
   function positionTextEditor(cx, cy, hw, hh){ // hw,hh: 글자 블록 반폭·반높이(화면 px)
@@ -2149,10 +2192,11 @@ html[data-theme="dark"] .batch-thumb-wrap{background:repeating-conic-gradient(#3
     T.open=false; T.dragging=false;
     $('textEditor').style.display='none';
     octx2.clearRect(0,0,overlay.width,overlay.height);
+    updateUndoUI();
   }
-  function commitTextEditor(){
+  function commitTextEditor(auto){
     const text=$('teText').value;
-    if(!text.trim()){ toast('먼저 넣을 글씨를 입력해 주세요','error'); $('teText').focus(); return; }
+    if(!text.trim()){ if(!auto){ toast('먼저 넣을 글씨를 입력해 주세요','error'); $('teText').focus(); } return false; }
     const fs=Math.max(8, +$('teSize').value);
     T.size=fs; // 다음에도 같은 크기로 시작
     $('drawColor').value=$('teColor').value; // 고른 색을 그리기 기본색으로 기억
@@ -2161,12 +2205,15 @@ html[data-theme="dark"] .batch-thumb-wrap{background:repeating-conic-gradient(#3
     pushHistory();
     $('teText').value='';
     closeTextEditor();
-    toast('글씨를 넣었어요','ok');
+    if(!auto) toast('글씨를 넣었어요','ok');
+    return true;
   }
+  // 입력 창에 쓴 글씨가 있으면 그 자리에 넣음 (다른 도구로 넘어갈 때·저장할 때 자동 확정)
+  function textCommit(){ return !!(T.open && $('teText').value.trim()) && commitTextEditor(true); }
   ['teText','teOutline','teColor','teBox'].forEach(id=> $(id).addEventListener('input', teRender));
   $('teBox').addEventListener('change', teRender);
   $('teSize').addEventListener('input', ()=>{ $('teSizeVal').textContent=$('teSize').value; teRender(); });
-  $('teApply').addEventListener('click', commitTextEditor);
+  $('teApply').addEventListener('click', ()=>commitTextEditor());
   $('teCancel').addEventListener('click', closeTextEditor);
   $('teClose').addEventListener('click', closeTextEditor);
   $('teText').addEventListener('keydown', e=>{
@@ -2638,8 +2685,8 @@ html[data-theme="dark"] .batch-thumb-wrap{background:repeating-conic-gradient(#3
     S.penPts=null;
     octx2.clearRect(0,0,overlay.width,overlay.height);
     if(S.mode==='crop'){
+      if(S.cropStart && S.cropStart.moved) S.cropRect=null; // 그리던 영역만 버리고 이전 선택은 유지
       S.cropStart=null;
-      S.cropRect=null;
       renderCrop();
     }
   }
@@ -2666,8 +2713,7 @@ html[data-theme="dark"] .batch-thumb-wrap{background:repeating-conic-gradient(#3
       distance:Math.max(20,pointerDistance(pts[0],pts[1])),
       zoom:S.zoom,
       center,
-      scrollLeft:wrap.scrollLeft,
-      scrollTop:wrap.scrollTop
+      anchor:(()=>{ const r=canvas.getBoundingClientRect(); return { x:(center.x-r.left)/S.zoom, y:(center.y-r.top)/S.zoom }; })()
     };
     hideRing();
   }
@@ -2678,16 +2724,8 @@ html[data-theme="dark"] .batch-thumb-wrap{background:repeating-conic-gradient(#3
     const center=pointerCenter(pts[0],pts[1]);
     const dist=Math.max(20,pointerDistance(pts[0],pts[1]));
     const ratio=dist/S.pinchStart.distance;
-    S.zoom=Math.max(0.05, Math.min(8, S.pinchStart.zoom*ratio));
-    S.userZoomed=true;
-    applyZoom();
-
-    // 손가락 중심이 화면 안에서 최대한 유지되도록 스크롤 위치 보정
-    const zoomRatio = S.zoom/S.pinchStart.zoom;
-    const localX = S.pinchStart.scrollLeft + S.pinchStart.center.x - wrap.getBoundingClientRect().left;
-    const localY = S.pinchStart.scrollTop + S.pinchStart.center.y - wrap.getBoundingClientRect().top;
-    wrap.scrollLeft = localX*zoomRatio - (center.x - wrap.getBoundingClientRect().left);
-    wrap.scrollTop = localY*zoomRatio - (center.y - wrap.getBoundingClientRect().top);
+    // 처음 손가락 사이에 있던 사진 지점이 지금 손가락 사이에 오도록 (확대 + 이동)
+    zoomAt(S.pinchStart.zoom*ratio, center.x, center.y, S.pinchStart.anchor);
   }
   function trackPointerDown(e){
     if(e.pointerType!=='touch') return false;
@@ -2732,6 +2770,7 @@ html[data-theme="dark"] .batch-thumb-wrap{background:repeating-conic-gradient(#3
     if(e.pointerType==='touch' && trackPointerDown(e)){ e.preventDefault(); return; }
     if(S.mode==='export'||S.mode==='resize'||S.mode==='adjust') return;
     e.preventDefault();
+    if(S.mode==='crop' && S.rotBase && !rotIsPending()) rotCancel(); // 0°로 돌아온 기울기 미리보기는 조용히 정리
 
     if(e.pointerType==='touch') saveTouchStartCanvas();
 
@@ -2741,9 +2780,10 @@ html[data-theme="dark"] .batch-thumb-wrap{background:repeating-conic-gradient(#3
     if(tapKind && e.pointerType==='touch'){ S.pendingTap={kind:tapKind, p, id:e.pointerId}; return; } // 손을 뗄 때 실행(두 손가락 확대와 구분)
     if(tapKind){ runTap(tapKind, p); S.touchStartCanvas=null; return; }
     // 자르기 모드: 영역 드래그 시작
+    //  끌면 새 영역을 고르고, 움직이지 않고 떼면 영역 안은 그대로(더블클릭 자르기용)·영역 밖은 선택 해제
     if(S.mode==='crop'){
-      S.cropStart={x:Math.max(0,Math.min(canvas.width,p.x)), y:Math.max(0,Math.min(canvas.height,p.y))};
-      S.drawing=true; S.cropRect={x:S.cropStart.x,y:S.cropStart.y,w:0,h:0}; renderCrop();
+      S.cropStart={x:Math.max(0,Math.min(canvas.width,p.x)), y:Math.max(0,Math.min(canvas.height,p.y)), cx:e.clientX, cy:e.clientY, moved:false, inside:cropHit(p)};
+      S.drawing=true; updateCropFloat();
       return;
     }
     // Magic wand: single click
@@ -2790,7 +2830,14 @@ html[data-theme="dark"] .batch-thumb-wrap{background:repeating-conic-gradient(#3
     if(!S.drawing) return;
     e.preventDefault();
     const p=evtToImg(e);
-    if(S.mode==='crop' && S.cropStart){ updateCrop(p); return; }
+    if(S.mode==='crop' && S.cropStart){
+      const cs=S.cropStart;
+      if(!cs.moved){
+        if(Math.hypot(e.clientX-cs.cx, e.clientY-cs.cy)<4) return; // 클릭·더블클릭 중 손 떨림은 무시
+        cs.moved=true;
+      }
+      updateCrop(p); return;
+    }
     if(S.mode==='mosaic' && (S.applyMode==='rect'||S.applyMode==='circle') && S.rectStart){
       ctx.drawImage(S.preStroke,0,0);
       const x=Math.min(S.rectStart.x,p.x), y=Math.min(S.rectStart.y,p.y);
@@ -2815,7 +2862,12 @@ html[data-theme="dark"] .batch-thumb-wrap{background:repeating-conic-gradient(#3
   function endStroke(e){
     if(!S.drawing) return;
     S.drawing=false;
-    if(S.mode==='crop'){ S.cropStart=null; S.touchStartCanvas=null; return; }
+    if(S.mode==='crop'){
+      const cs=S.cropStart; S.cropStart=null; S.touchStartCanvas=null;
+      if(cs && !cs.moved && !cs.inside) S.cropRect=null; // 영역 밖을 누르기만 하면 선택 해제
+      renderCrop();
+      return;
+    }
     if(S.mode==='mosaic' && (S.applyMode==='rect'||S.applyMode==='circle') && S.rectStart){
       const p = e ? evtToImg(e) : S.rectStart;
       ctx.drawImage(S.preStroke,0,0); // remove preview overlay
@@ -2852,7 +2904,7 @@ html[data-theme="dark"] .batch-thumb-wrap{background:repeating-conic-gradient(#3
   function runTap(kind, p){
     if(kind==='face') toggleFaceAt(p);
     else if(kind==='num') placeNumber(p);
-    else toast('먼저 [기울기 적용]을 누르거나 0°로 되돌려 주세요','error');
+    else if(rotApply(true)) toast('기울기를 적용했어요 · 이제 자를 영역을 끌어 고르세요 (Ctrl+Z로 되돌리기)','ok');
   }
   function handlePointerEnd(e){
     T.dragging=false;
@@ -2904,6 +2956,7 @@ html[data-theme="dark"] .batch-thumb-wrap{background:repeating-conic-gradient(#3
   }
   function renderCrop(){
     octx2.clearRect(0,0,overlay.width,overlay.height);
+    updateCropFloat();
     if(!S.cropRect || S.cropRect.w<1 || S.cropRect.h<1) return;
     const {x,y,w,h}=S.cropRect;
     octx2.fillStyle='rgba(0,0,0,.5)';
@@ -2932,7 +2985,10 @@ html[data-theme="dark"] .batch-thumb-wrap{background:repeating-conic-gradient(#3
   }
   function applyCrop(){
     if(!S.loaded){ toast('먼저 이미지를 불러오세요','error'); return; }
-    if(S.rotBase){ toast('먼저 [기울기 적용]을 누르거나 0°로 되돌려 주세요','error'); return; }
+    if(S.rotBase){
+      if(rotIsPending()){ if(rotApply(true)) toast('기울기를 먼저 적용했어요 · 이제 자를 영역을 끌어 고르세요','ok'); return; }
+      rotCancel();
+    }
     if(!S.cropRect || S.cropRect.w<4 || S.cropRect.h<4){ toast('이미지 위에서 자를 영역을 드래그로 선택하세요','error'); return; }
     const r=clampRect(S.cropRect);
     const w=Math.round(r.w), h=Math.round(r.h), x=Math.round(r.x), y=Math.round(r.y);
@@ -2945,9 +3001,36 @@ html[data-theme="dark"] .batch-thumb-wrap{background:repeating-conic-gradient(#3
     pushHistory(); fitToScreen(); updateSizeInfo();
     toast('이미지를 잘랐어요 ('+w+'×'+h+')','ok');
   }
+  function cropClear(){ S.cropRect=null; S.cropStart=null; S.drawing=false; renderCrop(); }
+  function cropReady(){ const r=S.cropRect; return !!(r && r.w>=4 && r.h>=4); }
+  function cropHit(p){ const r=S.cropRect; return !!(r && r.w>=1 && r.h>=1 && p.x>=r.x && p.x<=r.x+r.w && p.y>=r.y && p.y<=r.y+r.h); }
+  // 고른 영역 옆에 [자르기][취소] 막대를 띄움 — 보이는 사진 범위 밖으로 나가지 않게 맞춤
+  function updateCropFloat(){
+    const f=$('cropFloat'); if(!f) return;
+    if(!(S.loaded && S.mode==='crop' && !S.drawing && cropReady())){ f.hidden=true; return; }
+    f.hidden=false;
+    const z=S.zoom, r=S.cropRect, gap=8, fw=f.offsetWidth, fh=f.offsetHeight;
+    const ir=inner.getBoundingClientRect(), wr=wrap.getBoundingClientRect();
+    const vx0=wr.left+wrap.clientLeft-ir.left, vy0=wr.top+wrap.clientTop-ir.top;
+    const left=Math.max(0,vx0), top=Math.max(0,vy0);
+    const right=Math.min(canvas.width*z, vx0+wrap.clientWidth), bottom=Math.min(canvas.height*z, vy0+wrap.clientHeight);
+    let x=(r.x+r.w)*z-fw, y=(r.y+r.h)*z+gap;         // 기본: 영역 오른쪽 아래 바깥
+    if(y+fh>bottom-gap) y=r.y*z-fh-gap;                 // 아래에 자리가 없으면 위로
+    if(y<top+gap) y=(r.y+r.h)*z-fh-gap;                 // 위에도 없으면 영역 안쪽 아래
+    x=Math.max(left+gap, Math.min(x, right-fw-gap));
+    y=Math.max(top+gap, Math.min(y, bottom-fh-gap));
+    f.style.left=Math.round(x)+'px'; f.style.top=Math.round(y)+'px';
+  }
   $('cropApply').addEventListener('click', applyCrop);
-  $('cropCancel').addEventListener('click', ()=>{ S.cropRect=null; renderCrop(); });
-  $('cropAspect').addEventListener('change', ()=>{ S.cropRect=null; renderCrop(); });
+  $('cropCancel').addEventListener('click', cropClear);
+  $('cropAspect').addEventListener('change', cropClear);
+  $('cropFloatApply').addEventListener('click', applyCrop);
+  $('cropFloatCancel').addEventListener('click', cropClear);
+  // 고른 영역 안을 더블클릭하면 바로 자르기
+  canvas.addEventListener('dblclick', e=>{
+    if(!S.loaded || S.mode!=='crop' || !cropReady()) return;
+    if(cropHit(evtToImg(e))){ e.preventDefault(); applyCrop(); }
+  });
 
   // 단계적 리샘플 (확대/축소 공통, 품질 향상)
   function resampleTo(tw, th){
@@ -3028,7 +3111,7 @@ html[data-theme="dark"] .batch-thumb-wrap{background:repeating-conic-gradient(#3
   // ---- 회전 / 반전 ----
   function rotate(dir){ // dir: -1 왼쪽(반시계), +1 오른쪽(시계)
     if(!S.loaded){ toast('먼저 이미지를 불러오세요','error'); return; }
-    rotCancel();
+    if(rotCommit()) toastAuto(['기울기']);
     const w=canvas.width, h=canvas.height;
     const t=document.createElement('canvas'); t.width=h; t.height=w;
     const tc=t.getContext('2d');
@@ -3044,7 +3127,7 @@ html[data-theme="dark"] .batch-thumb-wrap{background:repeating-conic-gradient(#3
   }
   function flip(axis){ // 'h' 좌우 / 'v' 상하
     if(!S.loaded){ toast('먼저 이미지를 불러오세요','error'); return; }
-    rotCancel();
+    if(rotCommit()) toastAuto(['기울기']);
     const w=canvas.width, h=canvas.height;
     const t=document.createElement('canvas'); t.width=w; t.height=h;
     const tc=t.getContext('2d');
@@ -3080,30 +3163,36 @@ html[data-theme="dark"] .batch-thumb-wrap{background:repeating-conic-gradient(#3
     ctx.clearRect(0,0,w,h);
     ctx.save(); ctx.translate(w/2,h/2); ctx.rotate(deg*Math.PI/180); ctx.drawImage(S.rotBase,-w/2,-h/2); ctx.restore();
     rotDrawGrid();
+    updateCropFloat(); updateUndoUI();
   }
-  function rotPending(){
-    if(S.rotBase && +$('rotAngle').value){ toast('먼저 [기울기 적용]을 누르거나 0°로 되돌려 주세요','error'); return true; }
-    return false;
+  function rotIsPending(){ return !!(S.rotBase && +$('rotAngle').value); }
+  // 기울기 미리보기 확정: 각도가 있으면 적용, 0°면 조용히 정리
+  function rotCommit(){
+    if(!S.rotBase) return false;
+    if(!rotIsPending()){ rotCancel(); return false; }
+    if(rotApply(true)) return true;
+    rotCancel(); return false;
   }
   function rotDiscard(){ // 캔버스가 이미 바뀐 경우: 미리보기 기준만 버림
     S.rotBase=null;
     if($('rotAngle').value!=='0'){ $('rotAngle').value=0; $('rotAngleVal').textContent='0'; }
+    updateUndoUI();
   }
   function rotCancel(){
     if(S.rotBase){ ctx.clearRect(0,0,canvas.width,canvas.height); ctx.drawImage(S.rotBase,0,0); octx2.clearRect(0,0,overlay.width,overlay.height); }
     rotDiscard();
   }
-  function rotApply(){
-    if(!S.loaded){ toast('먼저 이미지를 불러오세요','error'); return; }
+  function rotApply(auto){ // auto: 다른 작업으로 넘어가며 자동 확정(성공 알림 생략)
+    if(!S.loaded){ if(!auto) toast('먼저 이미지를 불러오세요','error'); return false; }
     const deg=+$('rotAngle').value;
-    if(!deg){ toast('먼저 슬라이더로 기울기를 맞춰 주세요','error'); return; }
+    if(!deg){ if(!auto) toast('먼저 슬라이더로 기울기를 맞춰 주세요','error'); return false; }
     const base=S.rotBase || (()=>{ const c=document.createElement('canvas'); c.width=canvas.width; c.height=canvas.height; c.getContext('2d').drawImage(canvas,0,0); return c; })();
     const w=base.width,h=base.height,a=deg*Math.PI/180, sa=Math.abs(Math.sin(a)), ca=Math.abs(Math.cos(a));
     let ow,oh;
     if($('rotCrop').checked){ const r=rotMaxRect(w,h,a); ow=Math.max(1,Math.floor(r.w)); oh=Math.max(1,Math.floor(r.h)); }
     else { ow=Math.ceil(w*ca+h*sa); oh=Math.ceil(w*sa+h*ca); }
     const MOBILE=isMobileLike(), CAP=MOBILE?4096:7000, AREA=MOBILE?12e6:32e6;
-    if(Math.max(ow,oh)>CAP || ow*oh>AREA || ow*oh*4>histBudget()/2){ toast('결과가 너무 커요. [돌린 뒤 빈 모서리 잘라내기]를 켜거나 먼저 크기를 줄여 주세요.','error'); return; }
+    if(Math.max(ow,oh)>CAP || ow*oh>AREA || ow*oh*4>histBudget()/2){ toast('결과가 너무 커요. [돌린 뒤 빈 모서리 잘라내기]를 켜거나 먼저 크기를 줄여 주세요.','error'); return false; }
     const draw=(g,s)=>{ g.imageSmoothingEnabled=true; g.imageSmoothingQuality='high'; g.translate(ow/2,oh/2); g.rotate(a); g.drawImage(s,-w/2,-h/2); };
     try{
       canvas.width=ow; canvas.height=oh;
@@ -3112,15 +3201,16 @@ html[data-theme="dark"] .batch-thumb-wrap{background:repeating-conic-gradient(#3
     }catch(err){
       console.warn('straighten failed', err);
       canvas.width=base.width; canvas.height=base.height; ctx.drawImage(base,0,0); syncOverlay();
-      rotDiscard(); fitToScreen(); toast('메모리가 부족해 기울기를 적용하지 못했어요','error'); return;
+      rotDiscard(); fitToScreen(); toast('메모리가 부족해 기울기를 적용하지 못했어요','error'); return false;
     }
     S.rotBase=null; $('rotAngle').value=0; $('rotAngleVal').textContent='0';
     S.cropRect=null; syncOverlay(); pushHistory(); fitToScreen(); updateSizeInfo();
-    toast('기울기를 '+deg+'° 바로잡았어요 ('+ow+'×'+oh+')','ok');
+    if(!auto) toast('기울기를 '+deg+'° 바로잡았어요 ('+ow+'×'+oh+')','ok');
+    return true;
   }
   $('rotAngle').addEventListener('input', rotPreview);
   $('rotReset').addEventListener('click', ()=>{ rotCancel(); toast('기울기를 0°로 되돌렸어요','ok'); });
-  $('rotApply').addEventListener('click', rotApply);
+  $('rotApply').addEventListener('click', ()=>rotApply());
   $('rotL').addEventListener('click', ()=>rotate(-1));
   $('rotR').addEventListener('click', ()=>rotate(1));
   $('flipH').addEventListener('click', ()=>flip('h'));
@@ -3132,6 +3222,7 @@ html[data-theme="dark"] .batch-thumb-wrap{background:repeating-conic-gradient(#3
   function adjResetSliders(){
     $('brightness').value=100; $('contrast').value=100; $('saturate').value=100;
     $('brVal').textContent='100'; $('coVal').textContent='100'; $('saVal').textContent='100';
+    updateUndoUI();
   }
   function adjSnapshot(){
     if(!S.loaded){ S.adjBase=null; return; }
@@ -3146,6 +3237,7 @@ html[data-theme="dark"] .batch-thumb-wrap{background:repeating-conic-gradient(#3
     const v=adjVals();
     ctx.clearRect(0,0,canvas.width,canvas.height);
     FX.drawAdjusted(ctx, S.adjBase, v[0], v[1], v[2]);
+    updateUndoUI();
   }
   function adjRestoreBase(){ // 미적용 미리보기 취소
     if(!S.adjBase) return;
@@ -3163,17 +3255,37 @@ html[data-theme="dark"] .batch-thumb-wrap{background:repeating-conic-gradient(#3
     $(id).addEventListener('input', ()=>{ $(vid).textContent=$(id).value; adjPreview(); });
   });
   $('adjReset').addEventListener('click', ()=>{ adjResetSliders(); adjRestoreBase(); });
-  $('adjApply').addEventListener('click', ()=>{
-    if(!S.loaded){ toast('먼저 이미지를 불러오세요','error'); return; }
-    if(adjAtDefault()){ toast('변경된 보정이 없어요','error'); return; }
+  // 미리보기 중인 보정을 사진에 굳힘 ([적용하기]·자동 확정 공용)
+  function adjCommit(){
+    if(!S.loaded || !S.adjBase || adjAtDefault()) return false;
     adjPreview();              // 최신 상태를 캔버스에 굳힘
     { const v=adjVals(); xformBase(S.origCanvas.width, S.origCanvas.height, (g,s)=> FX.drawAdjusted(g, s, v[0], v[1], v[2])); }
     pushHistory();
     adjSnapshot();             // 적용본을 새 기준으로
     adjResetSliders();
     $('autoAdjustResult').style.display='none';
-    toast('보정을 적용했어요','ok');
+    return true;
+  }
+  $('adjApply').addEventListener('click', ()=>{
+    if(!S.loaded){ toast('먼저 이미지를 불러오세요','error'); return; }
+    if(adjAtDefault()){ toast('변경된 보정이 없어요','error'); return; }
+    if(adjCommit()) toast('보정을 적용했어요','ok');
   });
+
+  // ---- 적용하지 않은 미리보기 자동 확정 (보정·기울기·입력 중인 글씨) ----
+  function hasPending(){
+    return !!(S.loaded && ((T.open && $('teText').value.trim()) || rotIsPending() || (S.mode==='adjust' && S.adjBase && !adjAtDefault())));
+  }
+  function josaEulReul(w){ const c=w.charCodeAt(w.length-1)-0xAC00; return (c>=0 && c<11172 && c%28) ? '을' : '를'; }
+  function toastAuto(names){ const s=names.join('·'); toast('적용하지 않은 '+s+josaEulReul(s)+' 자동으로 적용했어요 · Ctrl+Z로 되돌릴 수 있어요','ok'); }
+  function commitPending(silent){
+    const done=[];
+    if(textCommit()) done.push('글씨');
+    if(rotCommit()) done.push('기울기');
+    if(S.mode==='adjust' && adjCommit()) done.push('밝기·색 보정');
+    if(done.length && !silent) toastAuto(done);
+    return done.length>0;
+  }
 
   // ---- 사진 자동 분석 → 추천 보정 ----
   function analyzePhoto(srcCanvas){
@@ -3743,7 +3855,7 @@ html[data-theme="dark"] .batch-thumb-wrap{background:repeating-conic-gradient(#3
   });
   $('batchModeBtn').addEventListener('click', ()=>{ openModal('batchModal'); });
   $('batchReturnBtn').addEventListener('click', ()=>{
-    if(rotPending()) return;
+    commitPending();
     const it=B.editing; B.editing=null; $('batchReturnBtn').hidden=true;
     if(!it || B.items.indexOf(it)<0 || !S.loaded){ toast('반영할 일괄 편집 사진이 없어요','error'); return; }
     if(it.outCanvas && it.outCanvas!==it.srcCanvas){ it.outCanvas.width=it.outCanvas.height=0; }
@@ -3963,9 +4075,9 @@ html[data-theme="dark"] .batch-thumb-wrap{background:repeating-conic-gradient(#3
     'bg:erase':'지울 곳을 문질러 지워요 · 스페이스바를 누르고 끌면 화면 이동',
     'bg:restore':'잘못 지운 곳을 문지르면 원래대로 돌아와요',
     'mosaic':'가릴 곳을 문지르거나 끌어서 고르세요',
-    'crop':'남길 영역을 끌어서 고른 뒤 [자르기 적용]을 누르세요',
+    'crop':'남길 영역을 끌어서 고른 뒤 Enter 또는 영역 옆 [자르기]로 잘라요 · Esc 취소',
     'resize':'왼쪽에서 배율을 고르면 사진 크기가 바뀌어요',
-    'adjust':'슬라이더를 움직이면 바로 미리 보여요 · [적용하기]로 확정',
+    'adjust':'슬라이더를 움직이면 바로 미리 보여요 · 다른 도구로 넘어가면 자동 적용',
     'draw':'사진 위에서 끌어서 그리세요 · 글씨·번호는 누른 자리에 들어가요',
     'export':'왼쪽에서 형식·크기를 정하고 [저장하기]를 누르세요'
   };
