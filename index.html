@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 <title>송쌤과학 이미지 편집기</title>
-<meta name="description" content="송쌤과학 이미지 편집기 — 배경 지우기, 얼굴·이름표 가리기, 자르기, 크기 조정, 보정, 화살표·번호·글씨 넣기를 내 기기 안에서 바로 처리합니다." />
+<meta name="description" content="송쌤과학 이미지 편집기 — 배경 지우기, 얼굴·이름표 가리기, 자르기, 크기·여백 조정, 보정·문서 스캔, 화살표·번호·글씨, 서명·도장 넣기를 내 기기 안에서 바로 처리합니다." />
 <meta name="theme-color" content="#2a1d55" />
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%233b2b78'/%3E%3Cg transform='translate(4 4)' fill='none' stroke='%23ece7ff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M10 2v7.527a2 2 0 0 1-.211.896L4.72 20.55a1 1 0 0 0 .9 1.45h12.76a1 1 0 0 0 .9-1.45l-5.069-10.127A2 2 0 0 1 14 9.527V2'/%3E%3Cpath d='M8.5 2h7'/%3E%3Cpath d='M7 16h10'/%3E%3C/g%3E%3C/svg%3E" />
 <link rel="icon" type="image/png" sizes="32x32" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAGQklEQVR42sWXXWyUxxWGnzPft9/+2gYWqA20TogItL6snBioIripCLFko8RchF7mpqraqlHaqlQqIhf9jdq0lbhpFFVRokh2qlaVEqgQitvUUSVABWMjoAlqJQeIQ2z5Z3e/v5nTi7WNF2xYaKQeabSjnflm3vedM5r3CAtxhCPmKEfdrq4XHjEEzyE8qao7QANAAEQEVV36XR6rjClILCKXUI474lfeH3/pw8W9WFhYBhgwQwzZ3V0/+LbBHBHjrVW1OLUNizvn6n2nGM80AHDWIaY+zxjTAMSIh4iHOjvtcEdHxn/y6wEGvCGGnDcwMOgNXTxqd3d975cZv3TUuThvXWrBCYiICGmSIiIUijnUKflijjSxDQAKpRzOOXL5LEmSYlOL53kLMjh1zjoRChm/sG/z+u62E5/87sTAwKAnALu+9P1vBpnSb5KkkiDqgwgL+qhTfN/n8ItfY9v2dubnEkoteWZnqksMRYTWtgLzczVKLRn+dfkGP/7R66RpihiBWyeiqKSZTDETJ/Pfev/iz34rO7/4w04jbhwjedTK0uaAGCEOE7Z0buSNP36XbBYqFUgTyOUhl6vPC0MIa+BnoFiEKIJDB37BxH8mCXIZ1C3PF1XEU5zWnJour3PjrsOel93rNHGCNB6sgu97TE/NcW1ihpmZkNbWNkqlDB9eucmpv4xz4dxHeF7AunKBm5NVhk9dYPD1Ef555gpBNnNHsoKI4pzvZbNoHHuf3/iVl0XYgDqWs18enme4OPZvhk+e56v7H+OhrS2cPDHGi4d/z19PnWNHVyfdPVu4+sEUz3/9GB9c+YhcLmC1kIWdHG6tj7LduUbpV4pSKY8IGCOoQhD4tK0pAvW+an2sbU0RVXDO3WU1Mc5ZULb7IuLTRNy+oKpirVvqL8bif82EiPiG/3PcF4C7H1Lzcx4MgIBzilu4UstlX+wvjctnDEBEsImlbU2J8vpWrIUgyCyNB0EGa6G8vpW2NSVsYpEmpWgKgDFCtRqxv6+H9o4CYQ3Onr6MiCAinD19mbAG7R0F9vf1UK1GGPMZARAR4jilY3OZ3v6dIMrY6AQn3zlDvhCQLwScfOcMY6MTIEpv/046NpeJ47QpFUxT7CshvQd2095RJE2Ft94cJolTjDEYY0jilLfeHCZNhfaOIr0HdlOthE2pYJpn3wMoY+cneO/dUUoteax1WOsoteR5791Rxs5PAEpvf0/TKtwVgPFuY2/r7OMoaWBnjBBHSV0Fe5sK3gMCEBHiKKV9U5mn+nsQgYuj1xgZvkBLawHndCkJnVNaWguMDF/g4ug1ROCp/h7aN5WJo7urYO519gcP7aVjU5EwdLz26nFmZ+dJkpgoihpaksTMzs7z2qvHCUNHx6YiBw/tvWcu+Kuxj8KEh7a2s7/vcaJImbrpeOzLe+jp3nOPNwOmbjrWbRD29z3On//wdz6+Pk0m8Fd4mlcBYIxQq0X0H3yCcjlgZtYxN+XT1fUInrfM4KzwzFoLc1NQanOUywH9B5/g5Z8Oks1lsLYJAMvZ7+vtplZTwnlhfqZuJVZiccf3kRDOC0FG2dfbzZ8G/7aqCmalzF/OPkmU6cm6rxMjS3d/tbboAacnhSTRJRVqtWjFG2FUNV2OPqzGdD68wD5UahWhMguez+ra32bjPB8qs1CrCLWwrkLnw+2E1bjhRqhqahAuG+MpqBMjJEnKM8/uYV05II6UT68LztWTS5tsi/M/vS7EkbKuHPDMs3tIkgWXjDpjPEW4bER5W/BFRDSqxWzdtpm+p3dSmVfS2JCmkC9CNgfZfJMtV/8mTSGNDZV5pe/pnWzdtpmoFiMiKvgiytu+U/8YNv6GGJP3M55O3piSc2ev0t2zlTiyfOFR+Z8cj7NKLudx+h9XmbwxhZ/xFIxYG1ec+scaChNrq0mtFvkb29fJK2+8wIbPZUnT+3c5yyoAfB8++TjiuUMvMXljSvP5bOp5hVuFycDAoDc0dHChNGv5jtWQWjW0j+7YYnZ0bZEk1qbNxZ0AlEwgXBqf0CuXJly+kPM8yZGkc78aGf/584ulWUNxKpgjvp9ZW6vVCMPwlr3S+9x92Xe5XI58Pk+aJtN6W3Eqq5XnxpMnEXagt8rzBxEBkRjlkrO6Ynn+XwOoT4uWlvCrAAAAAElFTkSuQmCC" />
@@ -458,6 +458,57 @@ html[data-theme="dark"] .batch-thumb-wrap{background:repeating-conic-gradient(#3
 .te-btns .btn{flex:1}
 .te-tip{margin-top:9px;font-size:11px;line-height:1.6;color:var(--text-sub)}
 
+/* 서명·도장 목록 (왼쪽 설정 칸) */
+.sign-list{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
+.sign-list:empty{display:none}
+.sign-empty{margin-bottom:10px;padding:14px 12px;border:1px dashed var(--border-soft);border-radius:12px;text-align:center;font-size:12px;line-height:1.7;color:var(--text-sub)}
+.sign-item{display:flex;flex-direction:column;min-width:0;border:1px solid var(--border-line);border-radius:11px;background:var(--bg-card);overflow:hidden;transition:border-color .15s,box-shadow .15s}
+.sign-item.armed{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
+.sign-pick{display:grid;place-items:center;height:74px;padding:8px;border:0;border-radius:0;background:#fff repeating-conic-gradient(#f1eff7 0% 25%,#fff 0% 50%) 0 0/14px 14px}
+.sign-pick img{display:block;max-width:100%;max-height:58px;object-fit:contain}
+.sign-pick:hover img{transform:scale(1.04)}
+.sign-item-foot{display:flex;align-items:center;gap:3px;padding:4px 5px 5px 8px;border-top:1px solid var(--border-line)}
+.sign-name{flex:1;min-width:0;font-size:11px;color:var(--text-sub);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sign-item.armed .sign-name{color:var(--accent);font-weight:700}
+.sign-item-foot .batch-mini-btn{width:26px;height:26px;flex:none}
+.sign-tint button{padding:7px 2px;font-size:11.5px}
+/* 서명·도장 만들기 창 */
+.modal-card.sign{width:min(640px,94vw)}
+.sign-tabs{margin-bottom:12px}
+.sign-pad-wrap{position:relative;border:1px solid var(--border-soft);border-radius:14px;overflow:hidden;background:#fff}
+#signPad{display:block;width:100%;height:210px;touch-action:none;cursor:crosshair}
+.sign-pad-wrap.view #signPad{cursor:default}
+.sign-pad-ph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:0 24px;pointer-events:none;text-align:center;font-size:13px;line-height:1.6;color:#8d86a6}
+.sign-opts{margin-top:14px}
+.sign-row{display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px;margin-bottom:12px}
+.sign-row .lbl{font-size:12px;color:var(--text-sub);white-space:nowrap}
+.ink-row{display:flex;gap:7px}
+.ink-dot{width:28px;height:28px;border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 1px var(--border-soft);padding:0}
+.ink-dot.active{box-shadow:0 0 0 2px var(--accent)}
+.font-choices{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
+.font-choice{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:64px;padding:6px 10px;border:1px solid var(--border-soft);border-radius:10px;background:#fff;color:#1b1b1f;font-size:30px;line-height:1.15;overflow:hidden}
+.font-choice span{max-width:100%;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.font-choice small{font:500 10.5px/1.4 'Noto Sans KR',sans-serif;color:#6e6884;letter-spacing:-.02em}
+.font-choice.active{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent)}
+.stamp-chips{display:flex;flex-wrap:wrap;gap:6px}
+.stamp-chips button{min-height:32px;padding:5px 11px;border:1px solid var(--border-soft);border-radius:20px;background:var(--bg-card);font-size:12px}
+.stamp-chips button:hover{background:var(--accent-soft);border-color:var(--accent)}
+.sign-note{margin-top:6px;font-size:11.5px;line-height:1.65;color:var(--text-sub)}
+/* 서명 PNG 파일 만들기 */
+.tool-grid.sign-make-grid{grid-template-columns:repeat(3,1fr)}
+.sign-png{margin-top:16px;padding:12px 14px 0;border:1px solid var(--border-line);border-radius:12px}
+.sign-png-head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:4px 10px;margin-bottom:10px;font-size:12.5px;font-weight:700;color:var(--text-main)}
+.sign-png-dim{font-size:11.5px;font-weight:500;color:var(--text-sub);font-variant-numeric:tabular-nums}
+.sign-png-opt{display:flex;align-items:center;gap:8px;flex:1 1 220px;min-width:0}
+.sign-png .seg{flex:1;min-width:0}
+#signModal .modal-actions .btn.primary{order:2}
+.empty-sign-btn{margin-top:14px;min-height:40px;padding:8px 16px;font-size:12.5px}
+/* 여백·테두리 미리보기 */
+.pad-preview{display:flex;align-items:center;justify-content:center;min-height:120px;margin:2px 0 10px;padding:10px;border-radius:12px;background:var(--bg-soft)}
+.pad-preview canvas{display:block;max-width:100%;background:repeating-conic-gradient(#e7e5ee 0% 25%,#fff 0% 50%) 0 0/12px 12px}
+@media (pointer:coarse){.sign-pick{height:84px}.sign-item-foot .batch-mini-btn{width:34px;height:34px}.ink-dot{width:34px;height:34px}}
+@media (max-width:640px){#signPad{height:180px}.font-choice{font-size:26px}}
+
 /* ---------- 스크롤 막대 ---------- */
 @media (pointer:fine){
   .sidebar::-webkit-scrollbar,.canvas-wrap::-webkit-scrollbar,.modal-card::-webkit-scrollbar{width:9px;height:9px}
@@ -619,21 +670,22 @@ html[data-theme="dark"] .batch-thumb-wrap{background:repeating-conic-gradient(#3
 </header>
 <div class="app-body">
 <nav class="tool-rail tabs" id="toolRail" aria-label="편집 도구">
-  <div class="rail-heading"><span class="rail-title">편집 도구 <span class="rail-count">7</span></span><button class="rail-toggle" id="railToggle" type="button" aria-controls="toolRail" aria-expanded="true" aria-label="편집 도구 접기" title="편집 도구 접기 ( [ )"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18"/><path d="m16 15-3-3 3-3"/></svg></button></div>
+  <div class="rail-heading"><span class="rail-title">편집 도구 <span class="rail-count">8</span></span><button class="rail-toggle" id="railToggle" type="button" aria-controls="toolRail" aria-expanded="true" aria-label="편집 도구 접기" title="편집 도구 접기 ( [ )"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18"/><path d="m16 15-3-3 3-3"/></svg></button></div>
   <div class="tool-group"><p class="group-label">지우고 가리기</p>
     <button class="tab rail-item active" data-tab="bg" title="배경 지우기 (단축키 1)" aria-current="page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 21-4.3-4.3c-1-1-1-2.5 0-3.4l9.6-9.6c1-1 2.5-1 3.4 0l5.6 5.6c1 1 1 2.5 0 3.4L13 21"/><path d="M22 21H7"/><path d="m5 11 9 9"/></svg><span>배경 지우기</span><span class="key">1</span><span class="active-dot"></span></button>
     <button class="tab rail-item" data-tab="mosaic" title="모자이크·흐림으로 가리기 (단축키 2)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg><span>모자이크</span><span class="key">2</span><span class="active-dot"></span></button>
   </div>
   <div class="tool-group"><p class="group-label">모양 바꾸기</p>
     <button class="tab rail-item" data-tab="crop" title="자르기·회전·반전 (단축키 3)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2v14a2 2 0 0 0 2 2h14"/><path d="M18 22V8a2 2 0 0 0-2-2H2"/></svg><span>자르기·회전</span><span class="key">3</span><span class="active-dot"></span></button>
-    <button class="tab rail-item" data-tab="resize" title="해상도 크기 조정 (단축키 4)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M9 21H3v-6"/><path d="M21 3l-7 7"/><path d="M3 21l7-7"/></svg><span>크기 조정</span><span class="key">4</span><span class="active-dot"></span></button>
+    <button class="tab rail-item" data-tab="resize" title="해상도 크기 조정 · 여백·테두리 넣기 (단축키 4)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M9 21H3v-6"/><path d="M21 3l-7 7"/><path d="M3 21l7-7"/></svg><span>크기·여백</span><span class="key">4</span><span class="active-dot"></span></button>
   </div>
   <div class="tool-group"><p class="group-label">꾸미기</p>
     <button class="tab rail-item" data-tab="adjust" title="밝기·대비·채도 보정 (단축키 5)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 0 0 18z" fill="currentColor"/></svg><span>밝기·색 보정</span><span class="key">5</span><span class="active-dot"></span></button>
     <button class="tab rail-item" data-tab="draw" title="도형·화살표·번호·글씨 넣기 (단축키 6)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg><span>그리기·글씨</span><span class="key">6</span><span class="active-dot"></span></button>
+    <button class="tab rail-item" data-tab="sign" title="서명·도장을 만들어 사진에 찍기 (단축키 7)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21 17-2.156-1.868A.5.5 0 0 0 18 15.5v.5a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1c0-2.545-3.991-3.97-8.5-4a1 1 0 0 0 0 5c4.153 0 4.745-11.295 5.708-13.5a2.5 2.5 0 1 1 3.31 3.284"/><path d="M3 21h18"/></svg><span>서명·도장</span><span class="key">7</span><span class="active-dot"></span></button>
   </div>
   <div class="tool-group"><p class="group-label">내보내기</p>
-    <button class="tab rail-item" data-tab="export" title="형식·크기·워터마크를 정해 저장 (단축키 7)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg><span>저장·내보내기</span><span class="key">7</span><span class="active-dot"></span></button>
+    <button class="tab rail-item" data-tab="export" title="형식·크기·워터마크를 정해 저장 (단축키 8)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg><span>저장·내보내기</span><span class="key">8</span><span class="active-dot"></span></button>
   </div>
   <div class="rail-foot">
     <button class="file-summary" id="fileSummary" type="button" title="다른 사진 불러오기"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.09-3.09a2 2 0 0 0-2.82 0L6 21"/></svg><span><strong id="fileSummaryName">사진을 불러오세요</strong><small id="fileSummarySub">파일 열기 · 끌어 놓기 · Ctrl+V</small></span></button>
@@ -848,6 +900,25 @@ html[data-theme="dark"] .batch-thumb-wrap{background:repeating-conic-gradient(#3
         <div class="hint" style="margin-top:8px;">사진의 밝기·또렷함·색감을 자동으로 분석해서 슬라이더를 알맞게 맞춰줍니다. 미리보기를 본 뒤 마음에 들면 아래 <b>적용하기</b>를 누르세요.</div>
       </div>
       <hr class="divider" />
+      <div class="group">
+        <div class="group-title">문서·칠판 사진 깨끗하게</div>
+        <div class="tool-grid">
+          <button class="tool" id="scanColor" type="button" title="그림자·누런 종이색을 지우고 글씨는 또렷하게 (색은 그대로)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M8 13h8M8 17h5"/></svg>
+            학습지·문서
+          </button>
+          <button class="tool" id="scanMono" type="button" title="복사기로 스캔한 것처럼 흰 바탕·검은 글씨로">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7V5a2 2 0 0 1 2-2h2M17 3h2a2 2 0 0 1 2 2v2M21 17v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2"/><path d="M7 12h10"/></svg>
+            흑백 스캔처럼
+          </button>
+          <button class="tool wide" id="scanBoard" type="button" title="칠판의 빛 반사·얼룩을 고르게 하고 분필 글씨를 또렷하게">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/><path d="m7 12 3-3 2 2 4-4"/></svg>
+            칠판 사진 또렷하게
+          </button>
+        </div>
+        <div class="hint">휴대폰으로 찍은 학습지·책·칠판 사진의 그림자와 종이색을 고르게 지워 글씨를 또렷하게 만들어요. 비스듬하게 찍혔다면 먼저 <b>자르기·회전</b>으로 맞추면 더 좋아요. 마음에 들지 않으면 <b>Ctrl+Z</b>.</div>
+      </div>
+      <hr class="divider" />
       <div class="field">
         <label>밝기 <span class="val" id="brVal">100</span>%</label>
         <input type="range" id="brightness" min="0" max="200" value="100" />
@@ -869,7 +940,7 @@ html[data-theme="dark"] .batch-thumb-wrap{background:repeating-conic-gradient(#3
 
     <!-- ===== 크기 조정 ===== -->
     <div class="panel" data-panel="resize">
-      <div class="panel-intro"><h2>크기 조정</h2><p>사진 자체의 해상도(가로·세로 픽셀)를 키우거나 줄입니다. 여기서 바꾸면 작업 이미지가 실제로 커지거나 작아져요.</p></div>
+      <div class="panel-intro"><h2>크기 · 여백</h2><p>사진 자체의 해상도(가로·세로 픽셀)를 키우거나 줄이고, 여백·테두리를 넣어 원하는 모양으로 맞춥니다.</p></div>
       <div class="group">
         <div class="group-title">사진 키우기 (해상도 확대)</div>
         <div class="fx-buttons" style="margin-bottom:10px;">
@@ -888,6 +959,47 @@ html[data-theme="dark"] .batch-thumb-wrap{background:repeating-conic-gradient(#3
         </div>
         <div class="hint" id="dnInfo" style="margin-bottom:10px;">변경 후 크기: -</div>
         <button class="btn" id="dnApply" style="width:100%;justify-content:center;">이 크기로 줄이기</button>
+      </div>
+      <hr class="divider" />
+      <div class="group">
+        <div class="group-title">여백 · 테두리 넣기</div>
+        <div class="field">
+          <label for="padShape">모양 맞추기</label>
+          <select id="padShape">
+            <option value="0">그대로 (사방에 같은 여백)</option>
+            <option value="1">1 : 1 정사각형 (SNS·프로필)</option>
+            <option value="1.7778">16 : 9 (PPT·유튜브)</option>
+            <option value="1.3333">4 : 3</option>
+            <option value="0.75">3 : 4 (세로)</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="padSize">여백 <span class="val"><span id="padSizeVal">5</span>%</span></label>
+          <input type="range" id="padSize" min="0" max="30" value="5" />
+        </div>
+        <div class="field">
+          <label>여백 색</label>
+          <div class="seg" id="padFill">
+            <button class="active" data-fill="#ffffff" type="button">흰색</button>
+            <button data-fill="transparent" type="button">투명</button>
+            <button data-fill="#000000" type="button">검정</button>
+            <button data-fill="custom" type="button">색 지정</button>
+          </div>
+          <input type="color" id="padColor" aria-label="여백 색" value="#eeeafa" style="display:none;margin-top:10px;" />
+        </div>
+        <div class="field">
+          <label for="padBorder">테두리 선 <span class="val"><span id="padBorderVal">0</span>%</span></label>
+          <input type="range" id="padBorder" min="0" max="6" step="0.5" value="0" />
+          <input type="color" id="padBorderColor" aria-label="테두리 색" value="#4f3b9a" style="margin-top:10px;" />
+        </div>
+        <div class="field">
+          <label for="padRadius">모서리 둥글게 <span class="val"><span id="padRadiusVal">0</span>%</span></label>
+          <input type="range" id="padRadius" min="0" max="25" value="0" />
+        </div>
+        <div class="pad-preview"><canvas id="padPreview" aria-label="여백·테두리 미리보기"></canvas></div>
+        <div class="hint" id="padInfo" style="margin-bottom:10px;">결과 크기: -</div>
+        <button class="btn primary block" id="padApply" type="button">여백·테두리 적용</button>
+        <div class="hint plain" style="margin-top:8px;">여백·테두리는 짧은 변 길이에 대한 비율이에요. 모서리를 둥글게 하면 바깥 모서리가 투명해지고, JPG로 저장하면 그 부분은 흰색이 돼요.</div>
       </div>
     </div>
 
@@ -934,6 +1046,7 @@ html[data-theme="dark"] .batch-thumb-wrap{background:repeating-conic-gradient(#3
           <label for="drawColor">색상</label>
           <input type="color" id="drawColor" value="#E53935" />
           <div class="swatches" id="drawSwatches" role="group" aria-label="자주 쓰는 색"><button type="button" class="swatch" data-color="#E53935" style="background:#E53935" title="빨강" aria-label="빨강"></button><button type="button" class="swatch" data-color="#FB8C00" style="background:#FB8C00" title="주황" aria-label="주황"></button><button type="button" class="swatch" data-color="#FDD835" style="background:#FDD835" title="노랑" aria-label="노랑"></button><button type="button" class="swatch" data-color="#43A047" style="background:#43A047" title="초록" aria-label="초록"></button><button type="button" class="swatch" data-color="#1E88E5" style="background:#1E88E5" title="파랑" aria-label="파랑"></button><button type="button" class="swatch" data-color="#6A4FC4" style="background:#6A4FC4" title="보라" aria-label="보라"></button><button type="button" class="swatch" data-color="#222222" style="background:#222222" title="검정" aria-label="검정"></button><button type="button" class="swatch" data-color="#FFFFFF" style="background:#FFFFFF" title="흰색" aria-label="흰색"></button></div>
+          <button type="button" class="btn block" id="pickColorBtn" aria-pressed="false" style="margin-top:10px;" title="사진에서 누른 곳의 색을 그리기 색으로 고르기 (Esc 취소)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m2 22 1-1h3l9-9"/><path d="M3 21v-3l9-9"/><path d="m15 6 3.4-3.4a2.1 2.1 0 1 1 3 3L18 9l.4.4a2.1 2.1 0 1 1-3 3l-3.8-3.8a2.1 2.1 0 1 1 3-3l.4.4Z"/></svg>사진에서 색 고르기 (스포이트)</button>
         </div>
         <div class="field" id="drawWidthField">
           <label>선 굵기 <span class="val" id="drawWidthVal">6</span>px</label>
@@ -961,6 +1074,67 @@ html[data-theme="dark"] .batch-thumb-wrap{background:repeating-conic-gradient(#3
       </div>
       <hr class="divider" />
       <div class="hint" id="drawHint">도형을 고른 뒤 사진 위에서 마우스(또는 펜)로 <b>드래그</b>하면 그려집니다. 화살표는 시작점에서 가리킬 곳으로 드래그하세요.</div>
+    </div>
+
+    <!-- ===== 서명·도장 ===== -->
+    <div class="panel" data-panel="sign">
+      <div class="panel-intro"><h2>서명 · 도장</h2><p>내 서명이나 이름 도장을 한 번 만들어 두고 사진·문서 이미지에 찍어요. 만든 서명은 이 기기(브라우저)에만 저장돼요.</p></div>
+      <div class="group">
+        <div class="group-title">서명 PNG 파일 만들기</div>
+        <div class="tool-grid sign-make-grid">
+          <button class="tool" data-sign-make="hand" type="button" title="마우스·손가락·펜으로 그린 서명을 PNG 파일로">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.38 3.62a1 1 0 0 1 3 3L7.37 18.64a2 2 0 0 1-.86.5l-2.87.84a.5.5 0 0 1-.62-.62l.84-2.87a2 2 0 0 1 .5-.86z"/></svg>
+            그리기
+          </button>
+          <button class="tool" data-sign-make="text" type="button" title="이름을 손글씨 글꼴로 써서 PNG 파일로">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7V4h16v3"/><path d="M9 20h6"/><path d="M12 4v16"/></svg>
+            글씨
+          </button>
+          <button class="tool" data-sign-make="seal" type="button" title="이름 도장·문구 도장을 PNG 파일로">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 22h14"/><path d="M19.27 13.73A2.5 2.5 0 0 0 17.5 13h-11A2.5 2.5 0 0 0 4 15.5V17a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-1.5c0-.66-.26-1.3-.73-1.77Z"/><path d="M14 13V8.5C14 7 15 7 15 5a3 3 0 0 0-3-3c-1.66 0-3 1-3 3s1 2 1 3.5V13"/></svg>
+            도장
+          </button>
+        </div>
+        <div class="hint">사진 없이도 만들 수 있어요. 만든 뒤 <b>[PNG로 저장]</b>을 누르면 배경이 투명한 PNG 파일이 내려받아져 한글·워드·PPT 문서에 그림으로 바로 넣을 수 있어요.</div>
+      </div>
+      <hr class="divider" />
+      <div class="group">
+        <div class="group-title">내 서명·도장</div>
+        <div class="sign-list" id="signList"></div>
+        <div class="sign-empty" id="signEmpty">아직 만든 서명·도장이 없어요.<br>아래 단추로 처음 하나를 만들어 보세요.</div>
+        <button class="btn primary block" id="signNewBtn" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>새 서명·도장 만들기</button>
+        <button class="btn block" id="stickerBtn" type="button" style="margin-top:8px;" title="학교 로고·작은 사진 같은 이미지 파일을 사진 위에 겹쳐 넣기"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.09-3.09a2 2 0 0 0-2.82 0L6 21"/></svg>로고·이미지 파일 겹쳐 넣기</button>
+        <div class="hint">목록에서 하나를 고르면 사진 위에 놓여요. <b>끌어서</b> 옮기고 모서리 동그라미로 크기를 바꾼 뒤 <b>Enter</b>나 <b>[넣기]</b>로 찍어요. 사진을 <b>더블클릭</b>하면 그 자리에 바로 찍혀요.</div>
+      </div>
+      <hr class="divider" />
+      <div class="group">
+        <div class="group-title">찍는 모양</div>
+        <div class="field">
+          <label for="signSize">크기 (사진 폭 기준) <span class="val"><span id="signSizeVal">30</span>%</span></label>
+          <input type="range" id="signSize" min="2" max="100" value="30" />
+        </div>
+        <div class="field">
+          <label for="signRot">기울기 <span class="val"><span id="signRotVal">0</span>°</span></label>
+          <input type="range" id="signRot" min="-45" max="45" value="0" />
+        </div>
+        <div class="field">
+          <label for="signOp">진하기 <span class="val"><span id="signOpVal">100</span>%</span></label>
+          <input type="range" id="signOp" min="15" max="100" value="100" />
+        </div>
+        <div class="field">
+          <label>색 바꾸기 (한 가지 색으로)</label>
+          <div class="seg sign-tint" id="signTint">
+            <button class="active" data-tint="orig" type="button">그대로</button>
+            <button data-tint="#1b1b1f" type="button">검정</button>
+            <button data-tint="#1f3fae" type="button">파랑</button>
+            <button data-tint="#c8252c" type="button">빨강</button>
+            <button data-tint="#ffffff" type="button">흰색</button>
+          </div>
+        </div>
+        <label class="check" style="margin-bottom:14px;"><input type="checkbox" id="signMul" /> 아래 글씨가 비치게 찍기 (도장 느낌)</label>
+        <div class="fx-buttons"><button class="btn" id="signCancel" type="button">취소</button><button class="btn primary" id="signApply" type="button">이 자리에 넣기</button></div>
+        <div class="hint">놓인 서명은 <b>화살표 키</b>로 조금씩 옮길 수 있어요(Shift를 함께 누르면 크게). 넣지 않고 다른 도구로 넘어가면 자동으로 들어가고, <b>Ctrl+Z</b>로 되돌릴 수 있어요.</div>
+      </div>
     </div>
 
     <!-- ===== 저장 ===== -->
@@ -1014,11 +1188,27 @@ html[data-theme="dark"] .batch-thumb-wrap{background:repeating-conic-gradient(#3
       <hr class="divider" />
       <div class="group">
         <div class="group-title">워터마크</div>
-        <label class="check" style="margin-bottom:12px;"><input type="checkbox" id="wmOn" /> 워터마크 글자 넣기</label>
+        <label class="check" style="margin-bottom:12px;"><input type="checkbox" id="wmOn" /> 워터마크 넣기</label>
         <div id="wmOpts" style="display:none;">
           <div class="field">
+            <label>무엇을 넣을까요</label>
+            <div class="seg" id="wmKind">
+              <button class="active" data-kind="text" type="button">글자</button>
+              <button data-kind="sign" type="button">내 서명·도장·로고</button>
+            </div>
+          </div>
+          <div class="field" id="wmTextField">
             <label for="wmText">문구</label>
             <input type="text" id="wmText" maxlength="40" value="© 송쌤과학" />
+          </div>
+          <div class="field" id="wmSignField" style="display:none;">
+            <label for="wmSign">넣을 서명·도장·로고</label>
+            <select id="wmSign"></select>
+            <div class="hint" style="margin-top:8px;"><b>서명·도장</b> 도구에서 만든 것이 여기에 나와요. 여러 장 일괄 편집의 워터마크에도 그대로 쓰여요.</div>
+          </div>
+          <div class="field" id="wmScaleField" style="display:none;">
+            <label for="wmScale">크기 (사진 폭 기준) <span class="val"><span id="wmScaleVal">20</span>%</span></label>
+            <input type="range" id="wmScale" min="5" max="60" value="20" />
           </div>
           <div class="field">
             <label>위치</label>
@@ -1064,9 +1254,10 @@ html[data-theme="dark"] .batch-thumb-wrap{background:repeating-conic-gradient(#3
           <h2>편집할 사진을 올려 주세요</h2>
           <p>사진을 이곳에 끌어다 놓거나 눌러서 파일을 고르세요.<br>복사한 사진은 <b>Ctrl+V</b>로 바로 붙여넣을 수 있어요.</p>
           <button class="btn primary" type="button" tabindex="-1">파일 선택하기</button>
-          <div class="drop-chips"><span>배경 지우기</span><span>얼굴 자동 가리기</span><span>자르기·회전</span><span>화살표·번호·글씨</span></div>
+          <div class="drop-chips"><span>배경 지우기</span><span>얼굴 자동 가리기</span><span>자르기·회전</span><span>화살표·번호·글씨</span><span>서명·도장</span></div>
           <p class="drop-multi-hint">여러 장을 한꺼번에 고르면 <b>일괄 편집</b> 창이 열려요.</p>
         </div>
+        <button class="btn empty-sign-btn" id="emptySignBtn" type="button" title="그리기·글씨·도장으로 서명을 만들어 투명 PNG 파일로 저장"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21 17-2.156-1.868A.5.5 0 0 0 18 15.5v.5a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1c0-2.545-3.991-3.97-8.5-4a1 1 0 0 0 0 5c4.153 0 4.745-11.295 5.708-13.5a2.5 2.5 0 1 1 3.31 3.284"/><path d="M3 21h18"/></svg>사진 없이 서명·도장 PNG만 만들기</button>
       </div>
       <div class="canvas-inner" id="canvasInner" style="display:none;">
         <canvas id="canvas" aria-label="편집 중인 사진"></canvas>
@@ -1074,6 +1265,10 @@ html[data-theme="dark"] .batch-thumb-wrap{background:repeating-conic-gradient(#3
         <div class="crop-float" id="cropFloat" role="group" aria-label="자르기 확인" hidden>
           <button class="btn primary" id="cropFloatApply" type="button" title="고른 영역만 남기고 자르기 (Enter · 영역 안 더블클릭)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>자르기<kbd>Enter</kbd></button>
           <button class="btn" id="cropFloatCancel" type="button" title="선택 취소 (Esc)">취소<kbd>Esc</kbd></button>
+        </div>
+        <div class="crop-float" id="signFloat" role="group" aria-label="서명 넣기 확인" hidden>
+          <button class="btn primary" id="signFloatApply" type="button" title="이 자리에 넣기 (Enter · 더블클릭)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>넣기<kbd>Enter</kbd></button>
+          <button class="btn" id="signFloatCancel" type="button" title="취소 (Esc)">취소<kbd>Esc</kbd></button>
         </div>
       </div>
     </div>
@@ -1165,7 +1360,7 @@ html[data-theme="dark"] .batch-thumb-wrap{background:repeating-conic-gradient(#3
 
     <div class="help-steps">
       <div class="help-step"><span class="help-step-num">1</span><div><b>사진 불러오기</b><br>가운데 칸을 누르거나 사진을 끌어다 놓아요. 복사한 사진은 <b>Ctrl+V</b>로 붙여넣고, 여러 장을 고르면 <b>일괄 편집</b> 창이 열려요.</div></div>
-      <div class="help-step"><span class="help-step-num">2</span><div><b>왼쪽 편집 도구 고르기</b><br>도구를 고르면 바로 옆 칸에 설정이 나와요. 숫자 키 <b>1~7</b>로도 바꿀 수 있고, 실수하면 <b>Ctrl+Z</b>.</div></div>
+      <div class="help-step"><span class="help-step-num">2</span><div><b>왼쪽 편집 도구 고르기</b><br>도구를 고르면 바로 옆 칸에 설정이 나와요. 숫자 키 <b>1~8</b>로도 바꿀 수 있고, 실수하면 <b>Ctrl+Z</b>.</div></div>
       <div class="help-step"><span class="help-step-num">3</span><div><b>저장하기</b><br>오른쪽 위 <b>[PNG 저장]</b>으로 바로 저장하거나, <b>저장·내보내기</b>에서 형식·크기·워터마크를 정해 저장해요.</div></div>
     </div>
 
@@ -1176,10 +1371,11 @@ html[data-theme="dark"] .batch-thumb-wrap{background:repeating-conic-gradient(#3
           <li><b>배경 지우기</b> — AI 자동 제거, 테두리 단색 배경 제거, 색으로·손으로 지우기, 되살리기</li>
           <li><b>모자이크</b> — 흐림·네모 픽셀·동그라미·단색으로 가리기, 사진 속 얼굴 자동 가리기</li>
           <li><b>자르기·회전</b> — 비율 고정 자르기, 90° 회전, 좌우·상하 뒤집기</li>
-          <li><b>크기 조정</b> — 2배·4배 키우기(선명하게), 비율로 줄이기</li>
-          <li><b>밝기·색 보정</b> — 사진 분석 추천 보정, 밝기·대비·채도</li>
-          <li><b>그리기·글씨</b> — 사각형·원·선·화살표·펜(형광펜)·번호 붙이기·글씨</li>
-          <li><b>저장·내보내기</b> — PNG·JPG·WEBP, 저장 크기, 배경색, 워터마크</li>
+          <li><b>크기·여백</b> — 2배·4배 키우기(선명하게), 비율로 줄이기, 여백·테두리·둥근 모서리, 1:1·16:9 맞추기</li>
+          <li><b>밝기·색 보정</b> — 사진 분석 추천 보정, 밝기·대비·채도, 학습지·칠판 사진 깨끗하게</li>
+          <li><b>그리기·글씨</b> — 사각형·원·선·화살표·펜(형광펜)·번호 붙이기·글씨, 스포이트로 색 고르기</li>
+          <li><b>서명·도장</b> — 그리기·글씨·도장으로 서명 PNG 파일 만들기(투명·흰 바탕, 크기 선택), 사진 서명, 사진에 찍기, 로고 겹쳐 넣기</li>
+          <li><b>저장·내보내기</b> — PNG·JPG·WEBP, 저장 크기, 배경색, 워터마크(글자·서명·로고)</li>
           <li><b>여러 장 일괄 편집</b> — 배경 제거·보정을 한꺼번에, ZIP으로 저장</li>
         </ul>
       </div>
@@ -1190,13 +1386,14 @@ html[data-theme="dark"] .batch-thumb-wrap{background:repeating-conic-gradient(#3
           <tr><td><kbd>Ctrl</kbd>+<kbd>Y</kbd></td><td>다시 실행</td></tr>
           <tr><td><kbd>Ctrl</kbd>+<kbd>S</kbd></td><td>PNG로 바로 저장</td></tr>
           <tr><td><kbd>Ctrl</kbd>+<kbd>V</kbd></td><td>복사한 사진 붙여넣기</td></tr>
-          <tr><td><kbd>1</kbd>~<kbd>7</kbd></td><td>편집 도구 바꾸기</td></tr>
+          <tr><td><kbd>1</kbd>~<kbd>8</kbd></td><td>편집 도구 바꾸기</td></tr>
           <tr><td><kbd>[</kbd></td><td>편집 도구 레일 접기·펼치기</td></tr>
           <tr><td><kbd>+</kbd> <kbd>−</kbd> <kbd>0</kbd></td><td>확대 · 축소 · 화면에 맞추기</td></tr>
           <tr><td><kbd>Ctrl</kbd>+휠</td><td>마우스 위치를 중심으로 확대·축소</td></tr>
           <tr><td><kbd>Space</kbd>+끌기</td><td>화면 이동</td></tr>
-          <tr><td><kbd>Enter</kbd></td><td>고른 영역 자르기 (자르기 도구)</td></tr>
-          <tr><td><kbd>Esc</kbd></td><td>열린 창 닫기 · 자르기 선택 취소</td></tr>
+          <tr><td><kbd>Enter</kbd></td><td>고른 영역 자르기 · 놓인 서명 찍기</td></tr>
+          <tr><td><kbd>←</kbd><kbd>→</kbd><kbd>↑</kbd><kbd>↓</kbd></td><td>놓인 서명 조금씩 옮기기 (Shift: 크게)</td></tr>
+          <tr><td><kbd>Esc</kbd></td><td>열린 창 닫기 · 선택·서명·스포이트 취소</td></tr>
           <tr><td><kbd>F1</kbd></td><td>이 도움말</td></tr>
         </table>
       </div>
@@ -1300,6 +1497,93 @@ html[data-theme="dark"] .batch-thumb-wrap{background:repeating-conic-gradient(#3
     </div>
   </div>
 </div>
+
+<!-- 서명·도장 만들기 -->
+<div class="modal-backdrop" id="signModal" aria-hidden="true">
+  <div class="modal-card sign" role="dialog" aria-modal="true" aria-labelledby="signTitle">
+    <div class="modal-head">
+      <div class="modal-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m21 17-2.156-1.868A.5.5 0 0 0 18 15.5v.5a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1c0-2.545-3.991-3.97-8.5-4a1 1 0 0 0 0 5c4.153 0 4.745-11.295 5.708-13.5a2.5 2.5 0 1 1 3.31 3.284"/><path d="M3 21h18"/></svg></div>
+      <div>
+        <h2 class="modal-title" id="signTitle">새 서명·도장 만들기</h2>
+        <p class="modal-desc">만든 서명은 이 기기(브라우저)에만 저장되고 외부로 전송되지 않아요.</p>
+      </div>
+    </div>
+    <div class="seg sign-tabs" id="signTabs" role="group" aria-label="만드는 방법">
+      <button class="active" data-st="hand" type="button">손으로 쓰기</button>
+      <button data-st="text" type="button">글자로</button>
+      <button data-st="photo" type="button">사진에서</button>
+      <button data-st="seal" type="button">도장</button>
+    </div>
+    <div class="sign-pad-wrap" id="signPadWrap"><canvas id="signPad" aria-label="서명 칸"></canvas><span class="sign-pad-ph" id="signPadPh">여기에 마우스·손가락·펜으로 서명하세요</span></div>
+
+    <div class="sign-opts" data-st="hand">
+      <div class="sign-row">
+        <div class="sign-row" style="margin:0;"><span class="lbl">펜 색</span>
+          <div class="ink-row" data-ink-for="hand"><button type="button" class="ink-dot active" data-ink="#1b1b1f" style="background:#1b1b1f" title="검정" aria-label="검정"></button><button type="button" class="ink-dot" data-ink="#1f3fae" style="background:#1f3fae" title="파랑" aria-label="파랑"></button><button type="button" class="ink-dot" data-ink="#c8252c" style="background:#c8252c" title="빨강" aria-label="빨강"></button></div></div>
+        <div class="sign-row" style="margin:0;flex:1;min-width:230px;"><span class="lbl">굵기</span>
+          <div class="seg" id="signThick" style="flex:1;"><button data-th="2.2" type="button">가늘게</button><button class="active" data-th="3.4" type="button">보통</button><button data-th="5.2" type="button">굵게</button></div></div>
+      </div>
+      <div class="fx-buttons"><button class="btn" id="signUndoStroke" type="button">한 획 지우기</button><button class="btn" id="signClearPad" type="button">모두 지우기</button></div>
+      <div class="sign-note">태블릿 펜은 누르는 힘에 따라, 마우스·손가락은 빠르기에 따라 선 굵기가 자연스럽게 바뀌어요. 잘못 쓴 획은 <b>Ctrl+Z</b>로도 지울 수 있어요.</div>
+    </div>
+
+    <div class="sign-opts" data-st="text" hidden>
+      <div class="sign-row">
+        <input type="text" id="signText" maxlength="20" placeholder="이름을 입력하세요 (예: 송쌤)" aria-label="서명할 이름" style="flex:1;min-width:160px;" />
+        <div class="ink-row" data-ink-for="text"><button type="button" class="ink-dot active" data-ink="#1b1b1f" style="background:#1b1b1f" title="검정" aria-label="검정"></button><button type="button" class="ink-dot" data-ink="#1f3fae" style="background:#1f3fae" title="파랑" aria-label="파랑"></button><button type="button" class="ink-dot" data-ink="#c8252c" style="background:#c8252c" title="빨강" aria-label="빨강"></button></div>
+      </div>
+      <div class="font-choices" id="signFonts" role="group" aria-label="글꼴 고르기"></div>
+      <div class="sign-note" id="signFontNote">손글씨 글꼴은 처음 한 번 인터넷에서 내려받아요.</div>
+    </div>
+
+    <div class="sign-opts" data-st="photo" hidden>
+      <div class="fx-buttons"><button class="btn primary" id="signPhotoPick" type="button">서명 사진 고르기</button><button class="btn" id="signPhotoCur" type="button">편집 중인 사진 쓰기</button></div>
+      <div class="field" style="margin-top:14px;">
+        <label for="signPhotoSens">종이 배경 지우는 세기 <span class="val" id="signPhotoSensVal">40</span></label>
+        <input type="range" id="signPhotoSens" min="0" max="100" value="40" />
+      </div>
+      <div class="sign-row"><span class="lbl">잉크 색</span><div class="seg" id="signPhotoInk" style="flex:1;"><button class="active" data-pi="orig" type="button">원래 색</button><button data-pi="black" type="button">검정</button><button data-pi="blue" type="button">파랑</button></div></div>
+      <div class="sign-note">흰 종이에 쓴 서명을 밝은 곳에서 찍으면 가장 깔끔해요. 종이 색과 그림자는 자동으로 지워져요.</div>
+    </div>
+
+    <div class="sign-opts" data-st="seal" hidden>
+      <div class="seg" id="sealKind" style="margin-bottom:12px;"><button class="active" data-sk="name" type="button">이름 도장</button><button data-sk="stamp" type="button">문구 도장</button></div>
+      <div id="sealNameOpts">
+        <div class="sign-row">
+          <input type="text" id="sealName" maxlength="4" placeholder="이름 (4글자까지)" aria-label="도장에 새길 이름" style="flex:1;min-width:140px;" />
+          <div class="seg" id="sealShape" style="min-width:150px;"><button class="active" data-sh="circle" type="button">원형</button><button data-sh="square" type="button">사각</button></div>
+        </div>
+        <label class="check" style="margin-bottom:8px;"><input type="checkbox" id="sealIn" checked /> 3글자 이하면 끝에 ‘인’ 붙이기</label>
+      </div>
+      <div id="sealStampOpts" hidden>
+        <div class="stamp-chips" id="stampChips"><button type="button">참 잘했어요</button><button type="button">확인</button><button type="button">검토 완료</button><button type="button">우수</button><button type="button">최고예요</button></div>
+        <input type="text" id="stampText" maxlength="12" value="참 잘했어요" aria-label="도장 문구" style="margin-top:10px;" />
+        <label class="check" style="margin-top:10px;"><input type="checkbox" id="stampDate" checked /> 오늘 날짜 넣기</label>
+      </div>
+      <div class="sign-row" style="margin:10px 0 0;"><span class="lbl">도장 색</span>
+        <div class="ink-row" data-ink-for="seal"><button type="button" class="ink-dot active" data-ink="#c8252c" style="background:#c8252c" title="빨강" aria-label="빨강"></button><button type="button" class="ink-dot" data-ink="#1f3fae" style="background:#1f3fae" title="파랑" aria-label="파랑"></button><button type="button" class="ink-dot" data-ink="#1b1b1f" style="background:#1b1b1f" title="검정" aria-label="검정"></button></div></div>
+      <label class="check" style="margin-top:10px;"><input type="checkbox" id="sealWorn" checked /> 인주가 살짝 번진 느낌 내기</label>
+    </div>
+
+    <div class="sign-png" role="group" aria-labelledby="signPngTitle">
+      <div class="sign-png-head"><span id="signPngTitle">PNG 파일로 저장할 때</span><span class="sign-png-dim" id="signPngDim" aria-live="polite"></span></div>
+      <div class="sign-row">
+        <div class="sign-png-opt"><span class="lbl">배경</span>
+          <div class="seg" id="signPngBg"><button class="active" data-bg="clear" type="button" title="문서 위에 자연스럽게 겹쳐지는 투명 배경">투명</button><button data-bg="white" type="button" title="흰 바탕 + 둘레 여백">흰색</button></div></div>
+        <div class="sign-png-opt"><span class="lbl">크기</span>
+          <div class="seg" id="signPngSize"><button data-sz="400" type="button" title="긴 쪽 400px">작게</button><button class="active" data-sz="800" type="button" title="긴 쪽 800px">보통</button><button data-sz="1600" type="button" title="긴 쪽 1600px · 크게 인쇄할 때">크게</button></div></div>
+      </div>
+    </div>
+
+    <div class="modal-actions" style="margin-top:18px;">
+      <button class="btn" id="signModalCancel" type="button">취소</button>
+      <button class="btn" id="signPngBtn" type="button" disabled><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>PNG로 저장</button>
+      <button class="btn primary" id="signSaveBtn" type="button" disabled>목록에 저장하고 쓰기</button>
+    </div>
+  </div>
+</div>
+<input type="file" id="signPhotoInput" accept="image/*" />
+<input type="file" id="stickerInput" accept="image/*" />
 
 
 
@@ -1651,6 +1935,7 @@ html[data-theme="dark"] .batch-thumb-wrap{background:repeating-conic-gradient(#3
     overlay.style.width = (canvas.width*S.zoom)+'px';
     overlay.style.height = (canvas.height*S.zoom)+'px';
     $('zoomVal').textContent = Math.round(S.zoom*100)+'%';
+    if(P.active) signRender(); // 테두리·손잡이 굵기는 화면 기준이라 다시 그림
     updateCropFloat();
   }
   function fitToScreen(){
@@ -1788,6 +2073,7 @@ html[data-theme="dark"] .batch-thumb-wrap{background:repeating-conic-gradient(#3
   }
   function resetToOriginal(){
     if(!S.loaded) return;
+    placeCancel();
     if(!ensureSourceCanvas()){
       toast('원본 이미지를 다시 불러오지 못했어요. 새 이미지를 다시 열어주세요.','error');
       return;
@@ -1833,6 +2119,7 @@ html[data-theme="dark"] .batch-thumb-wrap{background:repeating-conic-gradient(#3
     m.addEventListener('click', e=>{
       if(e.target!==m) return;
       if(m.id==='batchModal' && B.busy) return; // 일괄 처리 중엔 실수로 닫히지 않게
+      if(m.id==='signModal' && signDirty()) return; // 쓰던 서명이 바깥 클릭으로 사라지지 않게
       closeModal(m.id);
     });
   });
@@ -1843,8 +2130,12 @@ html[data-theme="dark"] .batch-thumb-wrap{background:repeating-conic-gradient(#3
   window.addEventListener('keydown', e=>{
     if(e.key==='Escape'){
       if(T.open){ closeTextEditor(); return; }
-      if(!document.querySelector('.modal-backdrop.show') && S.mode==='crop' && (S.cropRect || S.cropStart)){ cropClear(); return; }
-      closeModal('askModal');
+      const anyModal=!!document.querySelector('.modal-backdrop.show');
+      if(!anyModal && S.mode==='crop' && (S.cropRect || S.cropStart)){ cropClear(); return; }
+      if(!anyModal && S.mode==='sign' && (P.active || SG.armed)){ placeStop(); return; }
+      if(!anyModal && S.pickColor){ setPickColor(false); return; }
+      if(S.askDone){ closeModal('askModal'); return; } // 확인 창이 다른 창 위에 떠 있으면 그것만 닫음
+      closeModal('signModal');
       closeModal('resetConfirmModal');
       closeModal('compareModal');
       closeModal('helpModal');
@@ -1856,10 +2147,16 @@ html[data-theme="dark"] .batch-thumb-wrap{background:repeating-conic-gradient(#3
     const typing = el && (el.tagName==='INPUT' || el.tagName==='TEXTAREA' || el.tagName==='SELECT' || el.isContentEditable);
     const textEntry = el && (el.tagName==='TEXTAREA' || el.isContentEditable || (el.tagName==='INPUT' && /^(text|number|search|url|email|tel|password)$/.test(el.type)));
     const modalOpen = !!document.querySelector('.modal-backdrop.show');
+    const kbButton = kbNav && el && (el.tagName==='BUTTON' || el.tagName==='A' || el.getAttribute('role')==='button');
     if(e.key==='Enter' && !e.ctrlKey && !e.metaKey && !e.altKey && !e.shiftKey && !e.isComposing && !textEntry && !modalOpen
-       && S.mode==='crop' && !S.drawing && cropReady()
-       && !(kbNav && el && (el.tagName==='BUTTON' || el.tagName==='A' || el.getAttribute('role')==='button'))){
+       && S.mode==='crop' && !S.drawing && cropReady() && !kbButton){
       e.preventDefault(); applyCrop(); return;
+    }
+    // 서명 놓기: Enter로 찍기, 화살표로 조금씩 옮기기
+    if(S.mode==='sign' && P.active && !P.drag && !modalOpen && !e.ctrlKey && !e.metaKey && !e.altKey && !e.isComposing){
+      if(e.key==='Enter' && !e.shiftKey && !textEntry && !kbButton){ e.preventDefault(); placeCommit(); return; }
+      const mv={ArrowLeft:[-1,0],ArrowRight:[1,0],ArrowUp:[0,-1],ArrowDown:[0,1]}[e.key];
+      if(mv && !typing){ e.preventDefault(); placeNudge(mv[0], mv[1], e.shiftKey); return; }
     }
     if((e.ctrlKey||e.metaKey) && !textEntry && !modalOpen && e.key.toLowerCase()==='z'){ e.preventDefault(); e.shiftKey?redo():undo(); }
     else if((e.ctrlKey||e.metaKey) && !textEntry && !modalOpen && e.key.toLowerCase()==='y'){ e.preventDefault(); redo(); }
@@ -1868,7 +2165,7 @@ html[data-theme="dark"] .batch-thumb-wrap{background:repeating-conic-gradient(#3
       if(S.loaded) $('quickSaveBtn').click();
       else toast('먼저 이미지를 불러오세요','error');
     }
-    else if(!typing && !e.ctrlKey && !e.metaKey && !e.altKey && e.key>='1' && e.key<='7'){
+    else if(!typing && !e.ctrlKey && !e.metaKey && !e.altKey && e.key>='1' && e.key<='8'){
       if(document.querySelector('.modal-backdrop.show')) return; // 창이 열려 있으면 무시
       const tabs=document.querySelectorAll('.tabs .tab');
       const t=tabs[+e.key-1]; if(t) t.click();
@@ -1897,11 +2194,13 @@ html[data-theme="dark"] .batch-thumb-wrap{background:repeating-conic-gradient(#3
       if(prev==='crop' && name!=='crop'){ S.cropRect=null; renderCrop(); if(rotCommit()) auto.push('기울기'); }
       if(prev==='mosaic' && name!=='mosaic') clearFaceReview();
       // 그리기 모드를 벗어나면 미리보기/시작점/글씨 입력 창 정리
-      if(prev==='draw' && name!=='draw'){ S.shapeStart=null; if(textCommit()) auto.push('글씨'); closeTextEditor(); octx2.clearRect(0,0,overlay.width,overlay.height); }
+      if(prev==='draw' && name!=='draw'){ S.shapeStart=null; setPickColor(false); if(textCommit()) auto.push('글씨'); closeTextEditor(); octx2.clearRect(0,0,overlay.width,overlay.height); }
+      if(prev==='sign' && name!=='sign'){ const lbl=P.label; if(placeCommit(true)) auto.push(lbl); placeLeave(); }
       if(auto.length) toastAuto(auto);
       if(name==='export'){ updateSizeInfo(); scheduleEstimate(); }
       if(name==='crop' && prev!=='crop'){ S.cropRect=null; renderCrop(); updateSizeInfo(); }
-      if(name==='resize'){ updateSizeInfo(); }
+      if(name==='resize'){ updateSizeInfo(); padPreviewUpdate(); }
+      if(name==='sign'){ renderSignList(); }
       if(name==='adjust' && prev!=='adjust'){ adjResetSliders(); adjSnapshot(); }
       if(name==='draw'){ updateDrawUI(); }
       hideRing();
@@ -2001,6 +2300,7 @@ html[data-theme="dark"] .batch-thumb-wrap{background:repeating-conic-gradient(#3
     const ns=$('numSize'); ns.value = Math.min(+ns.max, Math.max(+ns.min, Math.round(base/16))); $('numSizeVal').textContent = ns.value;
     $('numNext').value = 1;
     closeTextEditor(); // 새 이미지가 열리면 글씨 입력 창 정리
+    placeCancel(); setPickColor(false);
   }
   updateDrawUI();
 
@@ -2094,6 +2394,29 @@ html[data-theme="dark"] .batch-thumb-wrap{background:repeating-conic-gradient(#3
   }));
   $('drawColor').addEventListener('input', syncSwatches);
   syncSwatches();
+  // ---- 스포이트: 사진에서 누른 곳의 색을 그리기 색으로 ----
+  function setPickColor(v){
+    S.pickColor=!!v;
+    const b=$('pickColorBtn'); b.classList.toggle('toggle-on', S.pickColor); b.setAttribute('aria-pressed', S.pickColor?'true':'false');
+    canvas.style.cursor = S.pickColor ? 'copy' : '';
+  }
+  function pickColorAt(p){
+    const x=Math.max(0,Math.min(canvas.width-1,Math.round(p.x))), y=Math.max(0,Math.min(canvas.height-1,Math.round(p.y)));
+    const x0=Math.max(0,x-1), y0=Math.max(0,y-1), w=Math.min(canvas.width,x+2)-x0, h=Math.min(canvas.height,y+2)-y0;
+    const d=ctx.getImageData(x0,y0,w,h).data; let r=0,g=0,b=0,a=0; // 주변 3×3 평균(투명한 곳은 빼고)
+    for(let i=0;i<d.length;i+=4){ const al=d[i+3]; r+=d[i]*al; g+=d[i+1]*al; b+=d[i+2]*al; a+=al; }
+    if(a < 10*(d.length/4)){ toast('투명한 곳이에요. 색이 있는 곳을 눌러 주세요','error'); return; }
+    const hex='#'+[r,g,b].map(v=>Math.round(v/a).toString(16).padStart(2,'0')).join('');
+    $('drawColor').value=hex; syncSwatches();
+    if(T.open){ $('teColor').value=hex; teRender(); }
+    setPickColor(false);
+    toast('색을 골랐어요 ('+hex.toUpperCase()+')','ok');
+  }
+  $('pickColorBtn').addEventListener('click', ()=>{
+    if(!S.loaded){ toast('먼저 이미지를 불러오세요','error'); return; }
+    setPickColor(!S.pickColor);
+    if(S.pickColor) toast('사진에서 가져올 색을 누르세요 · Esc로 취소','ok');
+  });
   function previewDrawShape(p){
     octx2.clearRect(0,0,overlay.width,overlay.height);
     renderDrawShape(octx2, S.shapeStart, p);
@@ -2222,6 +2545,832 @@ html[data-theme="dark"] .batch-thumb-wrap{background:repeating-conic-gradient(#3
   });
 
   // ============================================================
+  //  서명 · 도장 — 만들기(손글씨·글자·사진·도장) → 이 기기에 저장 → 사진에 찍기
+  //  * 목록은 localStorage('ssSignatures')에만 저장 (외부 전송 없음)
+  //  * 놓기(P): 끌어서 옮기기 · 모서리 손잡이로 크기 · Enter/더블클릭/[넣기]로 확정
+  // ============================================================
+  const SIGN_KEY='ssSignatures', SIGN_MAX=16;
+  const INK={ black:'#1b1b1f', blue:'#1f3fae', red:'#c8252c' };
+  const SIGN_FONTS=[
+    { f:'Nanum Pen Script',   n:'나눔손글씨 펜', wt:400 },
+    { f:'Nanum Brush Script', n:'나눔손글씨 붓', wt:400 },
+    { f:'East Sea Dokdo',     n:'동해 독도',     wt:400 },
+    { f:'Hi Melody',          n:'하이 멜로디',   wt:400 },
+    { f:'Gaegu',              n:'개구',          wt:700 }
+  ];
+  const SEAL_FAM='Nanum Myeongjo', SEAL_FONT='"Nanum Myeongjo","Batang","AppleMyungjo",serif';
+  const SIGN_FONT_CSS='https://fonts.googleapis.com/css2?family=East+Sea+Dokdo&family=Gaegu:wght@700&family=Hi+Melody&family=Nanum+Brush+Script&family=Nanum+Myeongjo:wght@800&family=Nanum+Pen+Script&display=swap';
+  const KIND_INFO={ // label: 자동 적용 알림에 쓰는 이름, size: 처음 크기(사진 폭 %)
+    hand:{label:'서명', size:30, mul:false, op:100},
+    text:{label:'서명', size:30, mul:false, op:100},
+    photo:{label:'서명', size:30, mul:true, op:100},
+    seal:{label:'도장', size:12, mul:true, op:92},
+    stamp:{label:'도장', size:18, mul:true, op:90},
+    image:{label:'이미지', size:35, mul:false, op:100}
+  };
+  const SG={ items:[], imgs:new Map(), armed:null, tab:'hand', strokes:[], cur:null, ink:INK.black, thick:3.4,
+             font:SIGN_FONTS[0].f, textInk:INK.black, photo:null, photoBg:null, photoData:null, photoInk:'orig',
+             sealKind:'name', sealShape:'circle', sealInk:INK.red, result:null, ph:'', saving:false,
+             pngBg:'clear', pngSize:800, pngMode:false };
+  const P={ active:false, ghost:false, src:null, item:null, label:'서명', x:0, y:0, w:0, h:0, ar:1, rot:0, op:1, tint:'orig', mul:false, drag:null, tc:null };
+  const WM={ kind:'text', sign:'', scale:20 }; // 저장 탭 워터마크: 글자 또는 내 서명·도장·로고
+  function coarse(){ return window.matchMedia('(pointer: coarse)').matches; }
+  function srcW(s){ return s ? (s.naturalWidth||s.width||0) : 0; }
+  function srcH(s){ return s ? (s.naturalHeight||s.height||0) : 0; }
+
+  // ---- 목록 저장·불러오기 ----
+  function signPersist(){
+    try{
+      localStorage.setItem(SIGN_KEY, JSON.stringify(SG.items.filter(i=>!i.temp).map(i=>({id:i.id, kind:i.kind, name:i.name, data:i.data, created:i.created}))));
+      return true;
+    }catch(e){ return false; }
+  }
+  function signDecode(it){
+    if(SG.imgs.has(it.id)) return;
+    const im=new Image();
+    im.onload=()=>{ if($('wmOn').checked && WM.kind==='sign') scheduleEstimate(); };
+    im.src=it.data; SG.imgs.set(it.id, im);
+  }
+  function signLoad(){
+    let arr=[]; try{ arr=JSON.parse(localStorage.getItem(SIGN_KEY)||'[]'); }catch(e){ arr=[]; }
+    SG.items=(Array.isArray(arr)?arr:[])
+      .filter(it=>it && typeof it.id==='string' && typeof it.data==='string' && /^data:image\/(png|jpeg);base64,/.test(it.data) && KIND_INFO[it.kind])
+      .slice(0,SIGN_MAX)
+      .map(it=>({ id:it.id, kind:it.kind, name:String(it.name||'서명').slice(0,40), data:it.data, created:+it.created||0 }));
+    SG.items.forEach(signDecode);
+  }
+  // 긴 변이 max를 넘으면 반씩 줄여 가며 축소(가는 서명 선이 깨지지 않게)
+  function fitCanvas(cv, max){
+    if(Math.max(cv.width,cv.height)<=max) return cv;
+    let cur=cv;
+    const step=(w,h)=>{ const t=document.createElement('canvas'); t.width=Math.max(1,Math.round(w)); t.height=Math.max(1,Math.round(h)); const g=t.getContext('2d'); g.imageSmoothingEnabled=true; g.imageSmoothingQuality='high'; g.drawImage(cur,0,0,t.width,t.height); return t; };
+    while(Math.max(cur.width,cur.height)/2>=max) cur=step(cur.width/2, cur.height/2);
+    const s=max/Math.max(cur.width,cur.height);
+    return step(cur.width*s, cur.height*s);
+  }
+  function isOpaque(cv){
+    try{ const d=cv.getContext('2d',{willReadFrequently:true}).getImageData(0,0,cv.width,cv.height).data; for(let i=3;i<d.length;i+=28) if(d[i]<250) return false; return true; }
+    catch(e){ return false; }
+  }
+  function signAdd(cv, kind, name){
+    const id='s'+Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+    const sess=fitCanvas(cv, kind==='image'?1600:1400), store=fitCanvas(cv, kind==='image'?900:1000);
+    let data='';
+    try{ data=(kind==='image' && isOpaque(store)) ? store.toDataURL('image/jpeg',0.9) : store.toDataURL('image/png'); }catch(e){}
+    const it={ id, kind, name:String(name||KIND_INFO[kind].label).slice(0,40), data, created:Date.now() };
+    SG.items.unshift(it); SG.imgs.set(id, sess);
+    const dropped=[];
+    while(SG.items.length>SIGN_MAX){ const old=SG.items.pop(); SG.imgs.delete(old.id); dropped.push(old); if(SG.armed===old) SG.armed=null; }
+    if(!data || !signPersist()){ it.temp=true; signPersist(); toast('기기 저장 공간이 부족해 이 서명은 지금만 쓸 수 있어요. 안 쓰는 서명을 지워 주세요','error'); }
+    else if(dropped.length) toast('목록이 가득 차서 가장 오래된 「'+dropped[0].name+'」'+josaEulReul(dropped[0].name)+' 지웠어요','error');
+    renderSignList();
+    return it;
+  }
+  const ICON_DL='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>';
+  const ICON_DEL='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>';
+  function renderSignList(){
+    const list=$('signList'); list.textContent='';
+    $('signEmpty').hidden = SG.items.length>0;
+    SG.items.forEach(it=>{
+      const on=SG.armed===it;
+      const box=document.createElement('div'); box.className='sign-item'+(on?' armed':'');
+      const pick=document.createElement('button'); pick.type='button'; pick.className='sign-pick';
+      pick.title=on ? '지금 고른 것이에요 · 사진에서 넣을 곳을 누르세요' : '「'+it.name+'」 사진에 넣기';
+      pick.setAttribute('aria-pressed', on?'true':'false'); pick.setAttribute('aria-label', it.name+' 사진에 넣기');
+      const im=document.createElement('img'); im.alt=''; im.src=it.data; pick.appendChild(im);
+      pick.addEventListener('click', ()=> signArm(it));
+      const foot=document.createElement('div'); foot.className='sign-item-foot';
+      const nm=document.createElement('span'); nm.className='sign-name'; nm.textContent=it.name+(it.temp?' (임시)':''); nm.title=it.name;
+      const dl=document.createElement('button'); dl.type='button'; dl.className='batch-mini-btn'; dl.innerHTML=ICON_DL;
+      dl.title='투명 PNG 파일로 내려받기 (한글·워드 문서용)'; dl.setAttribute('aria-label', it.name+' 내려받기');
+      dl.addEventListener('click', ()=> signDownload(it));
+      const del=document.createElement('button'); del.type='button'; del.className='batch-mini-btn'; del.innerHTML=ICON_DEL;
+      del.title='목록에서 지우기'; del.setAttribute('aria-label', it.name+' 지우기');
+      del.addEventListener('click', ()=> signDelete(it));
+      foot.append(nm, dl, del); box.append(pick, foot); list.appendChild(box);
+    });
+    refreshWmSignOptions();
+  }
+  async function signDelete(it){
+    const ok=await ask('「'+it.name+'」'+josaEulReul(it.name)+' 지울까요?','이 기기에 저장된 것이 지워지고, 지운 뒤에는 되돌릴 수 없어요. 이미 사진에 찍은 서명은 그대로 남아요.','지우기');
+    if(!ok) return;
+    const i=SG.items.indexOf(it); if(i<0) return;
+    SG.items.splice(i,1); SG.imgs.delete(it.id);
+    if(SG.armed===it) placeStop();
+    signPersist(); renderSignList();
+    toast('목록에서 지웠어요','ok');
+  }
+  function signFileName(name){ return ('송쌤과학_'+name).replace(/[\\/:*?"<>|]+/g,'_').replace(/\s*·\s*/g,'_').replace(/\s+/g,'_').slice(0,60)+'.png'; }
+  function signDownload(it){
+    const src=signSrc(it);
+    if(!src){ toast('서명 이미지를 준비하는 중이에요. 잠시 뒤 다시 눌러 주세요','error'); return; }
+    const c=document.createElement('canvas'); c.width=srcW(src); c.height=srcH(src); c.getContext('2d').drawImage(src,0,0);
+    c.toBlob(b=>{
+      if(!b){ toast('저장에 실패했어요','error'); return; }
+      saveBlob(b, signFileName(it.name));
+      toast('투명 PNG로 저장했어요 · 한글·워드 문서에 그림으로 넣을 수 있어요','ok');
+    }, 'image/png');
+  }
+
+  // ---- 사진에 놓기 ----
+  function setSlider(id, v){
+    const el=$(id); el.value=v; const lab=$(id+'Val'); if(lab) lab.textContent=el.value;
+    const mn=+el.min||0, mx=+el.max||100; el.style.setProperty('--p', ((+el.value-mn)/(mx-mn)*100).toFixed(2)+'%');
+  }
+  function ctlSize(){ return +$('signSize').value; }
+  function ctlTint(){ const b=document.querySelector('#signTint button.active'); return b ? b.dataset.tint : 'orig'; }
+  function setTint(t){ document.querySelectorAll('#signTint button').forEach(b=> b.classList.toggle('active', b.dataset.tint===t)); }
+  function signSrc(it){ const s=it && SG.imgs.get(it.id); return srcW(s) ? s : null; }
+  function viewCenterImg(){
+    const c=viewCenter(), r=canvas.getBoundingClientRect();
+    return { x:Math.max(0,Math.min(canvas.width,(c.x-r.left)/S.zoom)), y:Math.max(0,Math.min(canvas.height,(c.y-r.top)/S.zoom)) };
+  }
+  function signArm(it){
+    const info=KIND_INFO[it.kind]||KIND_INFO.hand;
+    if(SG.armed!==it){ setSlider('signSize', info.size); setSlider('signRot', 0); setSlider('signOp', info.op); setTint('orig'); $('signMul').checked=info.mul; }
+    SG.armed=it;
+    renderSignList();
+    if(!S.loaded){ toast('사진을 불러온 뒤 넣을 곳을 누르세요','ok'); return; }
+    if(!signSrc(it)){ toast('서명 이미지를 준비하는 중이에요. 잠시 뒤 다시 눌러 주세요','error'); return; }
+    placeBegin(P.active ? {x:P.x, y:P.y} : viewCenterImg()); // 이미 놓인 것이 있으면 그 자리에서 바꿔 끼움
+  }
+  function placeBegin(p){
+    const it=SG.armed, src=signSrc(it); if(!src) return false;
+    signGhostOff();
+    P.active=true; P.item=it; P.src=src; P.label=(KIND_INFO[it.kind]||KIND_INFO.hand).label;
+    P.ar=srcH(src)/srcW(src);
+    P.w=Math.max(8, canvas.width*ctlSize()/100); P.h=P.w*P.ar;
+    P.rot=+$('signRot').value; P.op=+$('signOp').value/100; P.tint=ctlTint(); P.mul=$('signMul').checked;
+    P.x=Math.max(0,Math.min(canvas.width,p.x)); P.y=Math.max(0,Math.min(canvas.height,p.y));
+    signRender(); updateSignFloat(); updateUndoUI();
+    return true;
+  }
+  function tinted(src, tint){
+    if(!tint || tint==='orig') return src;
+    if(P.tc && P.tc.src===src && P.tc.tint===tint) return P.tc.cv;
+    const c=document.createElement('canvas'); c.width=srcW(src); c.height=srcH(src);
+    const g=c.getContext('2d'); g.drawImage(src,0,0); g.globalCompositeOperation='source-in'; g.fillStyle=tint; g.fillRect(0,0,c.width,c.height);
+    P.tc={src, tint, cv:c};
+    return c;
+  }
+  function drawPlaced(g, o, am){
+    const src=tinted(o.src, o.tint);
+    g.save(); g.translate(o.x,o.y); g.rotate(o.rot*Math.PI/180);
+    g.globalAlpha=Math.max(0, Math.min(1, o.op*(am||1)));
+    if(o.mul && g===ctx) g.globalCompositeOperation='multiply'; // 미리보기는 overlay의 mix-blend-mode로 같은 효과
+    g.imageSmoothingEnabled=true; g.imageSmoothingQuality='high';
+    g.drawImage(src, -o.w/2, -o.h/2, o.w, o.h);
+    g.restore();
+  }
+  function signRender(){
+    if(!P.active) return;
+    P.ghost=false;
+    octx2.clearRect(0,0,overlay.width,overlay.height);
+    drawPlaced(octx2, P, 1);
+    const z=S.zoom||1, a=P.rot*Math.PI/180, ca=Math.cos(a), sa=Math.sin(a), hw=P.w/2, hh=P.h/2;
+    const pt=(lx,ly)=>({ x:P.x+lx*ca-ly*sa, y:P.y+lx*sa+ly*ca });
+    const c=[pt(-hw,-hh), pt(hw,-hh), pt(hw,hh), pt(-hw,hh)];
+    octx2.save();
+    octx2.beginPath(); c.forEach((q,i)=> i ? octx2.lineTo(q.x,q.y) : octx2.moveTo(q.x,q.y)); octx2.closePath();
+    octx2.lineWidth=1.6/z; octx2.setLineDash([6/z,4/z]);
+    octx2.strokeStyle='rgba(255,255,255,.95)'; octx2.stroke();
+    octx2.lineDashOffset=5/z; octx2.strokeStyle='#7a63d6'; octx2.stroke();
+    octx2.setLineDash([]);
+    octx2.beginPath(); octx2.arc(c[2].x, c[2].y, (coarse()?10:7)/z, 0, Math.PI*2); // 크기 손잡이
+    octx2.fillStyle='#fff'; octx2.fill(); octx2.lineWidth=2.2/z; octx2.strokeStyle='#4f3b9a'; octx2.stroke();
+    octx2.restore();
+    overlay.style.mixBlendMode = P.mul ? 'multiply' : '';
+  }
+  function placeHit(p, ptype){
+    if(!P.active) return null;
+    const a=-P.rot*Math.PI/180, dx=p.x-P.x, dy=p.y-P.y;
+    const lx=dx*Math.cos(a)-dy*Math.sin(a), ly=dx*Math.sin(a)+dy*Math.cos(a);
+    const z=S.zoom||1, hr=((ptype==='touch'||(!ptype && coarse()))?24:13)/z;
+    if(Math.hypot(lx-P.w/2, ly-P.h/2)<=hr) return 'handle';
+    const pad=6/z;
+    return (Math.abs(lx)<=P.w/2+pad && Math.abs(ly)<=P.h/2+pad) ? 'body' : null;
+  }
+  function signPointerDown(p, e){
+    if(e.pointerType==='mouse' && e.button!==0) return; // 오른쪽·가운데 단추는 무시
+    if(!P.active){
+      if(!SG.armed){ toast(SG.items.length ? '먼저 왼쪽 목록에서 넣을 서명·도장을 고르세요' : '먼저 왼쪽 [새 서명·도장 만들기]로 서명을 만들어 주세요','error'); return; }
+      if(!placeBegin(p)){ toast('서명 이미지를 준비하는 중이에요. 잠시 뒤 다시 눌러 주세요','error'); return; }
+      P.drag={ mode:'move', dx:0, dy:0, created:true, start:{x:P.x, y:P.y, w:P.w}, id:e.pointerId };
+      return;
+    }
+    const hit=placeHit(p, e.pointerType), start={x:P.x, y:P.y, w:P.w};
+    if(hit==='handle') P.drag={ mode:'scale', d0:Math.max(4, Math.hypot(p.x-P.x, p.y-P.y)), w0:P.w, start, id:e.pointerId };
+    else if(hit==='body') P.drag={ mode:'move', dx:P.x-p.x, dy:P.y-p.y, start, id:e.pointerId };
+    else { P.x=p.x; P.y=p.y; P.drag={ mode:'move', dx:0, dy:0, start, id:e.pointerId }; } // 바깥을 누르면 그 자리로 옮김
+    signRender(); updateSignFloat();
+  }
+  function placeDragTo(p){
+    const d=P.drag; if(!d) return;
+    if(d.mode==='scale'){
+      P.w=Math.max(8, Math.min(canvas.width*3, d.w0*Math.hypot(p.x-P.x, p.y-P.y)/d.d0)); P.h=P.w*P.ar;
+      setSlider('signSize', Math.max(2, Math.min(100, Math.round(P.w/canvas.width*100))));
+    } else {
+      P.x=Math.max(0, Math.min(canvas.width, p.x+d.dx)); P.y=Math.max(0, Math.min(canvas.height, p.y+d.dy));
+    }
+    signRender();
+  }
+  // 마우스를 올리면 커서 모양 · 고른 서명을 반투명하게 미리 보여 줌
+  function signHover(p){
+    if(document.body.classList.contains('pan-mode')){ canvas.style.cursor=''; signGhostOff(); return; }
+    if(P.active){ const h=placeHit(p,'mouse'); canvas.style.cursor = h==='handle' ? 'nwse-resize' : h==='body' ? 'move' : 'crosshair'; return; }
+    const src=signSrc(SG.armed);
+    if(!src){ canvas.style.cursor=''; return; }
+    canvas.style.cursor='copy';
+    const w=Math.max(8, canvas.width*ctlSize()/100);
+    octx2.clearRect(0,0,overlay.width,overlay.height);
+    drawPlaced(octx2, { src, x:p.x, y:p.y, w, h:w*srcH(src)/srcW(src), rot:+$('signRot').value, op:+$('signOp').value/100, tint:ctlTint(), mul:false }, 0.5);
+    P.ghost=true;
+    overlay.style.mixBlendMode = $('signMul').checked ? 'multiply' : '';
+  }
+  function signGhostOff(){
+    if(!P.ghost) return;
+    P.ghost=false;
+    if(!P.active){ octx2.clearRect(0,0,overlay.width,overlay.height); overlay.style.mixBlendMode=''; }
+  }
+  function placeCommit(auto){
+    if(!P.active) return false;
+    octx2.clearRect(0,0,overlay.width,overlay.height); overlay.style.mixBlendMode='';
+    drawPlaced(ctx, P, 1);
+    P.active=false; P.drag=null;
+    pushHistory(); updateSignFloat();
+    if(!auto) toast((P.label==='도장' ? '도장을 찍었어요' : P.label+josaEulReul(P.label)+' 넣었어요')+' · Ctrl+Z로 되돌릴 수 있어요','ok');
+    return true;
+  }
+  function placeCancel(){
+    if(!P.active && !P.ghost) return;
+    P.active=false; P.ghost=false; P.drag=null;
+    octx2.clearRect(0,0,overlay.width,overlay.height); overlay.style.mixBlendMode='';
+    updateSignFloat(); updateUndoUI();
+  }
+  function placeStop(){ placeCancel(); SG.armed=null; canvas.style.cursor=''; if(S.mode==='sign') renderSignList(); }
+  function placeLeave(){ placeCancel(); canvas.style.cursor=''; }
+  function placeNudge(dx, dy, big){
+    const st=(big?10:1)*Math.max(1, 1/(S.zoom||1));
+    P.x=Math.max(0, Math.min(canvas.width, P.x+dx*st)); P.y=Math.max(0, Math.min(canvas.height, P.y+dy*st));
+    signRender(); updateSignFloat();
+  }
+  // 놓인 서명 옆에 [넣기][취소] 막대 — 보이는 사진 범위 밖으로 나가지 않게
+  function updateSignFloat(){
+    const f=$('signFloat'); if(!f) return;
+    if(!(S.loaded && S.mode==='sign' && P.active && !P.drag)){ f.hidden=true; return; }
+    f.hidden=false;
+    const z=S.zoom, a=P.rot*Math.PI/180, ca=Math.abs(Math.cos(a)), sa=Math.abs(Math.sin(a));
+    const bw=P.w*ca+P.h*sa, bh=P.w*sa+P.h*ca, r={ x:P.x-bw/2, y:P.y-bh/2, w:bw, h:bh };
+    const gap=8, fw=f.offsetWidth, fh=f.offsetHeight;
+    const ir=inner.getBoundingClientRect(), wr=wrap.getBoundingClientRect();
+    const vx0=wr.left+wrap.clientLeft-ir.left, vy0=wr.top+wrap.clientTop-ir.top;
+    const left=Math.max(0,vx0), top=Math.max(0,vy0);
+    const right=Math.min(canvas.width*z, vx0+wrap.clientWidth), bottom=Math.min(canvas.height*z, vy0+wrap.clientHeight);
+    let x=(r.x+r.w/2)*z-fw/2, y=(r.y+r.h)*z+gap;
+    if(y+fh>bottom-gap) y=r.y*z-fh-gap;
+    if(y<top+gap) y=(r.y+r.h)*z-fh-gap;
+    x=Math.max(left+gap, Math.min(x, right-fw-gap));
+    y=Math.max(top+gap, Math.min(y, bottom-fh-gap));
+    f.style.left=Math.round(x)+'px'; f.style.top=Math.round(y)+'px';
+  }
+  function signCtlChanged(){
+    if(!P.active) return;
+    P.rot=+$('signRot').value; P.op=+$('signOp').value/100; P.tint=ctlTint(); P.mul=$('signMul').checked;
+    signRender(); updateSignFloat();
+  }
+  $('signSize').addEventListener('input', ()=>{ $('signSizeVal').textContent=$('signSize').value; if(P.active){ P.w=Math.max(8, canvas.width*ctlSize()/100); P.h=P.w*P.ar; } signCtlChanged(); });
+  $('signRot').addEventListener('input', ()=>{ $('signRotVal').textContent=$('signRot').value; signCtlChanged(); });
+  $('signOp').addEventListener('input', ()=>{ $('signOpVal').textContent=$('signOp').value; signCtlChanged(); });
+  $('signMul').addEventListener('change', signCtlChanged);
+  document.querySelectorAll('#signTint button').forEach(b=> b.addEventListener('click', ()=>{ setTint(b.dataset.tint); signCtlChanged(); }));
+  $('signApply').addEventListener('click', ()=>{
+    if(!S.loaded){ toast('먼저 이미지를 불러오세요','error'); return; }
+    if(!P.active){ toast(SG.armed ? '사진에서 넣을 곳을 먼저 누르세요' : '먼저 목록에서 넣을 서명·도장을 고르세요','error'); return; }
+    placeCommit();
+  });
+  $('signCancel').addEventListener('click', placeStop);
+  $('signFloatApply').addEventListener('click', ()=> placeCommit());
+  $('signFloatCancel').addEventListener('click', placeStop);
+  // 로고·이미지 파일 겹쳐 넣기 (목록에도 남겨 다음에 다시 씀)
+  $('stickerBtn').addEventListener('click', ()=> $('stickerInput').click());
+  $('stickerInput').addEventListener('change', e=>{
+    const f=e.target.files && e.target.files[0]; e.target.value='';
+    if(!f) return;
+    if(f.type.indexOf('image')!==0){ toast('이미지 파일만 넣을 수 있어요','error'); return; }
+    const url=URL.createObjectURL(f), im=new Image();
+    im.onload=()=>{
+      URL.revokeObjectURL(url);
+      const s=Math.min(1, 1600/Math.max(im.naturalWidth, im.naturalHeight));
+      const c=document.createElement('canvas'); c.width=Math.max(1,Math.round(im.naturalWidth*s)); c.height=Math.max(1,Math.round(im.naturalHeight*s));
+      const g=c.getContext('2d'); g.imageSmoothingEnabled=true; g.imageSmoothingQuality='high'; g.drawImage(im,0,0,c.width,c.height);
+      signArm(signAdd(c, 'image', (f.name||'이미지').replace(/\.[a-z0-9]{2,5}$/i,'')));
+    };
+    im.onerror=()=>{ URL.revokeObjectURL(url); toast('이미지를 불러오지 못했어요','error'); };
+    im.src=url;
+  });
+
+  // ---- 새 서명·도장 만들기 창 ----
+  const pad=$('signPad'), pctx=pad.getContext('2d');
+  function signDirty(){ return SG.tab==='hand' && SG.strokes.length>0; }
+  function padFit(){
+    const r=pad.getBoundingClientRect(); if(!r.width) return;
+    const dpr=Math.min(3, Math.max(2, window.devicePixelRatio||1));
+    pad.width=Math.round(r.width*dpr); pad.height=Math.round(r.height*dpr);
+    padRender();
+  }
+  // 손글씨 획을 그림 — 점 사이를 부드러운 곡선으로, 점마다 굵기(w)가 다름
+  function drawStrokes(g, strokes, k, ox, oy, color, thick){
+    g.save(); g.lineCap='round'; g.lineJoin='round'; g.strokeStyle=color; g.fillStyle=color;
+    const X=v=>(v-ox)*k, Y=v=>(v-oy)*k, base=thick*k;
+    strokes.forEach(st=>{
+      const pts=st.pts; if(!pts.length) return;
+      if(pts.length===1){ g.beginPath(); g.arc(X(pts[0].x), Y(pts[0].y), base*pts[0].w*0.55, 0, Math.PI*2); g.fill(); return; }
+      let px=X(pts[0].x), py=Y(pts[0].y);
+      for(let i=1;i<pts.length;i++){
+        const a=pts[i-1], b=pts[i], mx=X((a.x+b.x)/2), my=Y((a.y+b.y)/2);
+        g.beginPath(); g.moveTo(px,py); g.quadraticCurveTo(X(a.x), Y(a.y), mx, my);
+        g.lineWidth=base*(a.w+b.w)/2; g.stroke();
+        px=mx; py=my;
+      }
+      const l=pts[pts.length-1];
+      g.beginPath(); g.moveTo(px,py); g.lineTo(X(l.x), Y(l.y)); g.lineWidth=base*l.w; g.stroke();
+    });
+    g.restore();
+  }
+  function padRender(ph){
+    if(ph!==undefined) SG.ph=ph;
+    signPngDim();
+    const W=pad.width, H=pad.height, k=W/Math.max(1,pad.clientWidth), phEl=$('signPadPh');
+    pctx.setTransform(1,0,0,1,0,0); pctx.globalAlpha=1; pctx.globalCompositeOperation='source-over';
+    pctx.fillStyle='#fff'; pctx.fillRect(0,0,W,H);
+    if(SG.tab==='hand'){
+      const by=H*0.74; // 서명 기준선(저장되는 그림에는 들어가지 않음)
+      pctx.save(); pctx.strokeStyle='#d9d4e8'; pctx.lineWidth=k; pctx.setLineDash([6*k,5*k]);
+      pctx.beginPath(); pctx.moveTo(W*0.06,by); pctx.lineTo(W*0.94,by); pctx.stroke(); pctx.setLineDash([]);
+      pctx.fillStyle='#b4adca'; pctx.font=(20*k)+'px sans-serif'; pctx.textBaseline='bottom'; pctx.fillText('×', W*0.06, by-4*k);
+      pctx.restore();
+      drawStrokes(pctx, SG.strokes, k, 0, 0, SG.ink, SG.thick);
+      phEl.textContent='여기에 마우스·손가락·펜으로 서명하세요'; phEl.hidden=SG.strokes.length>0;
+      return;
+    }
+    const r=SG.result;
+    if(r){
+      const m=Math.min(W,H)*0.1, s=Math.min((W-2*m)/r.width, (H-2*m)/r.height, 2.5*k), w=r.width*s, h=r.height*s;
+      pctx.imageSmoothingEnabled=true; pctx.imageSmoothingQuality='high';
+      pctx.drawImage(r, (W-w)/2, (H-h)/2, w, h);
+      phEl.hidden=true;
+    } else { phEl.textContent=SG.ph||''; phEl.hidden=!SG.ph; }
+  }
+  function handBox(){
+    if(!SG.strokes.length) return null;
+    let x0=Infinity, y0=Infinity, x1=-Infinity, y1=-Infinity;
+    SG.strokes.forEach(st=> st.pts.forEach(p=>{ if(p.x<x0)x0=p.x; if(p.y<y0)y0=p.y; if(p.x>x1)x1=p.x; if(p.y>y1)y1=p.y; }));
+    const m=SG.thick*2+4;
+    return { x0:x0-m, y0:y0-m, x1:x1+m, y1:y1+m };
+  }
+  // target: PNG로 저장할 때 긴 변(px) — 획을 그 크기로 다시 그려서 늘려도 선이 깨지지 않음
+  function handExport(target){
+    const bx=handBox(); if(!bx) return null;
+    const {x0, y0, x1, y1}=bx;
+    let k=3; const long=Math.max(x1-x0, y1-y0); if(long*k>1600) k=1600/long;
+    if(target) k=target/long;
+    const draw=k=>{
+      const c=document.createElement('canvas'); c.width=Math.max(1,Math.ceil((x1-x0)*k)); c.height=Math.max(1,Math.ceil((y1-y0)*k));
+      drawStrokes(c.getContext('2d'), SG.strokes, k, x0, y0, SG.ink, SG.thick);
+      return trimCanvas(c, 4);
+    };
+    let c=draw(k);
+    if(target){ const L=Math.max(c.width, c.height); if(L && Math.abs(L-target)>2) c=draw(k*target/L); } // 여백을 잘라 낸 만큼 다시 맞춤
+    return c;
+  }
+  function padPt(e){ const r=pad.getBoundingClientRect(); return { x:e.clientX-r.left, y:e.clientY-r.top }; }
+  pad.addEventListener('pointerdown', e=>{
+    if(SG.tab!=='hand' || SG.cur) return; // 두 번째 손가락은 무시
+    if(e.pointerType==='mouse' && e.button!==0) return;
+    e.preventDefault();
+    try{ pad.setPointerCapture(e.pointerId); }catch(_){}
+    const p=padPt(e), w0=(e.pointerType==='pen' && e.pressure>0) ? 0.35+e.pressure*1.3 : 1;
+    SG.cur={ pts:[{x:p.x, y:p.y, w:w0}], id:e.pointerId, t:e.timeStamp, last:p, w:w0 };
+    SG.strokes.push(SG.cur);
+    padRender(); signSyncSave();
+  });
+  pad.addEventListener('pointermove', e=>{
+    const cur=SG.cur; if(!cur || e.pointerId!==cur.id) return;
+    e.preventDefault();
+    let evs=[]; try{ evs=e.getCoalescedEvents ? e.getCoalescedEvents() : []; }catch(_){}
+    if(!evs || !evs.length) evs=[e];
+    evs.forEach(ev=>{
+      const p=padPt(ev), d=Math.hypot(p.x-cur.last.x, p.y-cur.last.y);
+      if(d<0.7) return;
+      let w;
+      if(ev.pointerType==='pen' && ev.pressure>0) w=0.35+ev.pressure*1.3;      // 펜: 누르는 힘
+      else { const v=d/Math.max(1, ev.timeStamp-cur.t); w=cur.w*0.65+Math.max(0.5, Math.min(1.3, 1.3-v*0.45))*0.35; } // 빠를수록 가늘게
+      cur.pts.push({x:p.x, y:p.y, w}); cur.last=p; cur.t=ev.timeStamp; cur.w=w;
+    });
+    padRender();
+  });
+  function padEnd(e){ if(SG.cur && e.pointerId===SG.cur.id){ SG.cur=null; signSyncSave(); } }
+  pad.addEventListener('pointerup', padEnd);
+  pad.addEventListener('pointercancel', padEnd);
+  document.querySelectorAll('#signModal .ink-row').forEach(row=>{
+    row.querySelectorAll('.ink-dot').forEach(b=> b.addEventListener('click', ()=>{
+      row.querySelectorAll('.ink-dot').forEach(x=> x.classList.toggle('active', x===b));
+      const f=row.dataset.inkFor;
+      if(f==='hand') SG.ink=b.dataset.ink; else if(f==='seal') SG.sealInk=b.dataset.ink; else SG.textInk=b.dataset.ink;
+      signPreview();
+    }));
+  });
+  document.querySelectorAll('#signThick button').forEach(b=> b.addEventListener('click', ()=>{
+    document.querySelectorAll('#signThick button').forEach(x=> x.classList.toggle('active', x===b));
+    SG.thick=+b.dataset.th; padRender();
+  }));
+  $('signUndoStroke').addEventListener('click', ()=>{ if(SG.strokes.length){ SG.strokes.pop(); SG.cur=null; padRender(); signSyncSave(); } });
+  $('signClearPad').addEventListener('click', ()=>{ SG.strokes=[]; SG.cur=null; padRender(); signSyncSave(); });
+
+  // 손글씨 글꼴(구글 글꼴) — 글자 서명·이름 도장을 처음 열 때만 불러옴
+  let signFontsP=null;
+  function loadSignFonts(){
+    if(signFontsP) return signFontsP;
+    signFontsP=new Promise(res=>{
+      const l=document.createElement('link'); l.rel='stylesheet'; l.href=SIGN_FONT_CSS;
+      l.onload=()=>res(true); l.onerror=()=>{ l.remove(); signFontsP=null; res(false); };
+      setTimeout(()=>res(false), 6000);
+      document.head.appendChild(l);
+    });
+    return signFontsP;
+  }
+  function fontReady(fam){ try{ for(const f of document.fonts){ if(f.family.replace(/["']/g,'')===fam && f.status==='loaded') return true; } }catch(e){} return false; }
+  async function ensureFont(fam, wt, text, google){
+    if(google) await loadSignFonts();
+    try{ await Promise.race([ document.fonts.load(wt+' 64px "'+fam+'"', text||'가나다'), new Promise(r=>setTimeout(r,5000)) ]); }catch(e){}
+    return fontReady(fam);
+  }
+  function curFont(){ return SIGN_FONTS.find(f=>f.f===SG.font) || SIGN_FONTS[0]; }
+  function renderFontChoices(){
+    const box=$('signFonts'), t=$('signText').value.trim()||'송쌤과학';
+    if(!box.children.length){
+      SIGN_FONTS.forEach(F=>{
+        const b=document.createElement('button'); b.type='button'; b.className='font-choice'; b.dataset.font=F.f;
+        b.style.fontFamily='"'+F.f+'", cursive'; b.style.fontWeight=F.wt;
+        const sp=document.createElement('span'), sm=document.createElement('small'); sm.textContent=F.n;
+        b.append(sp, sm);
+        b.addEventListener('click', ()=>{ SG.font=F.f; renderFontChoices(); signPreview(); });
+        box.appendChild(b);
+      });
+    }
+    box.querySelectorAll('.font-choice').forEach(b=>{
+      b.querySelector('span').textContent=t;
+      const on=b.dataset.font===SG.font; b.classList.toggle('active', on); b.setAttribute('aria-pressed', on?'true':'false');
+    });
+  }
+  function makeTextSign(fs){
+    const t=$('signText').value.trim(); if(!t) return null;
+    fs=Math.round(fs||170);
+    const F=curFont(), font=F.wt+' '+fs+'px "'+F.f+'", "Nanum Pen Script", cursive';
+    const c=document.createElement('canvas'), g=c.getContext('2d');
+    g.font=font;
+    c.width=Math.min(4000, Math.ceil(g.measureText(t).width+fs*0.8)); c.height=Math.ceil(fs*1.8);
+    g.font=font; g.fillStyle=SG.textInk; g.textBaseline='middle'; g.fillText(t, fs*0.4, c.height/2);
+    return trimCanvas(c, 6);
+  }
+
+  // 종이에 쓴 서명 사진 → 종이·그림자를 지우고 잉크만 남김
+  function setSignPhoto(src){
+    const w0=srcW(src), h0=srcH(src), s=Math.min(1, 1600/Math.max(w0,h0));
+    const c=document.createElement('canvas'); c.width=Math.max(1,Math.round(w0*s)); c.height=Math.max(1,Math.round(h0*s));
+    const g=c.getContext('2d'); g.imageSmoothingEnabled=true; g.imageSmoothingQuality='high'; g.drawImage(src,0,0,c.width,c.height);
+    SG.photo=c; SG.photoBg=null; SG.photoData=null;
+    signPreview();
+  }
+  function processPhotoSign(){
+    const src=SG.photo; if(!src) return null;
+    const W=src.width, H=src.height;
+    if(!SG.photoData) SG.photoData=src.getContext('2d',{willReadFrequently:true}).getImageData(0,0,W,H);
+    if(!SG.photoBg) SG.photoBg=estimateBackground(src, false);
+    const d=SG.photoData.data, bg=SG.photoBg.data;
+    const c=document.createElement('canvas'); c.width=W; c.height=H;
+    const g=c.getContext('2d',{willReadFrequently:true}), out=g.createImageData(W,H), o=out.data;
+    const sens=+$('signPhotoSens').value/100, t0=0.05+sens*0.25, t1=t0+0.2;
+    const ink=SG.photoInk==='black' ? [27,27,31] : SG.photoInk==='blue' ? [31,63,174] : null;
+    for(let i=0;i<d.length;i+=4){
+      if(d[i+3]<8) continue;
+      const L=0.299*d[i]+0.587*d[i+1]+0.114*d[i+2], Lb=Math.max(48, 0.299*bg[i]+0.587*bg[i+1]+0.114*bg[i+2]);
+      let a=((Lb-L)/Lb-t0)/(t1-t0); // 종이보다 얼마나 어두운가
+      if(a<=0) continue; if(a>1) a=1;
+      if(ink){ o[i]=ink[0]; o[i+1]=ink[1]; o[i+2]=ink[2]; }
+      else { o[i]=Math.min(255, d[i]/Math.max(1,bg[i])*215); o[i+1]=Math.min(255, d[i+1]/Math.max(1,bg[i+1])*215); o[i+2]=Math.min(255, d[i+2]/Math.max(1,bg[i+2])*215); }
+      o[i+3]=Math.round(a*d[i+3]);
+    }
+    g.putImageData(out,0,0);
+    const b=contentBox(c, 8); if(!b) return null;
+    const t=document.createElement('canvas'); t.width=b.w; t.height=b.h; t.getContext('2d').drawImage(c,b.x,b.y,b.w,b.h,0,0,b.w,b.h);
+    c.width=c.height=0;
+    return t;
+  }
+
+  // 이름 도장 · 문구 도장
+  function rng(seed){ let a=(seed>>>0)||1; return ()=>{ a=(a+0x6D2B79F5)|0; let t=Math.imul(a^(a>>>15),1|a); t=(t+Math.imul(t^(t>>>7),61|t))^t; return ((t^(t>>>14))>>>0)/4294967296; }; }
+  function hashStr(s){ let h=2166136261; for(const ch of s){ h^=ch.codePointAt(0); h=Math.imul(h,16777619); } return h>>>0; }
+  function wornInk(g, N, seed){ // 인주가 덜 묻은 곳·긁힘 — 같은 글자면 늘 같은 모양
+    const r=rng(seed);
+    g.save(); g.globalCompositeOperation='destination-out'; g.fillStyle='#000'; g.strokeStyle='#000'; g.lineCap='round';
+    for(let i=0;i<300;i++){ const x=r()*N, y=r()*N, rad=N*(0.002+r()*0.011); g.globalAlpha=0.12+r()*0.5; g.beginPath(); g.arc(x,y,rad,0,Math.PI*2); g.fill(); }
+    for(let i=0;i<16;i++){ const x=r()*N, y=r()*N, len=N*(0.03+r()*0.09), ang=r()*Math.PI; g.globalAlpha=0.2+r()*0.35; g.lineWidth=N*(0.002+r()*0.004); g.beginPath(); g.moveTo(x,y); g.lineTo(x+Math.cos(ang)*len, y+Math.sin(ang)*len); g.stroke(); }
+    const gx=r()*N, gy=r()*N, gr=g.createRadialGradient(gx,gy,0,gx,gy,N*0.7);
+    gr.addColorStop(0,'rgba(0,0,0,.22)'); gr.addColorStop(1,'rgba(0,0,0,0)');
+    g.globalAlpha=1; g.fillStyle=gr; g.fillRect(0,0,N,N);
+    g.restore();
+  }
+  // 글자 하나를 상자(bw×bh)에 꽉 차게 — 도장 글씨처럼 세로·가로로 조금 늘림
+  function fitGlyph(g, ch, cx, cy, bw, bh, font){
+    g.save(); g.font=font; g.textAlign='left'; g.textBaseline='alphabetic';
+    const m=g.measureText(ch);
+    const L=m.actualBoundingBoxLeft||0, R=(m.actualBoundingBoxRight!=null ? m.actualBoundingBoxRight : m.width), A=m.actualBoundingBoxAscent||150, D=m.actualBoundingBoxDescent||10;
+    let sx=bw/Math.max(1,L+R), sy=bh/Math.max(1,A+D);
+    if(sy>sx*1.7) sy=sx*1.7; if(sx>sy*1.7) sx=sy*1.7;
+    g.translate(cx,cy); g.scale(sx,sy);
+    g.lineJoin='round'; g.lineWidth=5;
+    g.fillText(ch, -(R-L)/2, (A-D)/2); g.strokeText(ch, -(R-L)/2, (A-D)/2);
+    g.restore();
+  }
+  // 600×600 도장 안 글자 자리 [가운데x, 가운데y, 폭, 높이] — 4글자는 오른쪽 위→아래, 왼쪽 위→아래 순서
+  const SEAL_LAYOUT={
+    circle:{ 1:[[300,300,290,290]], 2:[[300,198,270,175],[300,402,270,175]], 3:[[300,148,205,128],[300,300,205,128],[300,452,205,128]], 4:[[388,212,160,160],[388,388,160,160],[212,212,160,160],[212,388,160,160]] },
+    square:{ 1:[[300,300,420,420]], 2:[[300,182,400,215],[300,418,400,215]], 3:[[300,142,380,140],[300,300,380,140],[300,458,380,140]], 4:[[415,185,210,210],[415,415,210,210],[185,185,210,210],[185,415,210,210]] }
+  };
+  function sealChars(){
+    const chars=Array.from(($('sealName').value||'').replace(/\s+/g,''));
+    if(!chars.length) return [];
+    if($('sealIn').checked && chars.length<=3) chars.push('인');
+    return chars.slice(0,4);
+  }
+  // sc: 배율(1 = 600px) — PNG를 크게 저장할 때 처음부터 크게 그림
+  function makeSeal(sc){
+    const chars=sealChars(); if(!chars.length) return null;
+    sc=sc||1;
+    const N=600, c=document.createElement('canvas'); c.width=c.height=Math.round(N*sc);
+    const g=c.getContext('2d'), circle=SG.sealShape==='circle';
+    g.scale(sc,sc);
+    g.fillStyle=SG.sealInk; g.strokeStyle=SG.sealInk; g.lineWidth=28;
+    if(circle){ g.beginPath(); g.arc(N/2,N/2,N/2-20,0,Math.PI*2); g.stroke(); }
+    else { rrPath(g,20,20,N-40,N-40,30); g.stroke(); }
+    SEAL_LAYOUT[circle?'circle':'square'][chars.length].forEach((b,i)=> fitGlyph(g, chars[i], b[0], b[1], b[2], b[3], '800 200px '+SEAL_FONT));
+    if($('sealWorn').checked) wornInk(g, N, hashStr(chars.join('')+SG.sealShape));
+    return c;
+  }
+  function stampLines(raw){
+    const t=raw.replace(/\s+/g,' ').trim(); if(!t) return [];
+    const sp=[]; for(let i=0;i<t.length;i++) if(t[i]===' ') sp.push(i);
+    if(sp.length){ const mid=t.length/2, at=sp.reduce((a,b)=> Math.abs(b-mid)<Math.abs(a-mid) ? b : a); return [t.slice(0,at), t.slice(at+1)]; } // 띄어 쓴 곳에서 두 줄로 (참 / 잘했어요)
+    if(t.length<=5) return [t];
+    const h=Math.ceil(t.length/2); return [t.slice(0,h), t.slice(h)];
+  }
+  function todayStamp(){ const d=new Date(); return d.getFullYear()+'. '+(d.getMonth()+1)+'. '+d.getDate()+'.'; }
+  function makeStamp(sc){
+    const lines=stampLines($('stampText').value||''); if(!lines.length) return null;
+    sc=sc||1;
+    const N=640, c=document.createElement('canvas'); c.width=c.height=Math.round(N*sc);
+    const g=c.getContext('2d'), cx=N/2, cy=N/2, ri=N/2-70;
+    const fam="'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif";
+    g.scale(sc,sc);
+    g.strokeStyle=SG.sealInk; g.fillStyle=SG.sealInk;
+    g.lineWidth=22; g.beginPath(); g.arc(cx,cy,N/2-16,0,Math.PI*2); g.stroke();
+    g.lineWidth=7; g.beginPath(); g.arc(cx,cy,N/2-50,0,Math.PI*2); g.stroke();
+    const withDate=$('stampDate').checked, dateFs=44, gap=withDate ? dateFs*1.9 : 0;
+    const chordAt=y=> y>=ri ? 0 : 2*Math.sqrt(ri*ri-y*y)*0.92;
+    let fs=210;
+    const fits=()=>{ // 원 안에 줄마다 들어가는 폭인지
+      const lh=fs*1.12, top=-(lines.length*lh+gap)/2;
+      g.font='800 '+fs+'px '+fam;
+      for(let i=0;i<lines.length;i++){
+        const y0=top+i*lh, far=Math.max(Math.abs(y0+fs*0.08), Math.abs(y0+lh-fs*0.08));
+        if(g.measureText(lines[i]).width>chordAt(far)) return false;
+      }
+      return !withDate || chordAt(-top)>dateFs*6.4;
+    };
+    while(fs>40 && !fits()) fs-=6;
+    const lh=fs*1.12, top=cy-(lines.length*lh+gap)/2;
+    g.font='800 '+fs+'px '+fam; g.textAlign='center'; g.textBaseline='middle';
+    lines.forEach((ln,i)=> g.fillText(ln, cx, top+i*lh+lh/2));
+    if(withDate){
+      const ly=top+lines.length*lh+gap*0.22;
+      g.lineWidth=5; g.beginPath(); g.moveTo(cx-ri*0.5, ly); g.lineTo(cx+ri*0.5, ly); g.stroke();
+      g.font='700 '+dateFs+'px '+fam; g.fillText(todayStamp(), cx, ly+gap*0.46);
+    }
+    if($('sealWorn').checked) wornInk(g, N, hashStr(lines.join('|')));
+    return c;
+  }
+
+  // 창 안의 미리보기·[저장] 단추 상태
+  let spTok=0, sensRaf=0;
+  function signSyncSave(){
+    const off = SG.saving || (SG.tab==='hand' ? !SG.strokes.length : !SG.result);
+    $('signSaveBtn').disabled=off; $('signPngBtn').disabled=off;
+  }
+  function signPreview(){
+    const tok=++spTok; let ph='';
+    if(SG.tab==='hand'){ SG.result=null; padRender(''); signSyncSave(); return; }
+    if(SG.tab==='text'){
+      const t=$('signText').value.trim(), F=curFont();
+      SG.result = t ? makeTextSign() : null;
+      if(!t) ph='위 칸에 서명할 이름을 입력하세요';
+      else ensureFont(F.f, F.wt, t, true).then(ok=>{
+        if(tok!==spTok) return;
+        if(ok){ SG.result=makeTextSign(); padRender(); }
+        else $('signFontNote').textContent='손글씨 글꼴을 불러오지 못해 기본 글꼴로 보여요. 인터넷 연결을 확인해 주세요.';
+      });
+    } else if(SG.tab==='photo'){
+      SG.result = SG.photo ? processPhotoSign() : null;
+      if(!SG.photo) ph='[서명 사진 고르기]로 흰 종이에 쓴 서명 사진을 불러오세요';
+      else if(!SG.result) ph='서명을 찾지 못했어요. 지우는 세기를 낮춰 보세요';
+    } else {
+      const named=SG.sealKind==='name';
+      SG.result = named ? makeSeal() : makeStamp();
+      if(!SG.result) ph = named ? '도장에 새길 이름을 입력하세요' : '도장에 넣을 문구를 입력하세요';
+      else ensureFont(named ? SEAL_FAM : 'Pretendard', 800, named ? sealChars().join('') : $('stampText').value+todayStamp(), named).then(ok=>{
+        if(tok!==spTok || !ok) return;
+        SG.result = named ? makeSeal() : makeStamp(); padRender();
+      });
+    }
+    padRender(ph); signSyncSave();
+  }
+  function signSetTab(t){
+    SG.tab=t;
+    document.querySelectorAll('#signTabs button').forEach(b=> b.classList.toggle('active', b.dataset.st===t));
+    document.querySelectorAll('#signModal .sign-opts').forEach(o=>{ o.hidden = o.dataset.st!==t; });
+    $('signPadWrap').classList.toggle('view', t!=='hand');
+    if(t==='text') renderFontChoices();
+    if(t==='text' || t==='seal') loadSignFonts();
+    signPreview();
+  }
+  document.querySelectorAll('#signTabs button').forEach(b=> b.addEventListener('click', ()=> signSetTab(b.dataset.st)));
+  $('signText').addEventListener('input', ()=>{ renderFontChoices(); signPreview(); });
+  $('signPhotoPick').addEventListener('click', ()=> $('signPhotoInput').click());
+  $('signPhotoInput').addEventListener('change', e=>{
+    const f=e.target.files && e.target.files[0]; e.target.value='';
+    if(!f) return;
+    if(f.type.indexOf('image')!==0){ toast('이미지 파일만 쓸 수 있어요','error'); return; }
+    const url=URL.createObjectURL(f), im=new Image();
+    im.onload=()=>{ URL.revokeObjectURL(url); setSignPhoto(im); };
+    im.onerror=()=>{ URL.revokeObjectURL(url); toast('사진을 불러오지 못했어요','error'); };
+    im.src=url;
+  });
+  $('signPhotoCur').addEventListener('click', ()=>{ if(!S.loaded){ toast('편집 중인 사진이 없어요','error'); return; } setSignPhoto(canvas); });
+  $('signPhotoSens').addEventListener('input', ()=>{
+    $('signPhotoSensVal').textContent=$('signPhotoSens').value;
+    if(!sensRaf) sensRaf=requestAnimationFrame(()=>{ sensRaf=0; signPreview(); });
+  });
+  document.querySelectorAll('#signPhotoInk button').forEach(b=> b.addEventListener('click', ()=>{
+    document.querySelectorAll('#signPhotoInk button').forEach(x=> x.classList.toggle('active', x===b));
+    SG.photoInk=b.dataset.pi; signPreview();
+  }));
+  document.querySelectorAll('#sealKind button').forEach(b=> b.addEventListener('click', ()=>{
+    SG.sealKind=b.dataset.sk;
+    document.querySelectorAll('#sealKind button').forEach(x=> x.classList.toggle('active', x===b));
+    $('sealNameOpts').hidden = SG.sealKind!=='name'; $('sealStampOpts').hidden = SG.sealKind==='name';
+    signPreview();
+  }));
+  document.querySelectorAll('#sealShape button').forEach(b=> b.addEventListener('click', ()=>{
+    SG.sealShape=b.dataset.sh;
+    document.querySelectorAll('#sealShape button').forEach(x=> x.classList.toggle('active', x===b));
+    signPreview();
+  }));
+  ['sealName','stampText'].forEach(id=> $(id).addEventListener('input', signPreview));
+  ['sealIn','stampDate','sealWorn'].forEach(id=> $(id).addEventListener('change', signPreview));
+  document.querySelectorAll('#stampChips button').forEach(b=> b.addEventListener('click', ()=>{ $('stampText').value=b.textContent; signPreview(); }));
+  // ---- PNG 파일로 저장 ----
+  // 긴 변을 L(px)에 맞춤 — 줄일 땐 반씩 줄여 선을 살리고, 늘릴 땐 부드럽게
+  function toLong(cv, L){
+    const cur=Math.max(cv.width, cv.height); if(!L || cur===L) return cv;
+    if(cur>L) return fitCanvas(cv, L);
+    const s=L/cur, t=document.createElement('canvas'); t.width=Math.max(1,Math.round(cv.width*s)); t.height=Math.max(1,Math.round(cv.height*s));
+    const g=t.getContext('2d'); g.imageSmoothingEnabled=true; g.imageSmoothingQuality='high'; g.drawImage(cv,0,0,t.width,t.height);
+    return t;
+  }
+  // 지금 창에서 만든 서명을 그림으로 — target(긴 변 px)이 있으면 그 크기로 다시 그려 선명하게
+  async function signBuild(target){
+    let cv=null, kind=SG.tab, name='';
+    if(SG.tab==='hand'){ cv=handExport(target); name='손글씨 서명'; }
+    else if(SG.tab==='text'){
+      const F=curFont(), t=$('signText').value.trim(); await ensureFont(F.f, F.wt, t, true);
+      cv=makeTextSign(); name='글자 서명 · '+t;
+      if(cv && target){ const L=Math.max(cv.width, cv.height); if(L<target) cv=makeTextSign(170*target/L); }
+    }
+    else if(SG.tab==='photo'){ cv=SG.result; name='사진 서명'; }
+    else if(SG.sealKind==='name'){ await ensureFont(SEAL_FAM, 800, sealChars().join(''), true); cv=makeSeal(target ? Math.max(1, target/600) : 1); kind='seal'; name='이름 도장 · '+$('sealName').value.trim(); }
+    else { await ensureFont('Pretendard', 800, $('stampText').value+todayStamp(), false); cv=makeStamp(target ? Math.max(1, target/640) : 1); kind='stamp'; name='문구 도장 · '+$('stampText').value.trim(); }
+    if(!cv || !contentBox(cv,0)) return null;
+    if(target) cv=toLong(cv, target);
+    return { cv, kind, name };
+  }
+  function pngPad(w, h){ return Math.round(Math.max(w,h)*0.06); } // 흰 바탕일 때 둘레 여백
+  function signPngDim(){
+    const el=$('signPngDim'); if(!el) return;
+    let w=0, h=0;
+    if(SG.tab==='hand'){ const b=handBox(); if(b){ const e=SG.thick*1.3+4; w=Math.max(1,b.x1-b.x0-2*e); h=Math.max(1,b.y1-b.y0-2*e); } } // 저장할 땐 둘레 여백을 잘라 내므로 그만큼 뺌
+    else if(SG.result){ w=SG.result.width; h=SG.result.height; }
+    if(!w || !h){ el.textContent=''; return; }
+    const s=SG.pngSize/Math.max(w,h);
+    let W=Math.max(1,Math.round(w*s)), H=Math.max(1,Math.round(h*s));
+    if(SG.pngBg==='white'){ const p=pngPad(W,H); W+=2*p; H+=2*p; }
+    el.textContent='저장 크기 약 '+W+' × '+H+' px';
+  }
+  function signPngPrefSave(){ try{ localStorage.setItem('ssSignPng', JSON.stringify({bg:SG.pngBg, size:SG.pngSize})); }catch(e){} }
+  function signPngSyncUI(){
+    document.querySelectorAll('#signPngBg button').forEach(b=> b.classList.toggle('active', b.dataset.bg===SG.pngBg));
+    document.querySelectorAll('#signPngSize button').forEach(b=> b.classList.toggle('active', +b.dataset.sz===SG.pngSize));
+    signPngDim();
+  }
+  try{ const v=JSON.parse(localStorage.getItem('ssSignPng')||'null'); if(v){ SG.pngBg=v.bg==='white'?'white':'clear'; if([400,800,1600].includes(+v.size)) SG.pngSize=+v.size; } }catch(e){}
+  signPngSyncUI();
+  document.querySelectorAll('#signPngBg button').forEach(b=> b.addEventListener('click', ()=>{ SG.pngBg=b.dataset.bg; signPngSyncUI(); signPngPrefSave(); }));
+  document.querySelectorAll('#signPngSize button').forEach(b=> b.addEventListener('click', ()=>{ SG.pngSize=+b.dataset.sz; signPngSyncUI(); signPngPrefSave(); }));
+  $('signPngBtn').addEventListener('click', async ()=>{
+    if(SG.saving) return;
+    SG.saving=true; signSyncSave();
+    try{
+      const r=await signBuild(SG.pngSize);
+      if(!r){ toast('만들 서명 내용이 없어요','error'); return; }
+      let out=r.cv;
+      if(SG.pngBg==='white'){
+        const p=pngPad(out.width, out.height), t=document.createElement('canvas'); t.width=out.width+2*p; t.height=out.height+2*p;
+        const g=t.getContext('2d'); g.fillStyle='#fff'; g.fillRect(0,0,t.width,t.height); g.drawImage(out,p,p); out=t;
+      }
+      const blob=await new Promise(res=> out.toBlob(res,'image/png'));
+      if(!blob){ toast('PNG 파일을 만들지 못했어요','error'); return; }
+      saveBlob(blob, signFileName(r.name));
+      $('signModalCancel').textContent='닫기';
+      toast((SG.pngBg==='white'?'흰 바탕':'투명')+' PNG로 저장했어요 ('+out.width+'×'+out.height+'px) · 한글·워드 문서에 그림으로 넣을 수 있어요','ok');
+    } finally { SG.saving=false; signSyncSave(); }
+  });
+  $('signSaveBtn').addEventListener('click', async ()=>{
+    if(SG.saving) return;
+    SG.saving=true; signSyncSave();
+    try{
+      const r=await signBuild();
+      if(!r){ toast('만들 서명 내용이 없어요','error'); return; }
+      const it=signAdd(r.cv, r.kind, r.name);
+      SG.strokes=[]; SG.cur=null;
+      closeModal('signModal');
+      toast('「'+it.name+'」'+josaEulReul(it.name)+' 목록에 저장했어요','ok');
+      if(S.mode==='sign') signArm(it); else { SG.armed=it; renderSignList(); }
+    } finally { SG.saving=false; signSyncSave(); }
+  });
+  // tab: 처음 보여 줄 방식, png: [PNG로 저장]을 주 단추로 (서명 PNG 만들기 칸에서 열 때)
+  function openSignModal(tab, png){
+    SG.pngMode=!!png;
+    $('signTitle').textContent = SG.pngMode ? '서명·도장 PNG 만들기' : '새 서명·도장 만들기';
+    $('signPngBtn').classList.toggle('primary', SG.pngMode);
+    $('signSaveBtn').classList.toggle('primary', !SG.pngMode);
+    $('signSaveBtn').textContent = SG.pngMode ? '내 목록에도 저장' : '목록에 저장하고 쓰기';
+    $('signModalCancel').textContent='취소';
+    $('signPhotoCur').disabled=!S.loaded;
+    openModal('signModal');
+    requestAnimationFrame(()=>{ padFit(); signSetTab(tab||SG.tab); });
+  }
+  $('signNewBtn').addEventListener('click', ()=> openSignModal());
+  document.querySelectorAll('[data-sign-make]').forEach(b=> b.addEventListener('click', ()=> openSignModal(b.dataset.signMake, true)));
+  $('emptySignBtn').addEventListener('click', ()=>{
+    const t=document.querySelector('.tab[data-tab="sign"]');
+    if(t && S.mode!=='sign') t.click();
+    openSignModal('hand', true);
+  });
+  $('signModalCancel').addEventListener('click', ()=> closeModal('signModal'));
+  window.addEventListener('resize', ()=>{ if($('signModal').classList.contains('show')) padFit(); });
+  window.addEventListener('keydown', e=>{ // 창 안에서 Ctrl+Z → 손글씨 한 획 지우기
+    if(!$('signModal').classList.contains('show') || SG.tab!=='hand') return;
+    if(!(e.ctrlKey||e.metaKey) || e.shiftKey || e.key.toLowerCase()!=='z') return;
+    const el=document.activeElement; if(el && (el.tagName==='INPUT' || el.tagName==='TEXTAREA')) return;
+    e.preventDefault(); $('signUndoStroke').click();
+  });
+
+  // ---- 저장 탭 워터마크: 글자 / 내 서명·도장·로고 ----
+  function refreshWmSignOptions(){
+    const sel=$('wmSign'); if(!sel) return;
+    sel.textContent='';
+    if(!SG.items.length){ const o=new Option('먼저 [서명·도장] 도구에서 만들어 주세요',''); o.disabled=true; sel.add(o); sel.value=''; return; }
+    SG.items.forEach(it=> sel.add(new Option(it.name, it.id)));
+    sel.value = SG.items.some(i=>i.id===WM.sign) ? WM.sign : SG.items[0].id;
+  }
+  function wmSignSrc(){ const id=$('wmSign').value; return signSrc(SG.items.find(i=>i.id===id)); }
+  function wmSave(){ try{ localStorage.setItem('ssWmImg', JSON.stringify(WM)); }catch(e){} }
+  function wmSyncUI(){
+    document.querySelectorAll('#wmKind button').forEach(b=> b.classList.toggle('active', b.dataset.kind===WM.kind));
+    $('wmTextField').style.display = WM.kind==='text' ? 'block' : 'none';
+    $('wmSignField').style.display = WM.kind==='sign' ? 'block' : 'none';
+    $('wmScaleField').style.display = WM.kind==='sign' ? 'block' : 'none';
+    setSlider('wmScale', WM.scale);
+  }
+  try{ const v=JSON.parse(localStorage.getItem('ssWmImg')||'null'); if(v){ WM.kind=v.kind==='sign'?'sign':'text'; WM.sign=String(v.sign||''); WM.scale=Math.max(5,Math.min(60,+v.scale||20)); } }catch(e){}
+  document.querySelectorAll('#wmKind button').forEach(b=> b.addEventListener('click', ()=>{
+    WM.kind=b.dataset.kind; wmSyncUI(); wmSave(); scheduleEstimate();
+    if(WM.kind==='sign' && !SG.items.length) toast('[서명·도장] 도구에서 서명이나 로고를 먼저 만들어 주세요','error');
+  }));
+  $('wmSign').addEventListener('change', ()=>{ WM.sign=$('wmSign').value; wmSave(); scheduleEstimate(); });
+  $('wmScale').addEventListener('input', ()=>{ WM.scale=+$('wmScale').value; $('wmScaleVal').textContent=WM.scale; wmSave(); scheduleEstimate(); });
+  signLoad(); renderSignList(); wmSyncUI();
+
+  // ============================================================
   //  Coordinate helpers
   // ============================================================
   function evtToImg(e){
@@ -2235,7 +3384,7 @@ html[data-theme="dark"] .batch-thumb-wrap{background:repeating-conic-gradient(#3
   function showRing(e){
     if(S.mode==='bg' && S.tool==='wand'){ hideRing(); return; }
     if(S.mode==='mosaic' && !(S.applyMode==='brush'||S.applyMode==='restore')){ hideRing(); return; }
-    if(S.mode==='export' || S.mode==='crop' || S.mode==='resize' || S.mode==='adjust' || S.mode==='draw'){ hideRing(); return; }
+    if(S.mode==='export' || S.mode==='crop' || S.mode==='resize' || S.mode==='adjust' || S.mode==='draw' || S.mode==='sign'){ hideRing(); return; }
     const r=canvas.getBoundingClientRect();
     const px = curBrush()*(r.width/canvas.width);
     ring.style.display='block';
@@ -2706,7 +3855,12 @@ html[data-theme="dark"] .batch-thumb-wrap{background:repeating-conic-gradient(#3
     if(!pts) return;
     restoreTouchStartCanvas();
     S.pendingWand=null; S.pendingTap=null;
-    if(S.faceBoxes) drawFaceReview(); else if(S.rotBase) rotDrawGrid(); else if(T.open) teRender();
+    if(P.drag){ // 한 손가락으로 옮기던 서명은 두 손가락 확대가 시작되면 원래 자리로
+      if(P.drag.created) placeCancel();
+      else { P.x=P.drag.start.x; P.y=P.drag.start.y; P.w=P.drag.start.w; P.h=P.w*P.ar; }
+      P.drag=null;
+    }
+    if(S.faceBoxes) drawFaceReview(); else if(S.rotBase) rotDrawGrid(); else if(T.open) teRender(); else if(P.active) signRender();
     const center=pointerCenter(pts[0],pts[1]);
     S.touchGesture='pinch';
     S.pinchStart={
@@ -2763,7 +3917,7 @@ html[data-theme="dark"] .batch-thumb-wrap{background:repeating-conic-gradient(#3
   //  Pointer interaction on canvas
   // ============================================================
   canvas.addEventListener('pointermove', e=> showRing(e));
-  canvas.addEventListener('pointerleave', hideRing);
+  canvas.addEventListener('pointerleave', ()=>{ hideRing(); signGhostOff(); });
 
   canvas.addEventListener('pointerdown', e=>{
     if(!S.loaded) return;
@@ -2776,6 +3930,8 @@ html[data-theme="dark"] .batch-thumb-wrap{background:repeating-conic-gradient(#3
 
     try{ canvas.setPointerCapture(e.pointerId); }catch(err){}
     const p=evtToImg(e);
+    if(S.mode==='draw' && S.pickColor){ pickColorAt(p); S.touchStartCanvas=null; return; }
+    if(S.mode==='sign'){ signPointerDown(p, e); S.touchStartCanvas=null; return; }
     const tapKind = (S.mode==='mosaic' && S.faceBoxes) ? 'face' : (S.mode==='draw' && S.drawShape==='number') ? 'num' : (S.mode==='crop' && S.rotBase) ? 'rot' : null;
     if(tapKind && e.pointerType==='touch'){ S.pendingTap={kind:tapKind, p, id:e.pointerId}; return; } // 손을 뗄 때 실행(두 손가락 확대와 구분)
     if(tapKind){ runTap(tapKind, p); S.touchStartCanvas=null; return; }
@@ -2827,6 +3983,8 @@ html[data-theme="dark"] .batch-thumb-wrap{background:repeating-conic-gradient(#3
   canvas.addEventListener('pointermove', e=>{
     if(trackPointerMove(e)) return;
     if(T.dragging){ e.preventDefault(); const tp=evtToImg(e); T.x=tp.x; T.y=tp.y; teRender(); return; }
+    if(P.drag){ e.preventDefault(); placeDragTo(evtToImg(e)); return; }
+    if(S.mode==='sign' && S.loaded && e.pointerType!=='touch'){ signHover(evtToImg(e)); return; }
     if(!S.drawing) return;
     e.preventDefault();
     const p=evtToImg(e);
@@ -2908,6 +4066,7 @@ html[data-theme="dark"] .batch-thumb-wrap{background:repeating-conic-gradient(#3
   }
   function handlePointerEnd(e){
     T.dragging=false;
+    if(P.drag && P.drag.id===e.pointerId){ P.drag=null; signRender(); updateSignFloat(); }
     const pt=S.pendingTap;
     if(pt && pt.id===e.pointerId){
       S.pendingTap=null; trackPointerEnd(e); S.touchStartCanvas=null;
@@ -3006,6 +4165,7 @@ html[data-theme="dark"] .batch-thumb-wrap{background:repeating-conic-gradient(#3
   function cropHit(p){ const r=S.cropRect; return !!(r && r.w>=1 && r.h>=1 && p.x>=r.x && p.x<=r.x+r.w && p.y>=r.y && p.y<=r.y+r.h); }
   // 고른 영역 옆에 [자르기][취소] 막대를 띄움 — 보이는 사진 범위 밖으로 나가지 않게 맞춤
   function updateCropFloat(){
+    updateSignFloat();
     const f=$('cropFloat'); if(!f) return;
     if(!(S.loaded && S.mode==='crop' && !S.drawing && cropReady())){ f.hidden=true; return; }
     f.hidden=false;
@@ -3028,7 +4188,9 @@ html[data-theme="dark"] .batch-thumb-wrap{background:repeating-conic-gradient(#3
   $('cropFloatCancel').addEventListener('click', cropClear);
   // 고른 영역 안을 더블클릭하면 바로 자르기
   canvas.addEventListener('dblclick', e=>{
-    if(!S.loaded || S.mode!=='crop' || !cropReady()) return;
+    if(!S.loaded) return;
+    if(S.mode==='sign'){ if(P.active && !P.drag && placeHit(evtToImg(e))){ e.preventDefault(); placeCommit(); } return; }
+    if(S.mode!=='crop' || !cropReady()) return;
     if(cropHit(evtToImg(e))){ e.preventDefault(); applyCrop(); }
   });
 
@@ -3216,6 +4378,73 @@ html[data-theme="dark"] .batch-thumb-wrap{background:repeating-conic-gradient(#3
   $('flipH').addEventListener('click', ()=>flip('h'));
   $('flipV').addEventListener('click', ()=>flip('v'));
 
+  // ---- 여백 · 테두리 · 둥근 모서리 (모양 맞추기) ----
+  function rrPath(g,x,y,w,h,r){
+    r=Math.max(0, Math.min(r, w/2, h/2));
+    g.beginPath();
+    if(r<=0){ g.rect(x,y,w,h); return; }
+    g.moveTo(x+r,y); g.arcTo(x+w,y,x+w,y+h,r); g.arcTo(x+w,y+h,x,y+h,r); g.arcTo(x,y+h,x,y,r); g.arcTo(x,y,x+w,y,r); g.closePath();
+  }
+  function padOpts(){
+    const a=document.querySelector('#padFill button.active'), f=a ? a.dataset.fill : '#ffffff';
+    return { pad:+$('padSize').value, shape:+$('padShape').value, border:+$('padBorder').value, radius:+$('padRadius').value,
+             fill: f==='custom' ? $('padColor').value : f, bcolor:$('padBorderColor').value };
+  }
+  // 여백·비율·테두리·모서리를 짧은 변 기준 %로 계산
+  function framedLayout(w, h, o){
+    const p=Math.round(Math.min(w,h)*o.pad/100);
+    let W=w+2*p, H=h+2*p;
+    if(o.shape>0){ if(W/H<o.shape) W=Math.round(H*o.shape); else H=Math.round(W/o.shape); }
+    const s2=Math.min(W,H);
+    return { W, H, x:Math.round((W-w)/2), y:Math.round((H-h)/2), b:o.border>0 ? Math.max(1,Math.round(s2*o.border/100)) : 0, r:Math.round(s2*o.radius/100) };
+  }
+  function drawFramed(g, src, L, o, k){ // k: 미리보기 축소 비율
+    const W=L.W*k, H=L.H*k;
+    g.save();
+    if(L.r>0){ rrPath(g,0,0,W,H,L.r*k); g.clip(); }
+    if(o.fill!=='transparent'){ g.fillStyle=o.fill; g.fillRect(0,0,W,H); }
+    g.imageSmoothingEnabled=true; g.imageSmoothingQuality='high';
+    g.drawImage(src, L.x*k, L.y*k, src.width*k, src.height*k);
+    if(L.b>0){ const bw=L.b*k; g.lineWidth=bw; g.strokeStyle=o.bcolor; rrPath(g, bw/2, bw/2, W-bw, H-bw, Math.max(0, L.r*k-bw/2)); g.stroke(); }
+    g.restore();
+  }
+  function padPreviewUpdate(){
+    const pv=$('padPreview');
+    ['padSize','padBorder','padRadius'].forEach(id=>{ $(id+'Val').textContent=$(id).value; });
+    if(!S.loaded){ pv.width=pv.height=0; pv.style.width=pv.style.height='0px'; $('padInfo').textContent='결과 크기: -'; return; }
+    const o=padOpts(), L=framedLayout(canvas.width, canvas.height, o);
+    const maxW=Math.max(120, (pv.parentElement.clientWidth||260)-20), maxH=170;
+    const k=Math.min(maxW/L.W, maxH/L.H, 1), dpr=Math.min(2, window.devicePixelRatio||1);
+    pv.width=Math.max(1,Math.round(L.W*k*dpr)); pv.height=Math.max(1,Math.round(L.H*k*dpr));
+    pv.style.width=Math.max(1,Math.round(L.W*k))+'px'; pv.style.height=Math.max(1,Math.round(L.H*k))+'px';
+    const g=pv.getContext('2d'); g.clearRect(0,0,pv.width,pv.height);
+    drawFramed(g, canvas, L, o, k*dpr);
+    $('padInfo').textContent='결과 크기: '+L.W+' × '+L.H+' px'+(L.b ? ' · 테두리 '+L.b+'px' : '')+(L.r ? ' · 모서리 '+L.r+'px' : '');
+  }
+  ['padSize','padBorder','padRadius','padColor','padBorderColor'].forEach(id=> $(id).addEventListener('input', padPreviewUpdate));
+  $('padShape').addEventListener('change', padPreviewUpdate);
+  document.querySelectorAll('#padFill button').forEach(b=> b.addEventListener('click', ()=>{
+    document.querySelectorAll('#padFill button').forEach(x=> x.classList.toggle('active', x===b));
+    $('padColor').style.display = b.dataset.fill==='custom' ? 'block' : 'none';
+    padPreviewUpdate();
+  }));
+  $('padApply').addEventListener('click', ()=>{
+    if(!S.loaded){ toast('먼저 이미지를 불러오세요','error'); return; }
+    const o=padOpts(), L=framedLayout(canvas.width, canvas.height, o);
+    if(L.W===canvas.width && L.H===canvas.height && !L.b && !L.r){ toast('바꿀 여백·테두리가 없어요. 위 슬라이더를 움직여 주세요','error'); return; }
+    const MOBILE=isMobileLike(), CAP=MOBILE?4096:7000, AREA=MOBILE?12e6:32e6;
+    if(Math.max(L.W,L.H)>CAP || L.W*L.H>AREA || L.W*L.H*4>histBudget()/2){ toast('결과가 너무 커요. 여백을 줄이거나 먼저 사진 크기를 줄여 주세요.','error'); return; }
+    const t=document.createElement('canvas'); t.width=L.W; t.height=L.H;
+    drawFramed(t.getContext('2d'), canvas, L, o, 1);
+    canvas.width=L.W; canvas.height=L.H;
+    ctx.clearRect(0,0,L.W,L.H); ctx.drawImage(t,0,0); t.width=t.height=0;
+    xformBase(L.W, L.H, (g,s)=> drawFramed(g, s, L, o, 1));
+    // 한 번 더 누르면 겹쳐 들어가므로 설정을 '바뀌는 것 없음'으로 되돌림 (여백 색은 기억)
+    $('padShape').value='0'; ['padSize','padBorder','padRadius'].forEach(id=> setSlider(id, 0));
+    S.cropRect=null; syncOverlay(); pushHistory(); fitToScreen(); updateSizeInfo();
+    toast('여백·테두리를 넣었어요 ('+L.W+'×'+L.H+') · Ctrl+Z로 되돌릴 수 있어요','ok');
+  });
+
   // ---- 밝기 / 대비 / 채도 보정 (미리보기 → 적용) ----
   function adjFilter(){ return 'brightness('+$('brightness').value+'%) contrast('+$('contrast').value+'%) saturate('+$('saturate').value+'%)'; }
   function adjAtDefault(){ return $('brightness').value==100 && $('contrast').value==100 && $('saturate').value==100; }
@@ -3274,13 +4503,14 @@ html[data-theme="dark"] .batch-thumb-wrap{background:repeating-conic-gradient(#3
 
   // ---- 적용하지 않은 미리보기 자동 확정 (보정·기울기·입력 중인 글씨) ----
   function hasPending(){
-    return !!(S.loaded && ((T.open && $('teText').value.trim()) || rotIsPending() || (S.mode==='adjust' && S.adjBase && !adjAtDefault())));
+    return !!(S.loaded && ((T.open && $('teText').value.trim()) || rotIsPending() || (S.mode==='adjust' && S.adjBase && !adjAtDefault()) || P.active));
   }
   function josaEulReul(w){ const c=w.charCodeAt(w.length-1)-0xAC00; return (c>=0 && c<11172 && c%28) ? '을' : '를'; }
   function toastAuto(names){ const s=names.join('·'); toast('적용하지 않은 '+s+josaEulReul(s)+' 자동으로 적용했어요 · Ctrl+Z로 되돌릴 수 있어요','ok'); }
   function commitPending(silent){
     const done=[];
     if(textCommit()) done.push('글씨');
+    { const lbl=P.label; if(placeCommit(true)) done.push(lbl); }
     if(rotCommit()) done.push('기울기');
     if(S.mode==='adjust' && adjCommit()) done.push('밝기·색 보정');
     if(done.length && !silent) toastAuto(done);
@@ -3358,6 +4588,101 @@ html[data-theme="dark"] .batch-thumb-wrap{background:repeating-conic-gradient(#3
     toast('추천 보정을 미리보기로 적용했어요','ok');
   });
 
+  // ---- 문서·칠판 사진 깨끗하게 (그림자·종이색을 고르게 펴고 글씨를 또렷하게) ----
+  // 가로·세로로 가장 밝은(또는 어두운) 값을 넓혀 글씨처럼 가는 것을 지움
+  function morphRGB(d, w, h, r, useMin){
+    const tmp=new Uint8ClampedArray(d.length);
+    const pass=(src, dst, horiz)=>{
+      for(let y=0;y<h;y++) for(let x=0;x<w;x++){
+        const o=(y*w+x)*4; let a=src[o], b=src[o+1], c=src[o+2];
+        for(let k=-r;k<=r;k++){
+          if(!k) continue;
+          const xx=horiz?x+k:x, yy=horiz?y:y+k;
+          if(xx<0||yy<0||xx>=w||yy>=h) continue;
+          const q=(yy*w+xx)*4;
+          if(useMin){ if(src[q]<a)a=src[q]; if(src[q+1]<b)b=src[q+1]; if(src[q+2]<c)c=src[q+2]; }
+          else { if(src[q]>a)a=src[q]; if(src[q+1]>b)b=src[q+1]; if(src[q+2]>c)c=src[q+2]; }
+        }
+        dst[o]=a; dst[o+1]=b; dst[o+2]=c; dst[o+3]=255;
+      }
+    };
+    pass(d, tmp, true); pass(tmp, d, false);
+  }
+  // 종이(dark=true면 칠판) 바탕의 밝기·색 분포를 추정 — 작게 줄여 계산한 뒤 원래 크기로
+  function estimateBackground(src, dark){
+    const W=src.width, H=src.height, s=Math.min(1, 220/Math.max(W,H));
+    const sw=Math.max(8,Math.round(W*s)), sh=Math.max(8,Math.round(H*s));
+    const t=document.createElement('canvas'); t.width=sw; t.height=sh;
+    const tc=t.getContext('2d',{willReadFrequently:true});
+    tc.fillStyle=dark?'#000':'#fff'; tc.fillRect(0,0,sw,sh); // 투명한 곳은 바탕으로 봄
+    tc.imageSmoothingEnabled=true; tc.imageSmoothingQuality='high'; tc.drawImage(src,0,0,sw,sh);
+    const id=tc.getImageData(0,0,sw,sh);
+    morphRGB(id.data, sw, sh, Math.max(2, Math.round(Math.max(sw,sh)/48)), dark);
+    tc.putImageData(id,0,0);
+    const b=document.createElement('canvas'); b.width=sw; b.height=sh;
+    FX.blurInto(b.getContext('2d'), t, Math.max(3, Math.round(Math.max(sw,sh)/28)));
+    const out=document.createElement('canvas'); out.width=W; out.height=H;
+    const oc=out.getContext('2d',{willReadFrequently:true});
+    oc.imageSmoothingEnabled=true; oc.imageSmoothingQuality='high'; oc.drawImage(b,0,0,W,H);
+    const res=oc.getImageData(0,0,W,H);
+    t.width=t.height=b.width=b.height=out.width=out.height=0;
+    return res;
+  }
+  function docScanCanvas(src, mode){ // mode: color | mono | board
+    const W=src.width, H=src.height;
+    const c=document.createElement('canvas'); c.width=W; c.height=H;
+    const g=c.getContext('2d',{willReadFrequently:true}); g.drawImage(src,0,0);
+    const id=g.getImageData(0,0,W,H), d=id.data, bg=estimateBackground(src, mode==='board').data;
+    // 바탕의 대표값(종이: 밝은 쪽 90%, 칠판: 가운데값) — 큰 그림·사진이 하얗게 날아가지 않게 받쳐 줌
+    const ref=[0,0,0];
+    for(let ch=0;ch<3;ch++){
+      const hist=new Uint32Array(256); let n=0;
+      for(let i=ch;i<bg.length;i+=4*31){ hist[bg[i]]++; n++; }
+      const want=n*(mode==='board'?0.5:0.9); let acc=0, v=255;
+      for(let j=0;j<256;j++){ acc+=hist[j]; if(acc>=want){ v=j; break; } }
+      ref[ch]=v;
+    }
+    if(mode==='board'){
+      const base=ref.map(v=>v*0.9);
+      for(let i=0;i<d.length;i+=4){
+        if(d[i+3]===0) continue;
+        for(let ch=0;ch<3;ch++){ const df=d[i+ch]-bg[i+ch]; d[i+ch]=base[ch]+(df>7 ? (df-7)*2.3 : 0); }
+      }
+    } else {
+      const mono=mode==='mono', lo=mono?0.55:0.42, hi=mono?0.9:0.93, gm=mono?1.5:1.3, lut=new Uint8ClampedArray(1001);
+      for(let j=0;j<=1000;j++){ let x=(j/800-lo)/(hi-lo); x=x<0?0:x>1?1:x; lut[j]=Math.round(Math.pow(x,gm)*255); }
+      const fl=ref.map(v=>Math.max(24, v*0.62));
+      for(let i=0;i<d.length;i+=4){
+        if(d[i+3]===0) continue;
+        const r=d[i]/Math.max(fl[0],bg[i]), gg=d[i+1]/Math.max(fl[1],bg[i+1]), b=d[i+2]/Math.max(fl[2],bg[i+2]); // 1 = 종이
+        if(mono){ const v=lut[Math.min(1000,((0.299*r+0.587*gg+0.114*b)*800)|0)]; d[i]=d[i+1]=d[i+2]=v; }
+        else { d[i]=lut[Math.min(1000,(r*800)|0)]; d[i+1]=lut[Math.min(1000,(gg*800)|0)]; d[i+2]=lut[Math.min(1000,(b*800)|0)]; }
+      }
+    }
+    g.putImageData(id,0,0);
+    return c;
+  }
+  function applyDocScan(mode){
+    if(!S.loaded){ toast('먼저 이미지를 불러오세요','error'); return; }
+    if(S.adjBase && !adjAtDefault()) adjCommit(); // 슬라이더 미리보기가 있으면 먼저 반영
+    showLoading(mode==='board' ? '칠판 사진을 또렷하게 만드는 중…' : '문서 사진을 깨끗하게 만드는 중…');
+    setTimeout(()=>{
+      try{
+        const out=docScanCanvas(canvas, mode);
+        ctx.clearRect(0,0,canvas.width,canvas.height); ctx.drawImage(out,0,0); out.width=out.height=0;
+        xformBase(S.origCanvas.width, S.origCanvas.height, (g,s)=>{ const o=docScanCanvas(s, mode); g.drawImage(o,0,0); o.width=o.height=0; });
+        pushHistory();
+        if(S.mode==='adjust'){ adjSnapshot(); adjResetSliders(); }
+        $('autoAdjustResult').style.display='none';
+        hideLoading();
+        toast((mode==='board' ? '칠판 사진을 또렷하게 만들었어요' : mode==='mono' ? '흑백 스캔처럼 만들었어요' : '문서 사진을 깨끗하게 만들었어요')+' · Ctrl+Z로 되돌릴 수 있어요','ok');
+      }catch(err){ hideLoading(); console.warn('doc scan failed', err); toast('처리 중 메모리가 부족했어요. 먼저 크기를 줄여 주세요.','error'); }
+    }, 40);
+  }
+  $('scanColor').addEventListener('click', ()=> applyDocScan('color'));
+  $('scanMono').addEventListener('click', ()=> applyDocScan('mono'));
+  $('scanBoard').addEventListener('click', ()=> applyDocScan('board'));
+
 
   $('sizePreset').addEventListener('change', ()=>{
     $('customSize').style.display = $('sizePreset').value==='custom'?'block':'none';
@@ -3388,6 +4713,7 @@ html[data-theme="dark"] .batch-thumb-wrap{background:repeating-conic-gradient(#3
     $('stageSize').textContent = S.loaded ? (canvas.width+' × '+canvas.height+' px') : '';
     notifyShell();
     updateDnInfo();
+    if(S.mode==='resize') padPreviewUpdate();
   }
 
   function targetSize(){
@@ -3421,6 +4747,7 @@ html[data-theme="dark"] .batch-thumb-wrap{background:repeating-conic-gradient(#3
   // 워터마크(문구·위치·투명도는 저장 탭 설정) — 한 장 저장·일괄 저장 공용
   function wmText(){ return ($('wmText').value||'').trim() || '© 송쌤과학'; }
   function drawWatermark(cx, W, H){
+    if(WM.kind==='sign'){ const src=wmSignSrc(); if(src){ drawWmImage(cx, W, H, src); return; } }
     const op=+$('wmOpacity').value/100, pos=$('wmPos').value, text=wmText();
     cx.save();
     cx.textBaseline='alphabetic'; cx.lineJoin='round';
@@ -3445,6 +4772,20 @@ html[data-theme="dark"] .batch-thumb-wrap{background:repeating-conic-gradient(#3
       cx.fillStyle='rgba(0,0,0,.55)'; cx.fillText(text,tx+Math.max(1,fs*0.05),ty+Math.max(1,fs*0.05));
       cx.fillStyle='#fff'; cx.fillText(text,tx,ty);
     }
+    cx.restore();
+  }
+  // 서명·도장·로고 워터마크 (크기는 사진 폭 기준 %, 위치·투명도는 글자와 같은 설정)
+  function drawWmImage(cx, W, H, src){
+    const sw=srcW(src), sh=srcH(src);
+    let w=W*WM.scale/100, h=w*sh/sw;
+    if(h>H*0.7){ h=H*0.7; w=h*sw/sh; }
+    const m=Math.min(W,H)*0.03, pos=$('wmPos').value;
+    let x=(W-w)/2, y=(H-h)/2;
+    if(pos==='br'){ x=W-w-m; y=H-h-m; } else if(pos==='bl'){ x=m; y=H-h-m; }
+    else if(pos==='tr'){ x=W-w-m; y=m; } else if(pos==='tl'){ x=m; y=m; }
+    cx.save(); cx.globalAlpha=+$('wmOpacity').value/100;
+    cx.imageSmoothingEnabled=true; cx.imageSmoothingQuality='high';
+    cx.drawImage(src, x, y, w, h);
     cx.restore();
   }
   (function(){ // 워터마크 문구 기억
@@ -4069,16 +5410,17 @@ html[data-theme="dark"] .batch-thumb-wrap{background:repeating-conic-gradient(#3
 (function(){
   "use strict";
   var $ = function(id){ return document.getElementById(id); };
-  var TOOL_NAMES = {bg:'배경 지우기', mosaic:'모자이크', crop:'자르기·회전', resize:'크기 조정', adjust:'밝기·색 보정', draw:'그리기·글씨', export:'저장·내보내기'};
+  var TOOL_NAMES = {bg:'배경 지우기', mosaic:'모자이크', crop:'자르기·회전', resize:'크기·여백', adjust:'밝기·색 보정', draw:'그리기·글씨', sign:'서명·도장', export:'저장·내보내기'};
   var TIPS = {
     'bg:wand':'사진에서 지울 배경을 누르면 비슷한 색이 한 번에 지워져요',
     'bg:erase':'지울 곳을 문질러 지워요 · 스페이스바를 누르고 끌면 화면 이동',
     'bg:restore':'잘못 지운 곳을 문지르면 원래대로 돌아와요',
     'mosaic':'가릴 곳을 문지르거나 끌어서 고르세요',
     'crop':'남길 영역을 끌어서 고른 뒤 Enter 또는 영역 옆 [자르기]로 잘라요 · Esc 취소',
-    'resize':'왼쪽에서 배율을 고르면 사진 크기가 바뀌어요',
-    'adjust':'슬라이더를 움직이면 바로 미리 보여요 · 다른 도구로 넘어가면 자동 적용',
+    'resize':'왼쪽에서 배율을 고르거나 여백·테두리를 정해 적용하세요',
+    'adjust':'슬라이더를 움직이면 바로 미리 보여요 · 학습지·칠판 사진은 [문서·칠판 사진 깨끗하게]',
     'draw':'사진 위에서 끌어서 그리세요 · 글씨·번호는 누른 자리에 들어가요',
+    'sign':'목록에서 서명을 고르고 끌어서 옮긴 뒤 Enter로 찍어요 · 더블클릭하면 그 자리에 바로',
     'export':'왼쪽에서 형식·크기를 정하고 [저장하기]를 누르세요'
   };
 
