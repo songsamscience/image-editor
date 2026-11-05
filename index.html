@@ -2522,7 +2522,7 @@ html[data-theme="dark"] .batch-thumb-wrap{background:repeating-conic-gradient(#3
     if(!text.trim()){ if(!auto){ toast('먼저 넣을 글씨를 입력해 주세요','error'); $('teText').focus(); } return false; }
     const fs=Math.max(8, +$('teSize').value);
     T.size=fs; // 다음에도 같은 크기로 시작
-    $('drawColor').value=$('teColor').value; // 고른 색을 그리기 기본색으로 기억
+    $('drawColor').value=$('teColor').value; syncSwatches(); // 고른 색을 그리기 기본색으로 기억
     octx2.clearRect(0,0,overlay.width,overlay.height);
     drawTextBlock(ctx, text, T.x, T.y, fs, $('teColor').value, $('teOutline').checked, false, $('teBox').checked);
     pushHistory();
@@ -3575,7 +3575,7 @@ html[data-theme="dark"] .batch-thumb-wrap{background:repeating-conic-gradient(#3
       toast('AI로 배경을 제거했어요','ok');
     }catch(err){
       hideLoading();
-      toast('AI 자동 제거를 사용할 수 없어요. 마법봉/지우개로 직접 제거해 주세요.','error');
+      toast('AI 자동 제거를 사용할 수 없어요. 색으로 지우기·손으로 지우기로 직접 지워 주세요.','error');
       console.warn('AI bg removal failed:', err);
     }
   });
@@ -4691,6 +4691,7 @@ html[data-theme="dark"] .batch-thumb-wrap{background:repeating-conic-gradient(#3
   // keep ratio for custom inputs
   $('customW').addEventListener('input', ()=>{ if($('keepRatio').checked && S.loaded){ const r=canvas.height/canvas.width; $('customH').value=Math.round(+$('customW').value*r)||''; } });
   $('customH').addEventListener('input', ()=>{ if($('keepRatio').checked && S.loaded){ const r=canvas.width/canvas.height; $('customW').value=Math.round(+$('customH').value*r)||''; } });
+  $('keepRatio').addEventListener('change', updateSizeInfo); // 비율 유지를 다시 켜면 세로 칸도 실제 저장 크기로
 
   document.querySelectorAll('#bgFill button').forEach(b=>{
     b.addEventListener('click', ()=>{
@@ -5284,6 +5285,10 @@ html[data-theme="dark"] .batch-thumb-wrap{background:repeating-conic-gradient(#3
 
   /* ---------- 2·3) 이동(팬) 모드 ---------- */
   var pan = false, spacePan = false;
+  // Tab으로 단추에 왔는지 기억 (마우스로 누른 단추도 키를 누르는 순간 :focus-visible이 켜져서 그것만으로는 구분이 안 됨)
+  var kbFocus = false;
+  window.addEventListener('keydown', function(e){ if(e.key === 'Tab') kbFocus = true; }, true);
+  window.addEventListener('pointerdown', function(){ kbFocus = false; }, true);
   var panBtn = document.createElement('button');
   panBtn.className = 'btn icon';
   panBtn.id = 'panBtn';
@@ -5307,7 +5312,7 @@ html[data-theme="dark"] .batch-thumb-wrap{background:repeating-conic-gradient(#3
        (tg==='INPUT' && !/^(range|checkbox|radio|button|color|file)$/.test(ae.type))) return;
     if(document.querySelector('.modal-backdrop.show')) return;
     if(!imgLoaded()) return;
-    if((tg==='BUTTON' || tg==='INPUT' || (ae && ae.getAttribute && ae.getAttribute('role')==='button')) && (function(){ try{ return ae.matches(':focus-visible'); }catch(_){ return false; } })()) return; // Tab으로 고른 단추는 스페이스로 누르기
+    if((tg==='BUTTON' || tg==='INPUT' || (ae && ae.getAttribute && ae.getAttribute('role')==='button')) && kbFocus) return; // Tab으로 고른 단추는 스페이스로 누르기
     if(tg==='BUTTON' || tg==='INPUT') ae.blur();
     spacePan = true; refreshPanUI(); e.preventDefault();
   });
